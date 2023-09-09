@@ -1,7 +1,9 @@
+from urllib import request
 from django.db import models
 
 # Create your models here.
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.shortcuts import redirect, render
 
 # Create your models here.
 
@@ -71,3 +73,50 @@ class CustomUser(AbstractUser):
 
     def has_module_perms(self, app_label):
         return True
+    
+class Product(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    brand_name = models.CharField(max_length=255, null=True)
+    product_name = models.CharField(max_length=255, null=True)
+    material_description = models.TextField(max_length=255, null=True)
+    product_description = models.TextField(max_length=255, null=True)
+    price = models.CharField(max_length=255, null=True)
+    quantity = models.CharField(max_length=255, null=True)
+    category = models.CharField(max_length=255, null=True)
+    subcategory = models.CharField(max_length=255, null=True)  # You can create a separate Category model if needed
+    product_images1 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images2 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images3 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images4 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    status=models.BooleanField(default=False)
+
+    def str(self):
+        return self.product_name
+    
+    def sellerindex(request):
+        selected_category = request.GET.get('category')
+        stdata = Category.objects.all()
+        user = request.user
+        userid = user.id
+
+        if request.method == 'POST':
+        # Create a new Category instance and assign values
+         newproduct = Product(
+            product_name=request.POST.get('product_name'),
+            brand_name=request.POST.get('brand_name'),
+            product_description=request.POST.get('product_description'),
+            material_description=request.POST.get('material_description'),
+            price=request.POST.get('price'),
+            quantity=request.POST.get('quantity'),
+            category=request.POST.get('category'),
+            subcategory=request.POST.get('subcategory'),
+            product_images1=request.FILES.get('product_images1'),
+            product_images2=request.FILES.get('product_images2'),
+            product_images3=request.FILES.get('product_images3'),
+            product_images4=request.FILES.get('product_images4'),
+            user_id=userid
+         )
+         newproduct.save()
+         return redirect("product")
+
+        return render(request, "sellerindex.html", {'stdata': stdata})

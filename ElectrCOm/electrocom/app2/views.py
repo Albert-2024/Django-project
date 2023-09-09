@@ -57,4 +57,9 @@ def userlogin(request):
 def userLogout(request):
     logout(request)
     return redirect('/') 
+# def sellerreg(request):
+#     login(request)
+#     return redirect('/electrocom')
+    
+    
     

@@ -1,0 +1,300 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+  />
+
+    <title>Add Product</title>
+    <!-- Bootstrap CSS link (you need to replace this with the actual Bootstrap CSS file link) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/simple-line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/ionicons.min.css' %}">
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.css' %}">
+    
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/search.css' %}">
+    
+</head>
+<script>
+  $(document).ready(function () {
+    $("#product_name").keyup(function () {
+      validatepName("#product_name");
+    });
+    $("#price").keyup(function () {
+      validateprice("#price");
+    });
+    $("#quantity").keyup(function () {
+      validatequantity("#quantity");
+    });
+
+  });
+
+  function validatepName(fieldId) {
+    var name = $(fieldId).val();
+    var lettersWithSpaces = /^[A-Za-z\s]+$/;
+    var submitButton = $("#btn1");
+    if (name.trim() === "") {
+      $("#product_namespan").html("Enter the Name").css("color", "red");
+      submitButton.prop("disabled", true);
+      return false
+    } else if (!lettersWithSpaces.test(name)) {
+      $("#product_namespan").html("Name field required only alphabet characters with spaces").css("color", "red");
+      submitButton.prop("disabled", true);
+      return false
+    } else {
+      $("#product_namespan").html("");
+      submitButton.prop("disabled", false);
+      return true
+    }
+  }
+  //   price validation
+
+  function validateprice(fieldId) {
+    var name = $(fieldId).val();
+    var lettersWithSpaces =  /^-?\d+$/ ;
+    var submitButton = $("#btn1");
+    if (name.trim() === "") {
+      $("#ownspan").html("Enter the Price").css("color", "red");
+      submitButton.prop("disabled", true);
+      return false
+    } else if (!lettersWithSpaces.test(name)) {
+      $("#ownspan").html("Price must contain only integer values").css("color", "red");
+      submitButton.prop("disabled", true);
+      return false
+    } else {
+      $("#ownspan").html("");
+      submitButton.prop("disabled", false);
+      return true
+    }
+  }
+  
+  
+  function validatequantity(fieldId) {
+    var name = $(fieldId).val();
+    var lettersWithSpaces =  /^-?\d+$/ ;
+    var submitButton = $("#btn1");
+    if (name.trim() === "") {
+      $("#qnspan").html("Enter the Quantity").css("color", "red");
+      submitButton.prop("disabled", true);
+      return false
+    } else if (!lettersWithSpaces.test(name)) {
+      $("#qnspan").html("Quantity must contain only integer values").css("color", "red");
+      submitButton.prop("disabled", true);
+      return false
+    } else {
+      $("#qnspan").html("");
+      submitButton.prop("disabled", false);
+      return true
+    }
+  }
+</script>
+</html>
+<body>
+  
+  <div class="header-area">
+    <div class="header-bottom-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-5 col-5 d-flex mt-2">
+                    <div class="logo " style="margin-top: 20px;  margin-right: 180px;">
+                        <a href="{% url 'index' %}">
+                            <img style="width:100px; height:80px;" src="{% static 'assets\images\logo\lo.jpg' %}" alt="hai"></a>
+                    </div>
+                    <div class="search mt-4" style="width:500px;">
+                       <h2 class="text-uppercase"><B> Add Product</B></h2>
+                    </div> 
+                    
+                </div>
+                <div class="col-lg-4 d-none d-lg-block ">
+                    <div class="main-menu-area text-center ">
+                        <nav class="main-navigation ">
+                            <ul><li><a href="{% url 'admindashboard' %}" class="nav-link"><B>Dashboard</B> </a></li>
+                                
+                                        {% if  user.is_authenticated %}
+                                        {% if user.role == 2 %}
+                                
+                                        <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
+                                        {% else %}
+                                                <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
+                                {% endif %}
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- header-area end -->
+   
+  
+    
+<section class="gray pt-5 pb-5">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-md-8" >
+        <div class="dashboard-body">
+          <div class="dashboard-wraper">
+            <div class="row">
+              <div class="col-lg-12 col-md-12">
+                <div class="submit-page px-0">
+                <div class="frm_submit_block  ">
+                  <div class="frm_submit_wrap">
+                     
+        <form method="POST"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+            <div class="form-group col-md-6 pd-20">
+              <label for="brandName">Brand Name:</label>
+                <select class="form-control" id="brand_name" name="brand_name"required>
+                  <option value="">Choose a brand...</option>
+                  <option value="ikea">IKEA</option>
+                  <option value="ashley">Ashley Furniture</option>
+                  <option value="wayfair">Wayfair</option>
+                  <option value="cratebarrel">Crate & Barrel</option>
+                  <option value="potterybarn">Pottery Barn</option>
+                  <!-- Add more options as needed -->
+              </select></div>
+                                
+              <div class="form-group col-md-6 pd-20"> 
+                <label for="productName">Product Name:</label>
+                <input type="text" class="form-control" id="product_name" name="product_name" required>
+                <span id="product_namespan"></span>
+              </div>
+                   
+              <div class="form-group col-md-6 pd-20"> 
+                <label for="productPrice">Price:</label>
+                <input type="text" class="form-control" id="price" name="price" step="0.01" required>
+                <span id="ownspan"></span>
+              </div>
+              
+              <div class="form-group col-md-6 pd-20"> 
+                <label for="productQuantity">Quantity:</label>
+                <input type="text" class="form-control" id="quantity" name="quantity" required>
+                <span id="qnspan"></span>
+              </div>
+                                
+              <div class="form-group col-md-6 pd-20">
+<label for="productCategory">Product Category:</label>
+                <select class="form-control" id="category" name="category" required>
+                    {% for i in stdata %}
+                    <option value={{ i.category_name }}>{{ i.category_name }}</option>
+                    
+                    {% endfor %}
+                    
+                    <!-- Add more options as needed -->
+                </select>
+              </div>
+                                
+              <div class="form-group col-md-6 pd-20"> 
+                <label for="productCategory">Product Sub Category:</label>
+              <select class="form-control" id="subcategory" name="subcategory" required>
+                  {% for i in stdata %}
+                  <option value={{ i.subcategory1_name }}>{{ i.subcategory1_name }}</option>
+                  
+                  <option value={{ i.subcategory2_name }}>{{ i.subcategory2_name }}</option>
+                  
+                  <option value={{ i.subcategory3_name }}>{{ i.subcategory3_name }}</option>
+                  {% endfor %}
+                  
+                  <!-- Add more options as needed -->
+              </select>
+            </div>
+                             
+                     
+            <div class="form-group col-md-6 pd-20"> 
+              <label for="material_description">Material Description:</label>
+              <textarea class="form-control" id="material_description" name="material_description" rows="4" required></textarea>
+            </div>         
+              <div class="form-group col-md-6 pd-20"> 
+                <label for="productDescription">Product Description:</label>
+                <textarea class="form-control" id="product_description" name="product_description" rows="4" required></textarea>
+              </div>         
+            <div class="form-group col-md-6 pd-20"> 
+                
+                    
+                <div class="form-group col-md-6 pd-20"> 
+                <label for="productImages">Add a Product Image</label>
+                <input
+                  type="file"
+                  id="form3Examplev5"
+                  name="product_images1"
+                  class="form-control-file"
+                />
+              </div>
+              
+            </div>
+                                
+              <div class="form-group col-md-6 pd-20"> 
+                  <label for="productImages">Add another Product Image</label>
+                <input
+                  type="file"
+                  id="form3Examplev5"
+                  name="product_images2"
+                  class="form-control-file"
+                />
+              </div>
+                    
+                    <div class="form-group col-md-6 pd-20">     
+                       <label for="productImages">Add another Product Image</label>
+                            <input
+                              type="file"
+                              id="form3Examplev5"
+                              name="product_images3"
+                              class="form-control-file"
+                            />
+                          </div>
+                                
+                          <div class="form-group col-md-6 pd-20">    <label for="productImages">Add another Product Image</label>
+                            <input
+                              type="file"
+                              id="form3Examplev5"
+                              name="product_images4"
+                              class="form-control-file"
+                            />
+                          </div>
+                    </div>
+                
+            
+                  </div>
+                </div>
+            <button type="submit" class="btn btn-light btn-l" style="margin-left: 35%;">Add Product</button>
+        </form>
+      </div></div></div></div></div></div></div>
+<!--       
+    {{ user.email }}
+    {% for i in stdata %}
+                    {{ i.category_name }}
+                    
+                    {% endfor %} -->
+<!-- Bootstrap JS and jQuery (you need to include these scripts) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>
