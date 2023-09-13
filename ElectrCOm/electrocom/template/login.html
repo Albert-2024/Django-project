@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <title>Document</title>
-</head>
+  </head>
 <body>
-    <section class="vh-100" style="background-color: #508bfc;">
+    <section class="vh-100" >
       <form method="post">
         {% csrf_token %}
         <div class="container py-5 h-100">
@@ -14,40 +16,55 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
               <div class="card shadow-2-strong" style="border-radius: 1rem;">
                 <div class="card-body p-5 text-center">
-      
                   <h3 class="mb-5">Sign in</h3>
-      
+                  
                   <div class="form-outline mb-4">
-                    <input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
-                    <label class="form-label" for="typeEmailX-2">Email</label>
+                    <input type="email" name="email" id="typeEmailX-2" placeholder='Email ....' class="form-control form-control-lg" />
                   </div>
       
                   <div class="form-outline mb-4">
-                    <input type="password" name="pass" id="typePasswordX-2" class="form-control form-control-lg" />
-                    <label class="form-label" for="typePasswordX-2">Password</label>
+                    <input type="password" name="pass" id="typePasswordX-2" placeholder='password ...' class="form-control form-control-lg" />
                   </div>
       
                   <!-- Checkbox -->
-                  <div class="form-check d-flex justify-content-start mb-4">
-                    <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
-                    <label class="form-check-label" for="form1Example3"> Remember password </label>
+                  <div class="d-grid mb-0">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button><br>
+                  </div>
+                  
+                  <div class="form-check mt-0 d-flex justify-content-start mb-3">
+                    <input class="form-check-input" type="checkbox" id="form1Example3" />
+                    <label class="form-check-label" for="form1Example3"> &emsp;Remember password </label>
                   </div>
       
-                  <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-                  <a href="{% url 'register' %}">Register</a>
+                  <div>
                   <a href="{% url 'password_reset' %}" class=" text-dark "style="margin:80px;">Forgot Password </a>
                   <hr class="my-4">
-      
+                  </div>
+                  <div>
+                  <div class="mb-3 justify-content-center pb-3">
+                    <div class="justify-content-center d-flex flex-row pb-3">
+                      <span>Don't have an account?</span>
+                    </div>
+                    <div class='justify-content-center d-flex flex-row'>
+                      <button type="button" id='register-button'>Register</button>  
+                    </div>
+                    
+                  </div>
                   <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
                     type="submit"><i class="fab fa-google me-2"></i> Sign in with google</button>
 
                 </div>
               </div>
+              </div>
             </div>
           </div>
         </div>
       </form>
-      </section>
+    </section>
+      <script>
+        document.getElementById('register-button').addEventListener('click',function(){
+          window.location.href = "{% url 'register' %}"})
+      </script>
 
 </body>
 </html>

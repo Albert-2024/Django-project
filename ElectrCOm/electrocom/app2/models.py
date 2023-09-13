@@ -93,30 +93,4 @@ class Product(models.Model):
     def str(self):
         return self.product_name
     
-    def sellerindex(request):
-        selected_category = request.GET.get('category')
-        stdata = Category.objects.all()
-        user = request.user
-        userid = user.id
-
-        if request.method == 'POST':
-        # Create a new Category instance and assign values
-         newproduct = Product(
-            product_name=request.POST.get('product_name'),
-            brand_name=request.POST.get('brand_name'),
-            product_description=request.POST.get('product_description'),
-            material_description=request.POST.get('material_description'),
-            price=request.POST.get('price'),
-            quantity=request.POST.get('quantity'),
-            category=request.POST.get('category'),
-            subcategory=request.POST.get('subcategory'),
-            product_images1=request.FILES.get('product_images1'),
-            product_images2=request.FILES.get('product_images2'),
-            product_images3=request.FILES.get('product_images3'),
-            product_images4=request.FILES.get('product_images4'),
-            user_id=userid
-         )
-         newproduct.save()
-         return redirect("product")
-
-        return render(request, "sellerindex.html", {'stdata': stdata})
+   
