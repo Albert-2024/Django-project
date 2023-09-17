@@ -1,5 +1,6 @@
 from urllib import request
 from django.db import models
+from django.db import migrations
 
 # Create your models here.
 from django.contrib.auth.models import AbstractUser, BaseUserManager
@@ -74,23 +75,110 @@ class CustomUser(AbstractUser):
     def has_module_perms(self, app_label):
         return True
     
-class Product(models.Model):
+class ProductLap(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     brand_name = models.CharField(max_length=255, null=True)
     product_name = models.CharField(max_length=255, null=True)
-    material_description = models.TextField(max_length=255, null=True)
-    product_description = models.TextField(max_length=255, null=True)
+    color= models.CharField(max_length=255,null=True)
+    ram = models.TextField(max_length=255, null=True)
+    processor = models.CharField(max_length=255, null=True)
+    storage = models.CharField(max_length=255, null=True)
     price = models.CharField(max_length=255, null=True)
+    warranty = models.CharField(max_length=255,null=True)
+    description = models.TextField(max_length=255, null=True)
     quantity = models.CharField(max_length=255, null=True)
-    category = models.CharField(max_length=255, null=True)
-    subcategory = models.CharField(max_length=255, null=True)  # You can create a separate Category model if needed
     product_images1 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
     product_images2 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
     product_images3 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
     product_images4 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
     status=models.BooleanField(default=False)
 
-    def str(self):
+    def __str__(self):
         return self.product_name
     
-   
+class ProductMobile(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    brand_name = models.CharField(max_length=255, null=True)
+    product_name = models.CharField(max_length=255, null=True)
+    color= models.CharField(max_length=255,null=True)
+    ram = models.TextField(max_length=255, null=True)
+    processor = models.CharField(max_length=255, null=True)
+    storage = models.CharField(max_length=255, null=True)
+    camrear = models.CharField(max_length=255, null=True)
+    camfront = models.CharField(max_length=255, null=True)
+    price = models.CharField(max_length=255, null=True)
+    warranty = models.CharField(max_length=255,null=True)
+    description = models.TextField(max_length=255, null=True)
+    display = models.TextField(max_length=255, null=True)  
+    quantity = models.CharField(max_length=255, null=True)
+    product_images1 = models.ImageField(upload_to='sample/', null=True)
+    product_images2 = models.ImageField(upload_to='sample/', null=True)
+    product_images3 = models.ImageField(upload_to='sample/', null=True)
+    product_images4 = models.ImageField(upload_to='sample/', null=True)
+    status=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.product_name
+    
+class ProductHeadset(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    brand_name = models.CharField(max_length=255, null=True)
+    product_name = models.CharField(max_length=255, null=True)
+    battery = models.CharField(max_length=255, null=True)
+    description = models.TextField(max_length=255, null=True)
+    price = models.CharField(max_length=255, null=True)
+    color= models.CharField(max_length=255,null=True)
+    quantity = models.CharField(max_length=255, null=True)  
+    sound_quality = models.CharField(max_length=255, null=True)
+    product_images1 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images2 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images3 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    
+    def __str__(self):
+        return self.product_name
+
+class ProductSpeaker(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product_name = models.CharField(max_length=255, null=True)
+    brand_name = models.CharField(max_length=255, null=True)
+    description = models.TextField(max_length=255, null=True)
+    price = models.CharField(max_length=255, null=True)
+    battery = models.CharField(max_length=255, null=True)
+    sound_quality = models.CharField(max_length=255, null=True)
+    size = models.CharField(max_length=255, null=True)
+    quantity = models.CharField(max_length=255, null=True)  
+    product_images1 = models.ImageField(upload_to='sample/', null=True, blank=True)
+    product_images2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images3 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    
+    def __str__(self):
+        return self.product_name
+    
+    
+    
+""" class Brand(models.Model):
+    name= models.CharField(max_length=255,unique=True)
+    
+    def __str__(self):
+        return self.name
+    
+class Category(models.Model):
+    name= models.CharField(max_length=255, unique=True)
+ 
+class Product_lap(models.Model):
+    name = models.CharField(max_length=255)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    description = models.TextField()
+    
+class Product_head(models.Model):
+    name = models.CharField(max_length=255)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    description = models.TextField()
+
+    
+class Specification(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    value = models.CharField(max_length=255) """

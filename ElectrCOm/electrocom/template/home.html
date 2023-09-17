@@ -29,13 +29,14 @@
       <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup">
         <div class="navbar-nav me-5 p-2 flex-grow-0">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
-          <a class="nav-link" href="#">view products</a>
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="#all">view products</a>
+          <a class="nav-link" href="{% url 'cart' %}">Cart</a>
           <a class="nav-link" href="{% url 'login' %}">Login</a>
           <a class="nav-link" href="{% url 'login' %}">Logout</a>
           <a class="nav-link" href="{% url 'sellerreg' %}">Become a seller</a>
+          <a class="nav-link" href="{% url 'addmobile' %}">Add mobile</a>
 
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="#">Profile</a>
         </div>
       </div>
     </div>
@@ -44,8 +45,8 @@
   
   <!-- carousel -->
   <div class="d-flex justify-content-center bg-secondary-subtle">
-    <div id="carouselExample" class="carousel slide col-4 bg-black" data-bs-ride="carousel" data-bs-interval="2000"
-    style="height: 450px; width: 470px; overflow: hidden;">
+    <div id="carouselExample" class="carousel slide col-4 bg-black" data-bs-ride="carousel" data-bs-interval="3000"
+     style="height: 450px; width: 470px; overflow: hidden;">
     <div class="carousel-inner">
       <div class="carousel-item active"> 
         <img src="{% static 'Lenovo.jpg' %}" class="d-block w-100 h-100" alt="...">
@@ -54,10 +55,10 @@
         <img src={% static 'boatspeaker.jpg' %} class="d-block w-100 h-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src={% static 'tagry.jpg' %} class="d-block w-100 h-100" alt="...">
+        <img src="{% static 'tagry.jpg' %}" class="d-block w-100 h-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src={% static 'Iphone.jpg' %} class="d-block w-100 h-100" alt="...">
+        <img src="{% static 'Iphone.jpg' %}" class="d-block w-100 h-100" alt="...">
       </div>
 
     </div>
@@ -103,16 +104,16 @@
             <a class="nav-link text-white" href="#all">All</a>
           </li>
           <li class="nav-item">
-                <a class="nav-link text-white" href="#">Mobile Phones</a>
+                <a class="nav-link text-white" href="{% url 'mobile' %}">Mobile Phones</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">Speakers</a>
+                <a class="nav-link text-white" href="{% url 'speaker' %}">Speakers</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">Headsets</a>
+                <a class="nav-link text-white" href="{% url 'headset' %}">Headsets</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">Laptops</a>
+                <a class="nav-link text-white" href="{% url 'laptop' %}">Laptops</a>
               </li>
   
         </ul>
@@ -238,132 +239,66 @@
               </div>
             </div>
           </div>
+        </div>
+
+          <!-- 3rd row -->
+
+          <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4"  >
+              <div class="card bg-body-secondary" style="width: 15rem;">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
+                    class="card-img-top "style="width: 100%; max-height: 200px;" />
+                <div class="card-body">
+                    <h5 class="card-title">Denim shirt</h5> 
+                    <p class="card-text">Shirt</p>
+                    <h6 class="mb-3 price">120$</h6>
+                    <a href="#" class="btn btn-primary">GO somewhere!</a>
+                </div>
+              </div>
+            </div>
+    
+            <div class="col-lg-3 col-md-6 mb-4"  >
+              <div class="card bg-body-secondary" style="width: 15rem;">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
+                    class="card-img-top "style="width: 100%; max-height: 200px;" />
+                <div class="card-body">
+                    <h5 class="card-title">Denim shirt</h5> 
+                    <p class="card-text">Shirt</p>
+                    <h6 class="mb-3 price">120$</h6>
+                    <a href="#" class="btn btn-primary">GO somewhere!</a>
+                </div>
+              </div>
+            </div>
+    
+            <div class="col-lg-3 col-md-6 mb-4"  >
+              <div class="card bg-body-secondary" style="width: 15rem;">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                    class="card-img-top "style="width: 100%; max-height: 200px;" />
+                <div class="card-body">
+                    <h5 class="card-title">Denim shirt</h5> 
+                    <p class="card-text">Shirt</p>
+                    <h6 class="mb-3 price">120$</h6>
+                    <a href="#" class="btn btn-primary">GO somewhere!</a>
+                </div>
+              </div>
+            </div>
+    
+            <div class="col-lg-3 col-md-6 mb-4"  >
+              <div class="card bg-body-secondary" style="width: 15rem;">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                    class="card-img-top "style="width: 100%; max-height: 200px;" />
+                <div class="card-body">
+                    <h5 class="card-title">Denim shirt</h5> 
+                    <p class="card-text">Shirt</p>
+                    <h6 class="mb-3 price">120$</h6>
+                    <a href="#" class="btn btn-primary">GO somewhere!</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
       </div>
     </section>
-    <!--  <div class="row">
-       
-       <div class="col-lg-3 col-md-6 mb-4">
-         <div class="card">
-           <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-             data-mdb-ripple-color="light">
-             <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
-               class="w-100" />
-             <a href="#!">              
-               <div class="hover-overlay">
-                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-               </div>
-             </a>
-           </div>
-           <div class="card-body">
-             <a href="" class="text-reset">
-               <h5 class="card-title mb-2">Sweatshirt</h5>
-             </a>
-             <a href="" class="text-reset ">
-               <p>Sport wear</p>
-             </a>
-             <h6 class="mb-3 price">139$</h6>
-           </div>
-         </div>
-       </div>
- 
-       <div class="col-lg-3 col-md-6 mb-4">
-         <div class="card">
-           <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-             data-mdb-ripple-color="light">
-             <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
-               class="w-100" />
-             <a href="#!">
-               <div class="mask">
-                 <div class="d-flex justify-content-start align-items-end h-100">
-                   <h5><span class="badge bg-success ms-2">Eco</span></h5>
-                 </div>
-               </div>
-               <div class="hover-overlay">
-                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-               </div>
-             </a>
-           </div>
-           <div class="card-body">
-             <a href="" class="text-reset">
-               <h5 class="card-title mb-2">Grey blouse</h5>
-             </a>
-             <a href="" class="text-reset ">
-               <p>Sport wear</p>
-             </a>
-             <h6 class="mb-3 price">99$</h6>
-           </div>
-         </div>
-       </div>
-       
-       <div class="col-lg-3 col-md-6 mb-4">
-         <div class="card">
-           <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
-             <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
-               class="w-100" />
-             <a href="#!">              
-               <div class="hover-overlay">
-                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-               </div>
-             </a>
-           </div>
-           <div class="card-body">
-             <a href="" class="text-reset">
-               <h5 class="card-title mb-2">Black jacket</h5>
-             </a>
-             <a href="" class="text-reset">
-               <p>Outwear</p>
-             </a>
-             <h6 class="mb-3 price">199$</h6>
-           </div>
-         </div>
-       </div>
- 
-       <div class="col-lg-3 col-md-6 mb-4">
-         <div class="card">
-           <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-             data-mdb-ripple-color="light">
-             <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
-               class="w-100" />
-             <a href="#!">              
-               <div class="hover-overlay">
-                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-               </div>
-             </a>
-           </div>
-           <div class="card-body">
-             <a href="" class="text-reset">
-               <h5 class="card-title mb-2">Denim shirt</h5>
-             </a>
-             <a href="" class="text-reset ">
-               <p>Shirt</p>
-             </a>
-             <h6 class="mb-3 price">120$</h6>
-           </div>
-         </div>
-       </div>
-     </div> -->
-    
-  <!-- Pagination -->
-    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
-    <ul class="pagination">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">4</a></li>
-      <li class="page-item"><a class="page-link" href="#">5</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>  
-  <!-- Pagination -->  
   </div>
 </main>
    <!--Main layout-->
@@ -371,13 +306,10 @@
   <footer class="text-center text-white mt-4" style="background-color: #607D8B">
     
     <!--Call to action-->
-      <div class="pt-4 pb-2">
-        <a class="btn btn-outline-white footer-cta mx-2" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button">Download MDB
-          <i class="fas fa-download ms-2"></i>
-        </a>
-        <a class="btn btn-outline-white footer-cta mx-2" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">Start free tutorial
-          <i class="fas fa-graduation-cap ms-2"></i>
-        </a>
+      <div class="pt-4 pb-1 ">
+        <p class="text-center"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit maiores odit, molestias, <br> magnam at aliquam veritatis explicabo, cumque incidunt dignissimos pariatur tenetur animi qui totam velit esse maxime saepe iste <br> laudantium! Quas velit autem a tenetur ab dolores recusandae aperiam, consequatur, dolor nostrum ipsam voluptatibus <br> hic distinctio repellat cumque impedit.
+        
+     </p>
       </div>
       <!--/.Call to action-->
     
@@ -447,7 +379,7 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); text-color: #E0E0E0">
       © 2022 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      <a class="text-white" href="https://globalalbert.tech">Albert Devasia</a>
     </div>
     <!-- Copyright -->
   </footer>

@@ -118,7 +118,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-5 col-5 d-flex mt-2">
                     <div class="logo " style="margin-top: 20px;  margin-right: 180px;">
-                        <a href="{% url 'index' %}">
+                        <a href="#">
                             <img style="width:100px; height:80px;" src="{% static 'assets\images\logo\lo.jpg' %}" alt="hai"></a>
                     </div>
                     <div class="search mt-4" style="width:500px;">
@@ -129,12 +129,12 @@
                 <div class="col-lg-4 d-none d-lg-block ">
                     <div class="main-menu-area text-center ">
                         <nav class="main-navigation ">
-                            <ul><li><a href="{% url 'admindashboard' %}" class="nav-link"><B>Dashboard</B> </a></li>
+                            <ul><li><a href="#" class="nav-link"><B>Dashboard</B> </a></li>
                                 
                                         {% if  user.is_authenticated %}
                                         {% if user.role == 2 %}
                                 
-                                        <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
+                                        <li><a href="#" class="nav-item nav-link">Log Out</a></li>
                                         {% else %}
                                                 <li><a href="{% url 'logout' %}" class="nav-item nav-link">Log Out</a></li>
                                 {% endif %}
@@ -171,11 +171,11 @@
               <label for="brandName">Brand Name:</label>
                 <select class="form-control" id="brand_name" name="brand_name"required>
                   <option value="">Choose a brand...</option>
-                  <option value="ikea">IKEA</option>
-                  <option value="ashley">Ashley Furniture</option>
-                  <option value="wayfair">Wayfair</option>
-                  <option value="cratebarrel">Crate & Barrel</option>
-                  <option value="potterybarn">Pottery Barn</option>
+                  <option value="ikea">Redmi</option>
+                  <option value="ashley">Iphone</option>
+                  <option value="wayfair">Samsung</option>
+                  <option value="cratebarrel">Boat</option>
+                  <option value="potterybarn">Lenovo</option>
                   <!-- Add more options as needed -->
               </select></div>
                                 
