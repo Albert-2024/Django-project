@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.urls import path
 # from app2 import views
 from django.conf import settings
 # from django.contrib import admin
@@ -7,7 +6,6 @@ from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
-from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,10 +22,12 @@ urlpatterns = [
     path('headset/',views.headset_list,name='headset'),
     path('speaker/',views.speaker_list,name='speaker'),
     path('cart/',views.cart,name='cart'),
-    # path('create_product/',views.create_product,name='create_product'),
     path('sellerindex/',views.sellerindex,name='sellerindex'),
     path('userLogout/',views.userLogout,name='userLogout'),
-    path('addmobile/',views.addmobile,name='addmobile')
+    path('addmobile/',views.addmobile,name='addmobile'),
+    path('addlaptop/',views.addlaptop,name='addlaptop'),
+    path('addheadset/',views.addheadset,name='addheadset'),
+    path('addspeaker/',views.addspeaker,name='addspeaker'),
     # path('addproduct/',views.create_product,name='addproduct')
     # path('seller/login/',views.login,name="login"),
     # path('/delivery/register',views.sellerReg,name='deliveryReg'),

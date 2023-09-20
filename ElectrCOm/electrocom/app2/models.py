@@ -129,7 +129,6 @@ class ProductHeadset(models.Model):
     price = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
     quantity = models.CharField(max_length=255, null=True)  
-    sound_quality = models.CharField(max_length=255, null=True)
     product_images1 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
     product_images2 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
     product_images3 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
@@ -144,7 +143,7 @@ class ProductSpeaker(models.Model):
     description = models.TextField(max_length=255, null=True)
     price = models.CharField(max_length=255, null=True)
     battery = models.CharField(max_length=255, null=True)
-    sound_quality = models.CharField(max_length=255, null=True)
+    quality = models.CharField(max_length=255, null=True)
     size = models.CharField(max_length=255, null=True)
     quantity = models.CharField(max_length=255, null=True)  
     product_images1 = models.ImageField(upload_to='sample/', null=True, blank=True)
@@ -153,32 +152,3 @@ class ProductSpeaker(models.Model):
     
     def __str__(self):
         return self.product_name
-    
-    
-    
-""" class Brand(models.Model):
-    name= models.CharField(max_length=255,unique=True)
-    
-    def __str__(self):
-        return self.name
-    
-class Category(models.Model):
-    name= models.CharField(max_length=255, unique=True)
- 
-class Product_lap(models.Model):
-    name = models.CharField(max_length=255)
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    description = models.TextField()
-    
-class Product_head(models.Model):
-    name = models.CharField(max_length=255)
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    description = models.TextField()
-
-    
-class Specification(models.Model):
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    value = models.CharField(max_length=255) """

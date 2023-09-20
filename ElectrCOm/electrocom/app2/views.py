@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib  import messages,auth
 # from .models import Brand, Category, CustomUser, Product
-from .models import CustomUser, ProductMobile
+from .models import CustomUser, ProductMobile,ProductLap, ProductHeadset, ProductSpeaker
 # from accounts.backends import EmailBackend
 from django.contrib.auth import get_user_model
 #from .forms import UserForm, ServiceForm 
@@ -133,28 +133,82 @@ def addmobile(request):
         return redirect("/")
     return render(request,'addproduct/mobile.html')
 
-""" def create_product(request):
+def addlaptop(request):
+    user = request.user
+    userid = user.id
     if request.method == 'POST':
-        product_form = ProductForm(request.POST)
-        specification_form=SpecificationForm(request.POST)
-        if product_form.is_valid() and specification_form.is_valid():
-            product = product_form.save()
-            specification = specification_form.save(commit=False)
-            specification.product = product
-            specification.save()
-            return redirect('seller_dashboard')
-        else:
-            product_form = ProductForm()
-            specification_form = SpecificationForm()
+        # Create a new Category instance and assign values
+        newproduct = ProductLap(
+        brand_name = request.POST.get('brand_name'),
+        product_name = request.POST.get('product_name'),
+        color = request.POST.get('color'),
+        ram = request.POST.get('ram'),
+        processor = request.POST.get('processor'),
+        storage = request.POST.get('storage'),
+        price = request.POST.get('price'),
+        warranty = request.POST.get('warranty'),
+        description = request.POST.get('description'),
+        quantity = request.POST.get('quantity'),
+        product_images1 = request.FILES.get('product_images1'),
+        product_images2 = request.FILES.get('product_images2'),
+        product_images3 = request.FILES.get('product_images3'),
+        product_images4 = request.FILES.get('product_images4'),
+        user_id=userid
         
-        brands = Brand.objects.all()
-        categories = Category.objects.all()
+        )
         
-        return render(request,'add_product.html',{
-            'product_form': product_form,
-            'specification_form': specification_form,
-            'brands': brands,
-            'categories': categories,
-        }) """
+        newproduct.save()   
         
+        return redirect("/")
+    return render(request,'addproduct/laptop.html')
+
+def addheadset(request):
+    user = request.user
+    userid = user.id
+    if request.method == 'POST':
+        # Create a new Category instance and assign values
+        newproduct = ProductHeadset(
+        brand_name = request.POST.get('brand_name'),
+        product_name = request.POST.get('product_name'),
+        battery = request.POST.get('battery'),
+        description = request.POST.get('description'),
+        price = request.POST.get('price'),
+        color = request.POST.get('color'),
+        quantity = request.POST.get('quantity'),
+        product_images1 = request.FILES.get('product_images1'),
+        product_images2 = request.FILES.get('product_images2'),
+        product_images3 = request.FILES.get('product_images3'),
+        user_id=userid
         
+        )
+        
+        newproduct.save()   
+        
+        return redirect("/")
+    return render(request,'addproduct/headset.html')
+
+def addspeaker(request):
+    user = request.user
+    userid = user.id
+    if request.method == 'POST':
+        # Create a new Category instance and assign values
+        newproduct = ProductSpeaker(
+        brand_name = request.POST.get('brand_name'),
+        product_name = request.POST.get('product_name'),
+        battery = request.POST.get('battery'),
+        quality = request.POST.get('quality'),
+        size = request.POST.get('size'),
+        description = request.POST.get('description'),
+        price = request.POST.get('price'),
+        quantity = request.POST.get('quantity'),
+        product_images1 = request.FILES.get('product_images1'),
+        product_images2 = request.FILES.get('product_images2'),
+        product_images3 = request.FILES.get('product_images3'),
+        user_id=userid
+        
+        )
+        
+        newproduct.save()   
+        
+        return redirect("/")
+    return render(request,'addproduct/speaker.html')
