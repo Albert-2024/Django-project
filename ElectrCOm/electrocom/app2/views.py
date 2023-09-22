@@ -96,7 +96,9 @@ def headset_list(request):
     return render(request,'products/headset.html')
 
 def speaker_list(request):
-    return render(request,'products/speaker.html')
+    data = ProductSpeaker.objects.all()
+    user = request.user
+    return render(request,'products/speaker.html',{'data':data})
 
 def cart(request):
     return render(request,'cart.html')
