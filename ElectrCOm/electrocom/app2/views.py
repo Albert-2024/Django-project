@@ -90,10 +90,14 @@ def mobile_list(request):
     return render(request,'products/mobile.html',{'data':data})
 
 def laptop_list(request):
-    return render(request,'products/laptop.html')
+    data=ProductLap.objects.all()
+    user = request.user
+    return render(request,'products/laptop.html',{'data':data})
 
 def headset_list(request):
-    return render(request,'products/headset.html')
+    data = ProductHeadset.objects.all()
+    user = request.user
+    return render(request,'products/headset.html',{'data':data})
 
 def speaker_list(request):
     data = ProductSpeaker.objects.all()
