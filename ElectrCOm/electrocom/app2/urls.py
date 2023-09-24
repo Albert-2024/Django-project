@@ -29,6 +29,10 @@ urlpatterns = [
     path('addheadset/',views.addheadset,name='addheadset'),
     path('addspeaker/',views.addspeaker,name='addspeaker'),
     path('headset/<int:product_id>/', views.headset_details, name='headset_details'),
+    path('speaker/<int:product_id>/', views.speaker_details, name='speaker_details'),
+    path('laptop/<int:product_id>/', views.laptop_details, name='laptop_details'),
+    path('mobile/<int:product_id>/', views.mobile_details, name='mobile_details'),
+    
     # path('addproduct/',views.create_product,name='addproduct')
     # path('seller/login/',views.login,name="login"),
     # path('/delivery/register',views.sellerReg,name='deliveryReg'),

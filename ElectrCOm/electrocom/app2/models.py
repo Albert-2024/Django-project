@@ -77,7 +77,6 @@ class CustomUser(AbstractUser):
     
 class ProductLap(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-    product_id = models.AutoField(primary_key=True)
     brand_name = models.CharField(max_length=255, null=True)
     product_name = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
@@ -88,10 +87,10 @@ class ProductLap(models.Model):
     warranty = models.CharField(max_length=255,null=True)
     description = models.TextField(max_length=255, null=True)
     quantity = models.CharField(max_length=255, null=True)
-    product_images1 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images2 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images3 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images4 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images1 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images4 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
     status=models.BooleanField(default=False)
 
     def __str__(self):
@@ -99,7 +98,6 @@ class ProductLap(models.Model):
     
 class ProductMobile(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-    product_id = models.AutoField(primary_key=True)
     brand_name = models.CharField(max_length=255, null=True)
     product_name = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
@@ -113,10 +111,11 @@ class ProductMobile(models.Model):
     description = models.TextField(max_length=255, null=True)
     display = models.TextField(max_length=255, null=True)  
     quantity = models.CharField(max_length=255, null=True)
-    product_images1 = models.ImageField(upload_to='sample/', null=True)
-    product_images2 = models.ImageField(upload_to='sample/', null=True)
-    product_images3 = models.ImageField(upload_to='sample/', null=True)
-    product_images4 = models.ImageField(upload_to='sample/', null=True)
+    product_images1 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images4 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+
     status=models.BooleanField(default=False)
 
     def __str__(self):
@@ -131,16 +130,15 @@ class ProductHeadset(models.Model):
     price = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
     quantity = models.CharField(max_length=255, null=True)  
-    product_images1 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images2 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images3 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images1 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    product_images3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
     
     def __str__(self):
         return self.product_name
 
 class ProductSpeaker(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-    product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=255, null=True)
     brand_name = models.CharField(max_length=255, null=True)
     description = models.TextField(max_length=255, null=True)

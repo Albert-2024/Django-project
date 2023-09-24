@@ -221,5 +221,17 @@ def cart(request):
     return render(request,'cart.html')
 
 def headset_details(request,product_id):
-    product = ProductHeadset.objects.filter(id=product_id)
-    return render(request,'details/headset.html',{'product':product})
+    products = ProductHeadset.objects.filter(id=product_id)
+    return render(request,'details/headset.html',{'product':products})
+
+def speaker_details(request,product_id):
+    product = ProductSpeaker.objects.filter(id=product_id)
+    return render(request,'details/speaker.html',{'product':product})
+
+def laptop_details(request,product_id):
+    product = ProductLap.objects.filter(id=product_id)
+    return render(request,'details/laptop.html',{'product':product})
+
+def mobile_details(request,product_id):
+    product = ProductMobile.objects.filter(id=product_id)
+    return render(request,'details/mobile.html',{'product':product})
