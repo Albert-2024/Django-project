@@ -28,6 +28,7 @@ urlpatterns = [
     path('addlaptop/',views.addlaptop,name='addlaptop'),
     path('addheadset/',views.addheadset,name='addheadset'),
     path('addspeaker/',views.addspeaker,name='addspeaker'),
+    path('headset/<int:product_id>/', views.headset_details, name='headset_details'),
     # path('addproduct/',views.create_product,name='addproduct')
     # path('seller/login/',views.login,name="login"),
     # path('/delivery/register',views.sellerReg,name='deliveryReg'),

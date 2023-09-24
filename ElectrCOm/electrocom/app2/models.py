@@ -77,6 +77,7 @@ class CustomUser(AbstractUser):
     
 class ProductLap(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product_id = models.AutoField(primary_key=True)
     brand_name = models.CharField(max_length=255, null=True)
     product_name = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
@@ -98,6 +99,7 @@ class ProductLap(models.Model):
     
 class ProductMobile(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product_id = models.AutoField(primary_key=True)
     brand_name = models.CharField(max_length=255, null=True)
     product_name = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
@@ -138,6 +140,7 @@ class ProductHeadset(models.Model):
 
 class ProductSpeaker(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=255, null=True)
     brand_name = models.CharField(max_length=255, null=True)
     description = models.TextField(max_length=255, null=True)

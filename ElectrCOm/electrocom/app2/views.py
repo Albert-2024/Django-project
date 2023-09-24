@@ -83,29 +83,7 @@ def sellerreg(request):
 def sellerindex(request):
     return render(request,'sellerindex.html')
 
-def mobile_list(request):
-    data = ProductMobile.objects.all()
-    # products= Product.objects.all()
-    user= request.user
-    return render(request,'products/mobile.html',{'data':data})
 
-def laptop_list(request):
-    data=ProductLap.objects.all()
-    user = request.user
-    return render(request,'products/laptop.html',{'data':data})
-
-def headset_list(request):
-    data = ProductHeadset.objects.all()
-    user = request.user
-    return render(request,'products/headset.html',{'data':data})
-
-def speaker_list(request):
-    data = ProductSpeaker.objects.all()
-    user = request.user
-    return render(request,'products/speaker.html',{'data':data})
-
-def cart(request):
-    return render(request,'cart.html')
 
 def addmobile(request):
     user = request.user
@@ -218,3 +196,30 @@ def addspeaker(request):
         
         return redirect("/")
     return render(request,'addproduct/speaker.html')
+
+def mobile_list(request):
+    data = ProductMobile.objects.all()
+    user= request.user
+    return render(request,'products/mobile.html',{'data':data})
+
+def laptop_list(request):
+    data=ProductLap.objects.all()
+    user = request.user
+    return render(request,'products/laptop.html',{'data':data})
+
+def headset_list(request):
+    data = ProductHeadset.objects.all()
+    user = request.user
+    return render(request,'products/headset.html',{'data':data})
+
+def speaker_list(request):
+    data = ProductSpeaker.objects.all()
+    user = request.user
+    return render(request,'products/speaker.html',{'data':data})
+
+def cart(request):
+    return render(request,'cart.html')
+
+def headset_details(request,product_id):
+    product = ProductHeadset.objects.filter(id=product_id)
+    return render(request,'details/headset.html',{'product':product})
