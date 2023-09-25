@@ -235,3 +235,50 @@ def laptop_details(request,product_id):
 def mobile_details(request,product_id):
     product = ProductMobile.objects.filter(id=product_id)
     return render(request,'details/mobile.html',{'product':product})
+
+def add_to_cart(request, product_id):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Product, id=product_id)
+        cart_item, created = CartItem.objects.get_or_create(user=request.user, product_id=product.id)
+
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+        return redirect('cart')
+
+def cart(request): 
+    cart_items = CartItem.objects.filter(user=request.user) 
+    total_items = sum(cart_item.quantity for cart_item in cart_items)
+    total_price = sum(cart_item.product.price * cart_item.quantity for cart_item in cart_items)
+    context = {
+        'cart_items': cart_items,
+        'total_items': total_items,
+        'total_price': total_price,
+            # ... other context variables ... 
+    } 
+    return render(request, 'customer_Cart.html',context) 
+ 
+def remove_from_cart(request, product_id): 
+    cart_item = get_object_or_404(CartItem, user=request.user, id=product_id) 
+    print(f"Received product_id: {product_id}")  #Fixed the typo here 
+    cart_item.delete() 
+    return redirect('cart')
+
+def decrease_item(request, item_id): 
+    try: 
+        cart_item = CartItem.objects.get(id=item_id) 
+        if cart_item.quantity > 1: 
+            cart_item.quantity -= 1 
+            cart_item.save() 
+    except CartItem.DoesNotExist: 
+        pass  # Handle the case when the item does not exist in the cart 
+    return redirect('cart')  # Redirect back to the cart page after decreasing the item quantity 
+ 
+def increase_item(request, item_id): 
+    try: 
+        cart_item = CartItem.objects.get(id=item_id) 
+        cart_item.quantity += 1 
+        cart_item.save() 
+    except CartItem.DoesNotExist: 
+        pass  # Handle the case when the item does not exist in the cart 
+    return redirect('cart')

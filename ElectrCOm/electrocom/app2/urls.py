@@ -33,7 +33,7 @@ urlpatterns = [
     path('laptop/<int:product_id>/', views.laptop_details, name='laptop_details'),
     path('mobile/<int:product_id>/', views.mobile_details, name='mobile_details'),
     
-    # path('addproduct/',views.create_product,name='addproduct')
+    
     # path('seller/login/',views.login,name="login"),
     # path('/delivery/register',views.sellerReg,name='deliveryReg'),
     # path('delivery/login/',views.login,name="deliverylogin"), 

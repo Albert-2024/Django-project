@@ -153,3 +153,17 @@ class ProductSpeaker(models.Model):
     
     def __str__(self):
         return self.product_name
+
+class Product(models.Model):
+    laptop=models.ForeignKey(ProductLap,on_delete=models.CASCADE,null=True)
+    mobile=models.ForeignKey(ProductMobile,on_delete=models.CASCADE,null=True)
+    headset=models.ForeignKey(ProductHeadset,on_delete=models.CASCADE,null=True)
+    speaker=models.ForeignKey(ProductSpeaker,on_delete=models.CASCADE,null=True)
+    
+class BookCart(models.Model):
+    user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
+    book=models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
+    
+    def str(self):
+        # return self.book.title
+        return f"cart details {self.user.email}: {self.book.title}"

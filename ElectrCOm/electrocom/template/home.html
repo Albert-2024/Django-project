@@ -30,12 +30,26 @@
         <div class="navbar-nav me-5 p-2 flex-grow-0">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
           <a class="nav-link" href="#all">view products</a>
-          <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+          
+          {% if not user.is_authenticated %}
           <a class="nav-link" href="{% url 'login' %}">Login</a>
-          <a class="nav-link" href="{% url 'login' %}">Logout</a>
+          {% else %}
+          <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown">Welcome,{{user.name}}</a>
+                <!-- {{user.name}} -->
+            <div class="dropdown-menu m-0">
+                <a href="" class="dropdown-item nav-linkd">My Profile</a>
+                <a href="{% url 'cart' %}" class="dropdown-item nav-linkd">cart</a>
+                <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd ">Logout</a>
+            </div>
+        </div>
+          
+          
+
+          {% endif %}
           <a class="nav-link" href="{% url 'sellerreg' %}">Become a seller</a>
-          <a class="nav-link" href="{% url 'addspeaker' %}">Add Speaker</a>
-          <a class="nav-link" href="#">Profile</a>
+          <!-- <a class="nav-link" href="{% url 'addspeaker' %}">Add Speaker</a> -->
         </div>
       </div>
     </div>
@@ -383,5 +397,6 @@
     <!-- Copyright -->
   </footer>
 
+  
 </body>
 </html>
