@@ -134,9 +134,7 @@ class ProductHeadset(models.Model):
     charging = models.CharField(max_length=255, null=True) 
     working = models.CharField(max_length=255, null=True)
     
-    
-    def __str__(self):
-        return self.product_name
+
 
 class ProductSpeaker(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
@@ -148,5 +146,4 @@ class ProductSpeaker(models.Model):
     charging = models.CharField(max_length=255, null=True)
     working = models.CharField(max_length=255, null=True)
     
-    def __str__(self):
-        return self.product_name
+

@@ -266,27 +266,27 @@ def addmobile(request):
         return redirect("/")
     return render(request, 'addproduct/mobile.html')
 
-def addheadset(request):
+def addheadset(request,product_id):
     user = request.user
     userid = user.id
+    head=ProductHeadset.objects.get(product_id=product_id)
     if request.method == 'POST':
+        
+        print(head)
         # Create a new Category instance and assign values
-        newproduct = ProductHeadset(
-        battery = request.POST.get('battery'),
-        color = request.POST.get('color'),
-        form_factor = request.POST.get('form_factor'),
-        h_connectivity = request.POST.get('h_connectivity'),
-        weight = request.POST.get('weight'),
-        charging = request.POST.get('charging'),
-        working = request.POST.get('working'),
-        user_id=userid
         
-        )
-        
-        newproduct.save()   
+        head.battery = request.POST.get('battery')
+        head.color = request.POST.get('color')
+        head.form_factor = request.POST.get('form_factor')
+        head.h_connectivity = request.POST.get('h_connectivity')
+        head.weight = request.POST.get('weight')
+        head.charging = request.POST.get('charging')
+        head.working = request.POST.get('working')
+        print(head)
+        head.save()   
         
         return redirect("/")
-    return render(request,'addproduct/headset.html')
+    return render(request,'addproduct/headset.html',{'head':head})
 
 def addspeaker(request):
     user = request.user
@@ -314,6 +314,12 @@ def mobile_list(request):
     data = ProductMobile.objects.all()
     user= request.user
     return render(request,'products/mobile.html',{'data':data})
+
+
+def viewHeadset(request):
+    data = Product.objects.filter(user_id=request.user.id,category='headset')
+    user= request.user
+    return render(request,'products/headset.html',{'data':data})
 
 def laptop_list(request):
     data=ProductLap.objects.all()

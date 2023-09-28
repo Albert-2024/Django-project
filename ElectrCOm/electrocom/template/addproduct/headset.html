@@ -28,31 +28,31 @@
                                 {% csrf_token %}
                                 <div class="mb-3">
                                     <label for="battery" class="form-label">Battery</label>
-                                    <input type="text" class="form-control" id="battery" name="battery">
+                                    <input type="text" class="form-control" value="{{head.battery}}" id="battery" name="battery">
                                 </div>
                                 <div class="mb-3">
                                     <label for="color" class="form-label">Color</label>
-                                    <input type="text" class="form-control" id="color" name="color">
+                                    <input type="text" class="form-control" value="{{head.color}}"  id="color" name="color">
                                 </div>
                                 <div class="mb-3">
                                     <label for="form_factor" class="form-label">Form Factor</label>
-                                    <input type="text" class="form-control" id="form_factor" name="form_factor">
+                                    <input type="text" class="form-control" value="{{head.form_factor}}" id="form_factor" name="form_factor">
                                 </div>
                                 <div class="mb-3">
                                     <label for="h_connectivity" class="form-label">Connectivity</label>
-                                    <input type="text" class="form-control" id="h_connectivity" name="h_connectivity">
+                                    <input type="text" class="form-control" value="{{head.h_connectivity}}" id="h_connectivity" name="h_connectivity">
                                 </div>
                                 <div class="mb-3">
                                     <label for="weight" class="form-label">Weight</label>
-                                    <input type="text" class="form-control" id="weight" name="weight">
+                                    <input type="text" class="form-control" value="{{head.weight}}" id="weight" name="weight">
                                 </div>
                                 <div class="mb-3">
                                     <label for="charging" class="form-label">Charging</label>
-                                    <input type="text" class="form-control" id="charging" name="charging">
+                                    <input type="text" class="form-control" value="{{head.charging}}" id="charging" name="charging">
                                 </div>
                                 <div class="mb-3">
                                     <label for="working" class="form-label">Working</label>
-                                    <input type="text" class="form-control" id="working" name="working">
+                                    <input type="text" class="form-control" id="working" value="{{head.working}}"  name="working">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>

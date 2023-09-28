@@ -25,7 +25,7 @@ urlpatterns = [
     path('userLogout/',views.userLogout,name='userLogout'),
     path('addmobile/',views.addmobile,name='addmobile'),
     path('addlaptop/',views.addlaptop,name='addlaptop'),
-    path('addheadset/',views.addheadset,name='addheadset'),
+    path('addheadset/<int:product_id>',views.addheadset,name='addheadset'),
     path('addspeaker/',views.addspeaker,name='addspeaker'),
     path('headset/<int:product_id>/', views.headset_details, name='headset_details'),
     path('speaker/<int:product_id>/', views.speaker_details, name='speaker_details'),
@@ -37,6 +37,7 @@ urlpatterns = [
     path('regmobile/',views.regmobile,name='regmobile'),
     path('reglaptop/',views.reglaptop,name='reglaptop'),
     path('regspeaker/',views.regspeaker,name='regspeaker'),
+    path('viewHeadset/',views.viewHeadset,name='viewHeadset'),
     # path('add_to_cart/<str:product_type>/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     
     # path('cart/',views.cart,name='cart'),
@@ -45,5 +46,5 @@ urlpatterns = [
     path('seller/login/',views.sellerlogin,name="sellerlogin"),
     # path('/delivery/register',views.sellerReg,name='deliveryReg'),
     # path('delivery/login/',views.login,name="deliverylogin"), 
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
