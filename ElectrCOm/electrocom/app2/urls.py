@@ -21,7 +21,6 @@ urlpatterns = [
     path('laptop/',views.laptop_list,name='laptop'),
     path('headset/',views.headset_list,name='headset'),
     path('speaker/',views.speaker_list,name='speaker'),
-    path('cart/',views.cart,name='cart'),
     path('sellerindex/',views.sellerindex,name='sellerindex'),
     path('userLogout/',views.userLogout,name='userLogout'),
     path('addmobile/',views.addmobile,name='addmobile'),
@@ -32,7 +31,12 @@ urlpatterns = [
     path('speaker/<int:product_id>/', views.speaker_details, name='speaker_details'),
     path('laptop/<int:product_id>/', views.laptop_details, name='laptop_details'),
     path('mobile/<int:product_id>/', views.mobile_details, name='mobile_details'),
+    path('',views.sellerDashboard,name='sellerDashboard'),
+    path('product_form/',views.product_form,name='product_form'),
+    # path('add_to_cart/<str:product_type>/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     
+    # path('cart/',views.cart,name='cart'),
+    # path('<str:category>/<int:product_id>/add_to_cart/', views.add_to_cart, name='add_to_cart'),
     
     # path('seller/login/',views.login,name="login"),
     # path('/delivery/register',views.sellerReg,name='deliveryReg'),

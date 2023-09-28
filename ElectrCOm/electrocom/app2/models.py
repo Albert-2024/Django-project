@@ -75,46 +75,57 @@ class CustomUser(AbstractUser):
     def has_module_perms(self, app_label):
         return True
     
-class ProductLap(models.Model):
+class Product(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=255, null=True)
     brand_name = models.CharField(max_length=255, null=True)
     product_name = models.CharField(max_length=255, null=True)
+    color= models.CharField(max_length=255,null=True)
+    price = models.CharField(max_length=255, null=True)
+    image1 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    image2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    image3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    description = models.TextField(max_length=255, null=True)
+    category = models.CharField(max_length=255, null=True), """ mobile, laptop, headset, speaker"""
+    warranty = models.CharField(max_length=255,null=True)
+     
+    def __str__(self):
+        return self.product_name
+    
+class ProductLap(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    screen_size = models.CharField(max_length=255, null=True)
+    space = models.CharField(max_length=255, null=True) ,""" hard disk /ssd"""
+    cpu = models.CharField(max_length=255, null=True),'''core i7/ Ryzen 5'''
+    ram = models.CharField(max_length=255, null=True)
+    os = models.CharField(max_length=255, null=True), """ windows 10, linux, mac os"""
+    graphics = models.CharField(max_length=255, null=True), """ nvidia, amd, intel"""
     color= models.CharField(max_length=255,null=True)
     ram = models.TextField(max_length=255, null=True)
     processor = models.CharField(max_length=255, null=True)
     storage = models.CharField(max_length=255, null=True)
-    price = models.CharField(max_length=255, null=True)
-    warranty = models.CharField(max_length=255,null=True)
-    description = models.TextField(max_length=255, null=True)
-    quantity = models.CharField(max_length=255, null=True)
-    product_images1 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images4 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    status=models.BooleanField(default=False)
+    
 
+    
     def __str__(self):
         return self.product_name
     
 class ProductMobile(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-    brand_name = models.CharField(max_length=255, null=True)
-    product_name = models.CharField(max_length=255, null=True)
+    wireless = models.CharField(max_length=255, null=True), """ unlocked for all carriers"""
+    m_os = models.CharField(max_length=255, null=True), """ android 13.0"""
+    cellular = models.CharField(max_length=255, null=True), """ 4g, 5g"""
+    memory = models.CharField(max_length=255, null=True), """ 128gb, 256gb"""
+    connectivity = models.CharField(max_length=255, null=True), """ wifi, bluetooth"""
+    m_screen = models.CharField(max_length=255, null=True), """ 6.5 inch"""
+    wireless_network_technology = models.CharField(max_length=255, null=True), """ unlocked for all carriers"""
     color= models.CharField(max_length=255,null=True)
     ram = models.TextField(max_length=255, null=True)
     processor = models.CharField(max_length=255, null=True)
     storage = models.CharField(max_length=255, null=True)
     camrear = models.CharField(max_length=255, null=True)
     camfront = models.CharField(max_length=255, null=True)
-    price = models.CharField(max_length=255, null=True)
-    warranty = models.CharField(max_length=255,null=True)
-    description = models.TextField(max_length=255, null=True)
     display = models.TextField(max_length=255, null=True)  
-    quantity = models.CharField(max_length=255, null=True)
-    product_images1 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images4 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
 
     status=models.BooleanField(default=False)
 
@@ -123,47 +134,20 @@ class ProductMobile(models.Model):
     
 class ProductHeadset(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-    brand_name = models.CharField(max_length=255, null=True)
-    product_name = models.CharField(max_length=255, null=True)
     battery = models.CharField(max_length=255, null=True)
-    description = models.TextField(max_length=255, null=True)
-    price = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
-    quantity = models.CharField(max_length=255, null=True)  
-    product_images1 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
+    form_factor = models.CharField(max_length=255, null=True), """ in-ear, over-ear, on-ear"""
+    h_connectivity = models.CharField(max_length=255, null=True), """ bluetooth, wired"""  
     
     def __str__(self):
         return self.product_name
 
 class ProductSpeaker(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-    product_name = models.CharField(max_length=255, null=True)
-    brand_name = models.CharField(max_length=255, null=True)
-    description = models.TextField(max_length=255, null=True)
-    price = models.CharField(max_length=255, null=True)
-    battery = models.CharField(max_length=255, null=True)
-    quality = models.CharField(max_length=255, null=True)
-    size = models.CharField(max_length=255, null=True)
-    quantity = models.CharField(max_length=255, null=True)  
-    product_images1 = models.ImageField(upload_to='sample/', null=True, blank=True)
-    product_images2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
-    product_images3 = models.FileField(upload_to='sample/', null=True, blank=True, max_length=255)
+    battery = models.CharField(max_length=255, null=True) 
+    s_connectivity = models.CharField(max_length=255, null=True), """ bluetooth, wired"""
+    s_type = models.CharField(max_length=255, null=True), """ portable, home, outdoor"""
+    special_features = models.CharField(max_length=255, null=True), """ waterproof, dustproof"""
     
     def __str__(self):
         return self.product_name
-
-class Product(models.Model):
-    laptop=models.ForeignKey(ProductLap,on_delete=models.CASCADE,null=True)
-    mobile=models.ForeignKey(ProductMobile,on_delete=models.CASCADE,null=True)
-    headset=models.ForeignKey(ProductHeadset,on_delete=models.CASCADE,null=True)
-    speaker=models.ForeignKey(ProductSpeaker,on_delete=models.CASCADE,null=True)
-    
-class BookCart(models.Model):
-    user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
-    book=models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
-    
-    def str(self):
-        # return self.book.title
-        return f"cart details {self.user.email}: {self.book.title}"

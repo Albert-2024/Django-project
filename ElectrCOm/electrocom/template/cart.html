@@ -1,34 +1,102 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cart</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    
+    <title>Shopping Cart Template</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
-    <section style="background-color: #eee;">
-        <div class="text-center container py-5">
-          <h4 class="mt-4 mb-5"><strong>All Speakers</strong></h4>
-            <div class="text-center" id="#">
-              <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4"  >
-                  <div class="card bg-body-secondary" style="width: 15rem;">
-                      <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
-                        class="card-img-top "style="width: 100%; max-height: 200px;" />
-                    <div class="card-body">
-                        <h5 class="card-title">Denim shirt</h5> 
-                        <p class="card-text">Shirt</p>
-                        <h6 class="mb-3 price">120$</h6>
-                        <a href="#" class="btn btn-primary">GO somewhere!</a>
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="./ElectrCOm/electrocom/images/headset/Apple/1.1.jpeg" class="img-fluid"
+                                alt="Product Image">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque,
+                                    soluta ex doloribus eveniet cum voluptatum in culpa sunt consequatur omnis facere
+                                    velit corporis fugit delectus.</h5>
+                                <p class="card-text totalPrice"><strong>Price:</strong> $XX.XX</p>
+                                <div class="input-group mb-3 input-group-sm">
+                                    <button class="btn btn-outline-secondary minusBtn" type="button">-</button>
+                                    <input type="text" class="form-control text-center quantityValue" placeholder="Quantity"
+                                        aria-label="Quantity" aria-describedby="basic-addon2" value="1" data-price="55.00">
+                                    <button class="btn btn-outline-secondary plusBtn" type="button">+</button>
+                                </div>
+                                <button class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
-    </section>
-                
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- JavaScript to calculate total price when the window is loaded -->
+        <script>
+            const plusBtns = document.querySelectorAll('.plusBtn');
+            const minusBtns = document.querySelectorAll('.minusBtn');
+            const quantityValues = document.querySelectorAll('.quantityValue');
+            const totalPrices = document.querySelectorAll('.totalPrice');
+
+            plusBtns.forEach((plusBtn, index) => {
+                plusBtn.addEventListener('click', () => {
+                    let quantity = parseInt(quantityValues[index].value);
+                    quantity += 1;
+                    quantityValues[index].value = quantity;
+                    let unitPrice = parseFloat(quantityValues[index].getAttribute('data-price'));
+                    let totalPrice = unitPrice * quantity;
+                    totalPrices[index].textContent = '₹ ' + totalPrice.toFixed(2);
+                });
+            });
+
+            minusBtns.forEach((minusBtn, index) => {
+                minusBtn.addEventListener('click', () => {
+                    let quantity = parseInt(quantityValues[index].value);
+                    if (quantity > 1) {
+                        quantity -= 1;
+                        quantityValues[index].value = quantity;
+                        let unitPrice = parseFloat(quantityValues[index].getAttribute('data-price'));
+                        let totalPrice = unitPrice * quantity;
+                        totalPrices[index].textContent = '₹ ' + totalPrice.toFixed(2);
+                    }
+                });
+            });
+
+            quantityValues.forEach((quantityValue, index) => {
+                quantityValue.addEventListener('change', () => {
+                    let quantity = parseInt(quantityValue.value);
+                    if (quantity <= 0) {
+                        quantity = 1;
+                        quantityValue.value = quantity;
+                    }
+                    let unitPrice = parseFloat(quantityValue.getAttribute('data-price'));
+                    let totalPrice = unitPrice * quantity;
+                    totalPrices[index].textContent = '₹ ' + totalPrice.toFixed(2);
+                });
+            });
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
