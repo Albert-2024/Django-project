@@ -85,8 +85,7 @@ class Product(models.Model):
     image2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
     image3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
     description = models.TextField(max_length=255, null=True)
-    category = models.CharField(max_length=255, null=True), """ mobile, laptop, headset, speaker"""
-
+    category = models.CharField(max_length=255, null=True)
      
     def __str__(self):
         return self.product_name
@@ -108,7 +107,7 @@ class ProductLap(models.Model):
         return self.product_name
     
 class ProductMobile(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     wireless = models.CharField(max_length=255, null=True), """ unlocked for all carriers"""
     m_os = models.CharField(max_length=255, null=True), """ android 13.0"""
     cellular = models.CharField(max_length=255, null=True), """ 4g, 5g"""
@@ -126,21 +125,21 @@ class ProductMobile(models.Model):
         return self.product_name
     
 class ProductHeadset(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     battery = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
-    form_factor = models.CharField(max_length=255, null=True), """ in-ear, over-ear, on-ear"""
-    h_connectivity = models.CharField(max_length=255, null=True), """ bluetooth, wired"""  
+    form_factor = models.CharField(max_length=255, null=True) 
+    h_connectivity = models.CharField(max_length=255, null=True) 
     weight = models.CharField(max_length=255, null=True)
-    charging = models.CharField(max_length=255, null=True), """ TIme to charge"""
-    working = models.CharField(max_length=255, null=True), """ hours"""
+    charging = models.CharField(max_length=255, null=True) 
+    working = models.CharField(max_length=255, null=True)
     
     
     def __str__(self):
         return self.product_name
 
 class ProductSpeaker(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     battery = models.CharField(max_length=255, null=True) 
     s_connectivity = models.CharField(max_length=255, null=True), """ bluetooth, wired"""
     s_type = models.CharField(max_length=255, null=True), """ portable, home, outdoor"""

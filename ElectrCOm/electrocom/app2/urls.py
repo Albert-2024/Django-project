@@ -33,6 +33,8 @@ urlpatterns = [
     path('mobile/<int:product_id>/', views.mobile_details, name='mobile_details'),
     path('',views.sellerDashboard,name='sellerDashboard'),
     path('product_form/',views.product_form,name='product_form'),
+    path('regheadset/',views.regheadset,name='regheadset'),
+    path('regmobile/',views.regmobile,name='regmobile'),
     # path('add_to_cart/<str:product_type>/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     
     # path('cart/',views.cart,name='cart'),

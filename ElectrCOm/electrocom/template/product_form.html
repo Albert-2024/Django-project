@@ -54,9 +54,14 @@
         </div>
             <div class="col-lg-6">
 
-                <form>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="form-group">
-                        <label for="productName">Name:</label>
+                        <label for="brandName">Name:</label>
+                        <input type="text" class="form-control" id="brandName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productName">Product Name:</label>
                         <textarea class="form-control" id="productName" name="productName" rows="4" required></textarea>
                     </div>
                     <div class="form-group">
@@ -82,10 +87,7 @@
                         <input type="file" class="form-control-file" id="image3" name="image3" accept="image/*"
                             required>
                     </div>
-                    <div class="form-group">
-                        <label for="warranty">Warranty:</label>
-                        <input type="text" class="form-control" id="warranty" name="warranty" required>
-                    </div>
+                    
                     <div class="form-group">
                         <label for="description">Description:</label>
                         <textarea class="form-control" id="description" name="description" rows="4" required></textarea>

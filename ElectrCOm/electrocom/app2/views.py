@@ -106,7 +106,61 @@ def addProduct(request):
         return redirect("/")
     return render(request,'addproduct.html')
 
+def regheadset(request):
+    print("headset")
+    user = request.user
+    userid = user.id
+    if request.method == 'POST':
+        newproduct = Product(
+        user_id = userid,
+        name = request.POST.get('name'),
+        brand_name = request.POST.get('brandName'),
+        product_name = request.POST.get('productName'),
+        price = request.POST.get('price'),
+        image1 = request.FILES.get('image1'),
+        image2 = request.FILES.get('image2'),
+        image3 = request.FILES.get('image3'),
+        description = request.POST.get('description'),
+        category = 'headset'
+        
+        )
+        newproduct.save()
+        headset_id=newproduct.id
+        headset_obj = ProductHeadset(
+            product_id=headset_id,
+        )
+        headset_obj.save()
+        
+        return redirect("/")
+    return render(request,'product_form.html')
 
+def regmobile(request):
+    print("mobile")
+    user = request.user
+    userid = user.id
+    if request.method == 'POST':
+        newproduct = Product(
+        user_id = userid,
+        name = request.POST.get('name'),
+        brand_name = request.POST.get('brandName'),
+        product_name = request.POST.get('productName'),
+        price = request.POST.get('price'),
+        image1 = request.FILES.get('image1'),
+        image2 = request.FILES.get('image2'),
+        image3 = request.FILES.get('image3'),
+        description = request.POST.get('description'),
+        category = 'mobile'
+        
+        )
+        newproduct.save()
+        mobile_id=newproduct.id
+        mobile_obj = ProductMobile(
+            product_id=mobile_id,
+        )
+        mobile_obj.save()
+        
+        return redirect("/")
+    return render(request,'product_form2.html')
 
 def addlaptop(request):
     user = request.user
@@ -244,126 +298,3 @@ def sellerDashboard(request):
 def product_form(request):
     return render(request,'product_form.html')
 
-# def add_to_cart(request,category,product_id):
-    
-    existing_item = Cart.objects.filter(product_id=product_id, user=request.user).first()
-    if existing_item:
-        existing_item.quantity += 1
-        existing_item.save()
-    elif category=="headset":
-        Cart.objects.create(user=request.user, product_id=product_id, quantity=1)
-
-    
-    
-    else:
-        Cart.objects.create(user=request.user, product_id=product_id, quantity=1)
-        
-    return redirect('cart')
-
-# def cart(request):
-    items=Cart.objects.filter(user_id=request.user.id)
-    return render(request,'cart.html',{'items':items})
-
-# def add_to_cart(request,category, product_id):
-    if request.user.is_authenticated:
-        product = get_object_or_404(ProductHeadset, id=product_id)
-        cart_item, created = CartItem.objects.get_or_create(user=request.user, product_id=product.id)
-
-        if not created:
-            cart_item.quantity += 1
-            cart_item.save()
-        return redirect('cart')
-
-# def cart(request): 
-    cart_items = CartItem.objects.filter(user=request.user) 
-    total_items = sum(cart_item.quantity for cart_item in cart_items)
-    total_price = sum(cart_item.product.price * cart_item.quantity for cart_item in cart_items)
-    context = {
-        'cart_items': cart_items,
-        'total_items': total_items,
-        'total_price': total_price,
-            # ... other context variables ... 
-    } 
-    return render(request, 'customer_Cart.html',context) 
- 
-# def remove_from_cart(request, product_id): 
-    cart_item = get_object_or_404(CartItem, user=request.user, id=product_id) 
-    print(f"Received product_id: {product_id}")  #Fixed the typo here 
-    cart_item.delete() 
-    return redirect('cart')
-
-# def decrease_item(request, item_id): 
-#     try: 
-#         cart_item = CartItem.objects.get(id=item_id) 
-#         if cart_item.quantity > 1: 
-#             cart_item.quantity -= 1 
-#             cart_item.save() 
-#     except CartItem.DoesNotExist: 
-#         pass  # Handle the case when the item does not exist in the cart 
-#     return redirect('cart')  # Redirect back to the cart page after decreasing the item quantity 
- 
-# def increase_item(request, item_id): 
-    try: 
-        cart_item = CartItem.objects.get(id=item_id) 
-        cart_item.quantity += 1 
-        cart_item.save() 
-    except CartItem.DoesNotExist: 
-        pass  # Handle the case when the item does not exist in the cart 
-    return redirect('cart')
-
-# def add_to_cart(request, product_id):
-    product = ProductLap.objects.get(id=product_id)
-    
-    existing_item = CartItem.objects.filter(product=product, user=request.user).first()
-    
-    if existing_item:
-        existing_item.quantity += 1
-        existing_item.save()
-    else:
-        CartItem.objects.create(user=request.user, product=product, quantity=1)
-        
-    return redirect('cart')
-
-# def add_to_cart(request, product_type, product_id):
-#     # Determine the product type and get the corresponding product model
-#     product_model = None
-#     if product_type == 'laptop':
-#         product_model = ProductLap
-#     elif product_type == 'mobile':
-#         product_model = ProductMobile
-#     elif product_type == 'headset':
-#         product_model = ProductHeadset
-#     elif product_type == 'speaker':
-#         product_model = ProductSpeaker
-
-#     if product_model:
-#         # Get the product instance
-#         product_instance = get_object_or_404(product_model, pk=product_id)
-
-#         # Check if the user already has this product in the cart
-#         cart_item, created = CartItem.objects.get_or_create(
-#             user=request.user, product_type=product_type, product_id=product_id
-#         )
-
-#         if not created:
-#             # If the item already exists in the cart, increment the quantity
-#             cart_item.quantity += 1
-#             cart_item.save()
-#         else:
-#             # If the item doesn't exist in the cart, create a new cart item
-#             CartItem.objects.create(
-#                 user=request.user,
-#                 product_type=product_type,
-#                 product_id=product_id,
-#                 quantity=1,
-#                 total_price=product_instance.price,
-#                 total_items=1
-#             )
-
-#     return redirect('cart') 
-
-
-# def cart(request):
-#     # You can retrieve the product details for each cart item here
-
-#     return render(request, 'cart.html')
