@@ -33,6 +33,7 @@ AUTH_USER_MODEL='app2.CustomUser'
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'myapp',
     'app2',
     'django.contrib.admin',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 ]
 
 MIDDLEWARE = [

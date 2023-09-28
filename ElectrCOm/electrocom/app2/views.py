@@ -288,27 +288,26 @@ def addheadset(request,product_id):
         return redirect("/")
     return render(request,'addproduct/headset.html',{'head':head})
 
-def addspeaker(request):
+def addspeaker(request,product_id):
     user = request.user
     userid = user.id
+    speaker=ProductSpeaker.objects.get(product_id=product_id)
     if request.method == 'POST':
+        print(speaker)
         # Create a new Category instance and assign values
-        newproduct = ProductSpeaker(
-        battery = request.POST.get('battery'),
-        s_connectivity = request.POST.get('s_connectivity'),
-        s_type = request.POST.get('s_type'),
-        special_features = request.POST.get('special_features'),
-        weight = request.POST.get('weight'),
-        charging = request.POST.get('charging'),
-        working = request.POST.get('working'),
-        user_id=userid
-        
-        )
-        
-        newproduct.save()   
+        speaker.battery = request.POST.get('battery')
+        speaker.s_connectivity = request.POST.get('s_connectivity')
+        speaker.s_type = request.POST.get('s_type')
+        speaker.special_features = request.POST.get('special_features')
+        speaker.weight = request.POST.get('weight')
+        speaker.charging = request.POST.get('charging')
+        speaker.working = request.POST.get('working')
+        speaker.user_id=userid
+        print(speaker)
+        speaker.save()   
         
         return redirect("/")
-    return render(request,'addproduct/speaker.html')
+    return render(request,'addproduct/speaker.html',{'speaker':speaker})
 
 def mobile_list(request):
     data = ProductMobile.objects.all()
@@ -320,6 +319,11 @@ def viewHeadset(request):
     data = Product.objects.filter(user_id=request.user.id,category='headset')
     user= request.user
     return render(request,'products/headset.html',{'data':data})
+
+def viewSpeaker(request):
+    data = Product.objects.filter(user_id=request.user.id,category='speaker')
+    user= request.user
+    return render(request,'products/speaker.html',{'data':data})
 
 def laptop_list(request):
     data=ProductLap.objects.all()

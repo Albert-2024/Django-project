@@ -28,31 +28,31 @@
                                 {% csrf_token %}
                                 <div class="mb-3">
                                     <label for="battery" class="form-label">Battery</label>
-                                    <input type="text" class="form-control" id="battery" name="battery">
+                                    <input type="text" class="form-control" id="battery" value="{{speaker.battery}}" name="battery">
                                 </div>
                                 <div class="mb-3">
                                     <label for="s_connectivity" class="form-label">Connectivity</label>
-                                    <input type="text" class="form-control" id="s_connectivity" name="s_connectivity">
+                                    <input type="text" class="form-control" id="s_connectivity" value="{{speaker.s_connectivity}}" name="s_connectivity">
                                 </div>
                                 <div class="mb-3">
                                     <label for="s_type" class="form-label">Type</label>
-                                    <input type="text" class="form-control" id="s_type" name="s_type">
+                                    <input type="text" class="form-control" id="s_type" value="{{speaker.s_type}}" name="s_type">
                                 </div>
                                 <div class="mb-3">
                                     <label for="special_features" class="form-label">Special Features</label>
-                                    <input type="text" class="form-control" id="special_features" name="special_features">
+                                    <input type="text" class="form-control" id="special_features" value="{{speaker.special_features}}" name="special_features">
                                 </div>
                                 <div class="mb-3">
                                     <label for="weight" class="form-label">Weight</label>
-                                    <input type="text" class="form-control" id="weight" name="weight">
+                                    <input type="text" class="form-control" id="weight" value="{{speaker.weight}}" name="weight">
                                 </div>
                                 <div class="mb-3">
                                     <label for="charging" class="form-label">Charging</label>
-                                    <input type="text" class="form-control" id="charging" name="charging">
+                                    <input type="text" class="form-control" id="charging" value="{{speaker.charging}}" name="charging">
                                 </div>
                                 <div class="mb-3">
                                     <label for="working" class="form-label">Working</label>
-                                    <input type="text" class="form-control" id="working" name="working">
+                                    <input type="text" class="form-control" id="working" value="{{speaker.working}}" name="working">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>

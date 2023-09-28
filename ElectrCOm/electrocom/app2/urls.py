@@ -26,7 +26,7 @@ urlpatterns = [
     path('addmobile/',views.addmobile,name='addmobile'),
     path('addlaptop/',views.addlaptop,name='addlaptop'),
     path('addheadset/<int:product_id>',views.addheadset,name='addheadset'),
-    path('addspeaker/',views.addspeaker,name='addspeaker'),
+    path('addspeaker/<int:product_id>',views.addspeaker,name='addspeaker'),
     path('headset/<int:product_id>/', views.headset_details, name='headset_details'),
     path('speaker/<int:product_id>/', views.speaker_details, name='speaker_details'),
     path('laptop/<int:product_id>/', views.laptop_details, name='laptop_details'),
@@ -38,6 +38,7 @@ urlpatterns = [
     path('reglaptop/',views.reglaptop,name='reglaptop'),
     path('regspeaker/',views.regspeaker,name='regspeaker'),
     path('viewHeadset/',views.viewHeadset,name='viewHeadset'),
+    path('viewSpeaker/',views.viewSpeaker,name='viewSpeaker'),
     # path('add_to_cart/<str:product_type>/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     
     # path('cart/',views.cart,name='cart'),
