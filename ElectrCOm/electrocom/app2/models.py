@@ -78,31 +78,28 @@ class CustomUser(AbstractUser):
 class Product(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255, null=True)
-    brand_name = models.CharField(max_length=255, null=True)
     product_name = models.CharField(max_length=255, null=True)
-    color= models.CharField(max_length=255,null=True)
+    brand_name = models.CharField(max_length=255, null=True)
     price = models.CharField(max_length=255, null=True)
     image1 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
     image2 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
     image3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
     description = models.TextField(max_length=255, null=True)
     category = models.CharField(max_length=255, null=True), """ mobile, laptop, headset, speaker"""
-    warranty = models.CharField(max_length=255,null=True)
+
      
     def __str__(self):
         return self.product_name
     
 class ProductLap(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     screen_size = models.CharField(max_length=255, null=True)
     space = models.CharField(max_length=255, null=True) ,""" hard disk /ssd"""
-    cpu = models.CharField(max_length=255, null=True),'''core i7/ Ryzen 5'''
     ram = models.CharField(max_length=255, null=True)
     os = models.CharField(max_length=255, null=True), """ windows 10, linux, mac os"""
     graphics = models.CharField(max_length=255, null=True), """ nvidia, amd, intel"""
     color= models.CharField(max_length=255,null=True)
-    ram = models.TextField(max_length=255, null=True)
-    processor = models.CharField(max_length=255, null=True)
+    processor = models.CharField(max_length=255, null=True),'''core i7/ Ryzen 5'''
     storage = models.CharField(max_length=255, null=True)
     
 
@@ -122,12 +119,8 @@ class ProductMobile(models.Model):
     color= models.CharField(max_length=255,null=True)
     ram = models.TextField(max_length=255, null=True)
     processor = models.CharField(max_length=255, null=True)
-    storage = models.CharField(max_length=255, null=True)
     camrear = models.CharField(max_length=255, null=True)
-    camfront = models.CharField(max_length=255, null=True)
-    display = models.TextField(max_length=255, null=True)  
-
-    status=models.BooleanField(default=False)
+    camfront = models.CharField(max_length=255, null=True)  
 
     def __str__(self):
         return self.product_name
@@ -138,6 +131,10 @@ class ProductHeadset(models.Model):
     color= models.CharField(max_length=255,null=True)
     form_factor = models.CharField(max_length=255, null=True), """ in-ear, over-ear, on-ear"""
     h_connectivity = models.CharField(max_length=255, null=True), """ bluetooth, wired"""  
+    weight = models.CharField(max_length=255, null=True)
+    charging = models.CharField(max_length=255, null=True), """ TIme to charge"""
+    working = models.CharField(max_length=255, null=True), """ hours"""
+    
     
     def __str__(self):
         return self.product_name
@@ -148,6 +145,9 @@ class ProductSpeaker(models.Model):
     s_connectivity = models.CharField(max_length=255, null=True), """ bluetooth, wired"""
     s_type = models.CharField(max_length=255, null=True), """ portable, home, outdoor"""
     special_features = models.CharField(max_length=255, null=True), """ waterproof, dustproof"""
+    weight = models.CharField(max_length=255, null=True)
+    charging = models.CharField(max_length=255, null=True), """ TIme to charge"""
+    working = models.CharField(max_length=255, null=True), """ hours"""
     
     def __str__(self):
         return self.product_name

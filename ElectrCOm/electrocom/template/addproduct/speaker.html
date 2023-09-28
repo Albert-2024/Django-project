@@ -1,97 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speaker</title>
+    <title>Product Details</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
+
 <body>
-    <div class="container">
-        <h1 class="text-center">Add Speaker</h1><br>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group" aria-required="true" >
-                        <label for="brand" >Brand Name</label>
-                        <select class="form-control" name="brand_name" id="brand_name" required>
-                          <option value="">None</option>
-                          <option value="brand1">Sony</option>
-                          <option value="brand2">Zebronics</option>
-                          <option value="brand3">JBL</option>
-                          <option value="brand3">Xiaomi</option>
-                          <option value="brand3">Samsung</option>                            
-                      </select>
-                    </div>
-                    <div class="form-group" aria-required="true">
-                        <label for="exampleInputPassword1">Battery hours</label>
-                        <input type="text" class="form-control" name="battery" id="exampleInputPassword1" placeholder="Processor ....">
-                    </div>
-                    
-                    <div class="form-group" aria-required="true">
-                        <label for="exampleInputPassword1">Price</label>
-                        <input type="text" class="form-control" name="price" id="exampleInputPassword1" placeholder="Price ....">
-                    </div>
-                    <div class="form-group" aria-required="true">
-                        <label for="exampleInputPassword1">image-1</label>
-                        <input type="file" class="form-control" name="product_images1" id="exampleInputPassword1" placeholder="image-1 ....">
-                    </div>
-                    <div class="form-group" aria-required="true" >
-                        <label for="brand" >Portable/Non</label>
-                        <select class="form-control" name="size" id="brand_name" required>
-                          <option value="">None</option>
-                          <option value="brand1">Portable</option>
-                          <option value="brand2">Non-Protable</option>                            
-                      </select>
-                    </div>
-                    
 
-
-
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group" aria-required="true">
-                        <label for="exampleInputEmail1">Product Name</label>
-                        <input type="text" class="form-control" name="product_name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Product Name ....">
-                      </div>
-                    <div class="form-group" aria-required="true">
-                        <label for="exampleInputPassword1">Quantity</label>
-                        <input type="text" class="form-control" name="quantity" id="exampleInputPassword1" placeholder="Quantity ....">
+    <div class="container mt-4">
+        <div class="row d-flex align-items-center">
+            <!-- Image column -->
+            <div class="col-md-6">
+                <img src="{% static 'speaker.jpg' %}" alt="Product Image" class="img-fluid">
+            </div>
+            <!-- Form column -->
+            <div class="col-md-6">
+                <div class="container mb-3">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4">Product Details</h2>
+                            <!-- Added text-center and mb-4 for styling -->
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="battery" class="form-label">Battery</label>
+                                    <input type="text" class="form-control" id="battery" name="battery">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="s_connectivity" class="form-label">Connectivity</label>
+                                    <input type="text" class="form-control" id="s_connectivity" name="s_connectivity">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="s_type" class="form-label">Type</label>
+                                    <input type="text" class="form-control" id="s_type" name="s_type">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="special_features" class="form-label">Special Features</label>
+                                    <input type="text" class="form-control" id="special_features" name="special_features">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="weight" class="form-label">Weight</label>
+                                    <input type="text" class="form-control" id="weight" name="weight">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="charging" class="form-label">Charging</label>
+                                    <input type="text" class="form-control" id="charging" name="charging">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="working" class="form-label">Working</label>
+                                    <input type="text" class="form-control" id="working" name="working">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="form-group" aria-required="true">
-                        <label for="exampleInputPassword1">Speaker Quality</label>
-                        <select class="form-control" name="quality" id="quality" required>
-                            <option value="">None</option>
-                            <option value="Super">Super</option>
-                            <option value="Best">Best</option> 
-                            <option value="Average">Average</option>                          
-
-                        </select>
-                    </div>
-                    <div class="form-group" aria-required="true">
-                        <label for="exampleInputPassword1">image-2</label>
-                        <input type="file" class="form-control" name="product_images2" id="exampleInputPassword1" placeholder="image-2 ....">
-                    </div>
-                    <div class="form-group" aria-required="true">
-                        <label for="exampleInputPassword1">image-3</label>
-                        <input type="file" class="form-control" name="product_images3" id="exampleInputPassword1" placeholder="image-3 ....">
-                    </div>
-                    <div class="form-group" aria-required="true">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" name="description" id="description" rows="5" placeholder="Enter description"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-6 offset-md-3 text-center">
-                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-       
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
+
 </html>

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib  import messages,auth
 # from .models import Brand, Category, CustomUser, Product
-from .models import CustomUser, Product
+from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker
 # from accounts.backends import EmailBackend
 from django.contrib.auth import get_user_model
 #from .forms import UserForm, ServiceForm 
@@ -20,13 +20,13 @@ def register(request):
         name1 = request.POST.get('name', None)
         email = request.POST.get('email', None)
         password = request.POST.get('pass', None)
-        role = User.CUSTOMER
+        role = 1
         print(email)
 
         if name1 and email and role and password:
             if User.objects.filter(email=email).exists():
                 error_message = "Email is already registered."
-                return render(request, 'login.html', {'error_message': error_message})
+                return render(request, 'register.html', {'error_message': error_message})
             
             else:
                 user = User(name=name1, email=email, role=role)
@@ -35,17 +35,21 @@ def register(request):
                 return redirect('login')  
             
     return render(request, 'register.html')
+
 def userlogin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('pass')
+        print(email,password)
 
         if email and password:
             user = authenticate(request, email=email, password=password)
+            print(user)
             if user is not None:
                 auth_login(request, user) 
-                if user.role == CustomUser.SELLER:       
-                    return redirect('sellerindex')
+                print(user)
+                if user.role == 2:       
+                    return redirect('sellerDashboard')
                 else:
                     return redirect('/')
             else:
@@ -60,70 +64,41 @@ def userLogout(request):
     
 
 def sellerreg(request):
-    if request.method == 'POST':
-        name1 = request.POST.get('name', None)
-        email = request.POST.get('email', None)
-        password = request.POST.get('pass', None)
-        role = User.SELLER
-        print(email)
-
-        if name1 and email and role and password:
-            if User.objects.filter(email=email).exists():
-                error_message = "Email is already registered."
-                return render(request, 'login.html', {'error_message': error_message})
-            
-            else:
-                user = User(name=name1, email=email, role=role)
-                user.set_password(password)  # Set the password securely
-                user.save()
-                return redirect('login')  
-            
-    return render(request, 'sellerreg.html')
+    user=request.user
+    if user.role==2:
+        return redirect('sellerDashboard')
+    else:
+        if request.method == 'POST':
+            user.role = 2
+            user.save()
+            return redirect('sellerDashboard')
+                
+        return render(request, 'sellerreg.html')
 
 def sellerindex(request):
     return render(request,'sellerindex.html')
 
+def sellerlogin(request):
+    
+    return render(request,'sellerlogin.html')
+
 # new Product
 
-def Product(request):
+def addProduct(request):
     user = request.user
     userid = user.id
     if request.method == 'POST':
         newproduct = Product(
-        user = request.POST.get('user'),
+        user = userid,
         name = request.POST.get('name'),
         brand_name = request.POST.get('brand_name'),
         product_name = request.POST.get('product_name'),
-        color = request.POST.get('color'),
         price = request.POST.get('price'),
         image1 = request.POST.get('image1'),
         image2 = request.POST.get('image2'),
         image3 = request.POST.get('image3'),
         description = request.POST.get('description'),
         category = request.POST.get('category'),
-        #laptop
-        screen_size = request.POST.get('screen_size'),
-        space = request.POST.get('space'),
-        cpu = request.POST.get('cpu'),
-        ram  = request.POST.get('ram'),
-        os = request.POST.get('os'),
-        graphics = request.POST.get('graphics'),
-        #mobile
-        wireless = request.POST.get('wireless'),
-        m_os = request.POST.get('m_os'),
-        cellular = request.POST.get('cellular'),
-        memory = request.POST.get('memory'),
-        connectivity = request.POST.get('connectivity'),
-        m_screen = request.POST.get('m_screen'),
-        wireless_network_technology = request.POST.get('wireless_network_technology'),
-        #speaker
-        s_connectivity = request.POST.get('s_connectivity'),
-        s_type = request.POST.get('s_type'),
-        special_features = request.POST.get('special_features'),
-        #headset
-        form_factor = request.POST.get('form_factor'),
-        h_connectivity = request.POST.get('h_connectivity'),
-        user_id = userid
         
         )
         newproduct.save()
@@ -131,37 +106,7 @@ def Product(request):
         return redirect("/")
     return render(request,'addproduct.html')
 
-def addmobile(request):
-    user = request.user
-    userid = user.id
-    if request.method == 'POST':
-        # Create a new Category instance and assign values
-        newproduct = ProductMobile(
-        brand_name = request.POST.get('brand_name'),
-        product_name = request.POST.get('product_name'),
-        color = request.POST.get('color'),
-        ram = request.POST.get('ram'),
-        processor = request.POST.get('processor'),
-        storage = request.POST.get('storage'),
-        camrear = request.POST.get('camrear'),
-        camfront = request.POST.get('camfront'),
-        price = request.POST.get('price'),
-        warranty = request.POST.get('warranty'),
-        description = request.POST.get('description'),
-        display = request.POST.get('display'), 
-        quantity = request.POST.get('quantity'),
-        product_images1 = request.FILES.get('product_images1'),
-        product_images2 = request.FILES.get('product_images2'),
-        product_images3 = request.FILES.get('product_images3'),
-        product_images4 = request.FILES.get('product_images4'),
-        user_id=userid
-        
-        )
-        
-        newproduct.save()   
-        
-        return redirect("/")
-    return render(request,'addproduct/mobile.html')
+
 
 def addlaptop(request):
     user = request.user
@@ -169,20 +114,13 @@ def addlaptop(request):
     if request.method == 'POST':
         # Create a new Category instance and assign values
         newproduct = ProductLap(
-        brand_name = request.POST.get('brand_name'),
-        product_name = request.POST.get('product_name'),
-        color = request.POST.get('color'),
-        ram = request.POST.get('ram'),
-        processor = request.POST.get('processor'),
+        screensize = request.POST.get('screen_size'),
         storage = request.POST.get('storage'),
-        price = request.POST.get('price'),
-        warranty = request.POST.get('warranty'),
-        description = request.POST.get('description'),
-        quantity = request.POST.get('quantity'),
-        product_images1 = request.FILES.get('product_images1'),
-        product_images2 = request.FILES.get('product_images2'),
-        product_images3 = request.FILES.get('product_images3'),
-        product_images4 = request.FILES.get('product_images4'),
+        processor = request.POST.get('processor'),
+        ram = request.POST.get('ram'),
+        os = request.POST.get('os'),
+        graphics = request.POST.get('graphics'),
+        color = request.POST.get('color'),
         user_id=userid
         
         )
@@ -192,22 +130,45 @@ def addlaptop(request):
         return redirect("/")
     return render(request,'addproduct/laptop.html')
 
+def addmobile(request):
+    user = request.user
+    userid = user.id
+    if request.method == 'POST':
+        # Create a new Category instance and assign values
+        newproduct = ProductMobile(
+            wireless=request.POST.get('wireless'),
+            m_os=request.POST.get('m_os'),
+            cellular=request.POST.get('cellular'),
+            memory=request.POST.get('memory'),
+            connectivity=request.POST.get('connectivity'),
+            m_screen=request.POST.get('m_screen'),
+            wireless_network_technology=request.POST.get('wireless_network_technology'),
+            color=request.POST.get('color'),
+            ram=request.POST.get('ram'),
+            processor=request.POST.get('processor'),
+            camrear=request.POST.get('camrear'),
+            camfront=request.POST.get('camfront'),
+            user_id=userid
+        )
+        
+        newproduct.save()   
+        
+        return redirect("/")
+    return render(request, 'addproduct/mobile.html')
+
 def addheadset(request):
     user = request.user
     userid = user.id
     if request.method == 'POST':
         # Create a new Category instance and assign values
         newproduct = ProductHeadset(
-        brand_name = request.POST.get('brand_name'),
-        product_name = request.POST.get('product_name'),
         battery = request.POST.get('battery'),
-        description = request.POST.get('description'),
-        price = request.POST.get('price'),
         color = request.POST.get('color'),
-        quantity = request.POST.get('quantity'),
-        product_images1 = request.FILES.get('product_images1'),
-        product_images2 = request.FILES.get('product_images2'),
-        product_images3 = request.FILES.get('product_images3'),
+        form_factor = request.POST.get('form_factor'),
+        h_connectivity = request.POST.get('h_connectivity'),
+        weight = request.POST.get('weight'),
+        charging = request.POST.get('charging'),
+        working = request.POST.get('working'),
         user_id=userid
         
         )
@@ -223,17 +184,13 @@ def addspeaker(request):
     if request.method == 'POST':
         # Create a new Category instance and assign values
         newproduct = ProductSpeaker(
-        brand_name = request.POST.get('brand_name'),
-        product_name = request.POST.get('product_name'),
         battery = request.POST.get('battery'),
-        quality = request.POST.get('quality'),
-        size = request.POST.get('size'),
-        description = request.POST.get('description'),
-        price = request.POST.get('price'),
-        quantity = request.POST.get('quantity'),
-        product_images1 = request.FILES.get('product_images1'),
-        product_images2 = request.FILES.get('product_images2'),
-        product_images3 = request.FILES.get('product_images3'),
+        s_connectivity = request.POST.get('s_connectivity'),
+        s_type = request.POST.get('s_type'),
+        special_features = request.POST.get('special_features'),
+        weight = request.POST.get('weight'),
+        charging = request.POST.get('charging'),
+        working = request.POST.get('working'),
         user_id=userid
         
         )

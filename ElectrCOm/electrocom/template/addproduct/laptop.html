@@ -1,128 +1,73 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laptop</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    
-        <div class="container">
-            <h1 class="text-center">Add Laptop</h1><br>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-            <div class="row">
-                
-                <div class="col-md-6">
-                        <div class="form-group" aria-required="true" >
-                          <label for="brand" >Brand Name</label>
-                          <select class="form-control" name="brand_name" id="brand_name" required>
-                            <option value="">None</option>
-                            <option value="brand1">Apple</option>
-                            <option value="brand2">Asus</option>
-                            <option value="brand3">HP</option>
-                            <option value="brand3">Lenovo</option>
-                            <option value="brand3">Samsung</option>                            
-                        </select>
-                        </div>
-                        <div class="form-group" aria-required="true">
-                          <label for="exampleInputPassword1">Colour</label>
-                          <select class="form-control" id="color" name="color" required>
-                            <option value="">None</option>
-                            <option value="color1">Charcol black</option>
-                            <option value="color2">Transparent silver</option>
-                            <option value="color3">Red</option>
-                            <option value="color3">Blue</option>
-                            <option value="color3">Black</option>
 
-                          </select>
+<body>
+
+    <div class="container mt-4">
+        <div class="row d-flex align-items-center">
+            <!-- Image column -->
+            <div class="col-md-6">
+                <img src="{% static 'laptop.jpg' %}" alt="Product Image" class="img-fluid">
+            </div>
+            <!-- Form column -->
+            <div class="col-md-6">
+                <div class="container mb-3">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4">Product Details</h2>
+                            <!-- Added text-center and mb-4 for styling -->
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="screen_size" class="form-label">Screen Size</label>
+                                    <input type="text" class="form-control" id="screen_size" name="screen_size">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="storage" class="form-label">Storage</label>
+                                    <input type="text" class="form-control" id="storage" name="storage">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="processor" class="form-label">Processor</label>
+                                    <input type="text" class="form-control" id="processor" name="processor">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ram" class="form-label">RAM</label>
+                                    <input type="text" class="form-control" id="ram" name="ram">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="os" class="form-label">Operating System</label>
+                                    <input type="text" class="form-control" id="os" name="os">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="graphics" class="form-label">Graphics</label>
+                                    <input type="text" class="form-control" id="graphics" name="graphics">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="color" class="form-label">Color</label>
+                                    <input type="text" class="form-control" id="color" name="color">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
                         </div>
-                        <div class="form-group" aria-required="true">
-                            <label for="exampleInputPassword1">Processor</label>
-                            <input type="text" class="form-control" name="processor" id="exampleInputPassword1" placeholder="Processor ....">
-                        </div>
-                        <div class="form-group" aria-required="true">
-                            <label for="exampleInputPassword1">Price</label>
-                            <input type="text" class="form-control" name="price" id="exampleInputPassword1" placeholder="Price ....">
-                        </div>
-                        
-                        <div class="form-group" aria-required="true">
-                            <label for="exampleInputPassword1">image-1</label>
-                            <input type="file" class="form-control" name="product_images1" id="exampleInputPassword1" placeholder="image-1 ....">
-                        </div>
-                        <div class="form-group" aria-required="true">
-                            <label for="exampleInputPassword1">image-3</label>
-                            <input type="file" class="form-control" name="product_images3"  id="exampleInputPassword1" placeholder="image-3 ....">
-                        </div>
-                        <div class="form-group" aria-required="true">
-                            <label for="exampleInputPassword1">Quantity</label>
-                            <input type="text" class="form-control" name="quantity" id="exampleInputPassword1" placeholder="Quantity ....">
-                        </div>
-                        <div class="form-group" aria-required="true">
-                            <label for="exampleInputPassword1">Warranty</label>
-                            <input type="text" class="form-control" name="warranty" id="exampleInputPassword1" placeholder="Warranty ....   ">
-                        </div>                       
-                      
-                </div>
-                <div class="col-md-6">
-                        <div class="form-group" aria-required="true">
-                          <label for="exampleInputEmail1">Product Name</label>
-                          <input type="text" class="form-control" name="product_name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Product Name ....">
-                        </div>
-                        <div class="form-group" aria-required="true">
-                          <label for="exampleInputPassword1">RAM</label>
-                          <select class="form-control" name="ram" id="RAM" required>
-                            <option value="">None</option>
-                            <option value="RAM-1">4GB</option>
-                            <option value="RAM-2">8GB</option>
-                            <option value="RAM-3">16GB</option>
-                            <option value="RAM-1">32GB</option>
-                            <option value="RAM-4">64GB</option>
-                        </select>
-                        </div>
-                        <div class="form-group" aria-required="true">
-                            <label for="exampleInputPassword1">Storage type</label>
-                            <select class="form-control" name="storage" id="storage" required>
-                                <option value="">None</option>
-                                <option value="storage-1">SSD</option>
-                                <option value="storage-2">HDD</option>
-                            </select>
-                            </div>
-                        <div class="form-group" aria-required="true">
-                        <label for="exampleInputPassword1">Storage</label>
-                        <select class="form-control" name="storage" id="storage" required>
-                            <option value="">None</option>
-                            <option value="storage-1">128GB</option>
-                            <option value="storage-2">256GB</option>
-                            <option value="storage-3">512GB</option>
-                            <option value="storage-4">1TB</option>
-                        </select>
-                        </div>
-                       
-                        <div class="form-group" aria-required="true">
-                            <label for="exampleInputPassword1">image-2</label>
-                            <input type="file" class="form-control" name="product_images2" id="exampleInputPassword1" placeholder="image-2 ....">
-                        </div>
-                        <div class="form-group" aria-required="true">
-                            <label for="exampleInputPassword1">image-4</label>
-                            <input type="file" class="form-control" name="product_images4" id="exampleInputPassword1" placeholder="image-4 ....">
-                        </div>
-                        <div class="form-group" aria-required="true">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" name="description" id="description" rows="5" placeholder="Enter description"></textarea>
-                        </div>
-                         
                     </div>
-                    <div class="col-md-6 offset-md-3 text-center">
-                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </div>
-                </div>
-            </form>
+            </div>
         </div>
-        
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
