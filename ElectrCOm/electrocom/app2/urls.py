@@ -35,6 +35,8 @@ urlpatterns = [
     path('product_form/',views.product_form,name='product_form'),
     path('regheadset/',views.regheadset,name='regheadset'),
     path('regmobile/',views.regmobile,name='regmobile'),
+    path('reglaptop/',views.reglaptop,name='reglaptop'),
+    path('regspeaker/',views.regspeaker,name='regspeaker'),
     # path('add_to_cart/<str:product_type>/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     
     # path('cart/',views.cart,name='cart'),

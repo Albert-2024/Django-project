@@ -162,6 +162,62 @@ def regmobile(request):
         return redirect("/")
     return render(request,'product_form2.html')
 
+def reglaptop(request):
+    print("laptop")
+    user = request.user
+    userid = user.id
+    if request.method == 'POST':
+        newproduct = Product(
+        user_id = userid,
+        name = request.POST.get('name'),
+        brand_name = request.POST.get('brandName'),
+        product_name = request.POST.get('productName'),
+        price = request.POST.get('price'),
+        image1 = request.FILES.get('image1'),
+        image2 = request.FILES.get('image2'),
+        image3 = request.FILES.get('image3'),
+        description = request.POST.get('description'),
+        category = 'laptop'
+        
+        )
+        newproduct.save()
+        laptop_id=newproduct.id
+        laptop_obj = ProductLap(
+            product_id=laptop_id,
+        )
+        laptop_obj.save()
+        
+        return redirect("/")
+    return render(request,'product_form3.html')
+
+def regspeaker(request):
+    print("speaker")
+    user = request.user
+    userid = user.id
+    if request.method == 'POST':
+        newproduct = Product(
+        user_id = userid,
+        name = request.POST.get('name'),
+        brand_name = request.POST.get('brandName'),
+        product_name = request.POST.get('productName'),
+        price = request.POST.get('price'),
+        image1 = request.FILES.get('image1'),
+        image2 = request.FILES.get('image2'),
+        image3 = request.FILES.get('image3'),
+        description = request.POST.get('description'),
+        category = 'speaker'
+        
+        )
+        newproduct.save()
+        speaker_id=newproduct.id
+        speaker_obj = ProductSpeaker(
+            product_id=speaker_id,
+        )
+        speaker_obj.save()
+        
+        return redirect("/")
+    return render(request,'product_form4.html')
+
 def addlaptop(request):
     user = request.user
     userid = user.id

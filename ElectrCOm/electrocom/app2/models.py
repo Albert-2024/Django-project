@@ -93,12 +93,12 @@ class Product(models.Model):
 class ProductLap(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     screen_size = models.CharField(max_length=255, null=True)
-    space = models.CharField(max_length=255, null=True) ,""" hard disk /ssd"""
+    space = models.CharField(max_length=255, null=True)
     ram = models.CharField(max_length=255, null=True)
-    os = models.CharField(max_length=255, null=True), """ windows 10, linux, mac os"""
-    graphics = models.CharField(max_length=255, null=True), """ nvidia, amd, intel"""
+    os = models.CharField(max_length=255, null=True)
+    graphics = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
-    processor = models.CharField(max_length=255, null=True),'''core i7/ Ryzen 5'''
+    processor = models.CharField(max_length=255, null=True)
     storage = models.CharField(max_length=255, null=True)
     
 
@@ -108,13 +108,13 @@ class ProductLap(models.Model):
     
 class ProductMobile(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
-    wireless = models.CharField(max_length=255, null=True), """ unlocked for all carriers"""
-    m_os = models.CharField(max_length=255, null=True), """ android 13.0"""
-    cellular = models.CharField(max_length=255, null=True), """ 4g, 5g"""
-    memory = models.CharField(max_length=255, null=True), """ 128gb, 256gb"""
-    connectivity = models.CharField(max_length=255, null=True), """ wifi, bluetooth"""
-    m_screen = models.CharField(max_length=255, null=True), """ 6.5 inch"""
-    wireless_network_technology = models.CharField(max_length=255, null=True), """ unlocked for all carriers"""
+    wireless = models.CharField(max_length=255, null=True)
+    m_os = models.CharField(max_length=255, null=True)
+    cellular = models.CharField(max_length=255, null=True)
+    memory = models.CharField(max_length=255, null=True)
+    connectivity = models.CharField(max_length=255, null=True)
+    m_screen = models.CharField(max_length=255, null=True)
+    wireless_network_technology = models.CharField(max_length=255, null=True)
     color= models.CharField(max_length=255,null=True)
     ram = models.TextField(max_length=255, null=True)
     processor = models.CharField(max_length=255, null=True)
@@ -141,12 +141,12 @@ class ProductHeadset(models.Model):
 class ProductSpeaker(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     battery = models.CharField(max_length=255, null=True) 
-    s_connectivity = models.CharField(max_length=255, null=True), """ bluetooth, wired"""
-    s_type = models.CharField(max_length=255, null=True), """ portable, home, outdoor"""
-    special_features = models.CharField(max_length=255, null=True), """ waterproof, dustproof"""
+    s_connectivity = models.CharField(max_length=255, null=True)
+    s_type = models.CharField(max_length=255, null=True)
+    special_features = models.CharField(max_length=255, null=True)
     weight = models.CharField(max_length=255, null=True)
-    charging = models.CharField(max_length=255, null=True), """ TIme to charge"""
-    working = models.CharField(max_length=255, null=True), """ hours"""
+    charging = models.CharField(max_length=255, null=True)
+    working = models.CharField(max_length=255, null=True)
     
     def __str__(self):
         return self.product_name
