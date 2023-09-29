@@ -347,23 +347,26 @@ def speaker_list(request):
 
 
 def headset_details(request,product_id):
-    products = ProductHeadset.objects.filter(id=product_id)
-    return render(request,'details/headset.html',{'product':products})
+    products = Product.objects.filter(id=product_id)
+    headset = ProductHeadset.objects.get(product_id=product_id)
+    return render(request,'details/headset.html',{'product':products,'headset':headset})
 
 def speaker_details(request,product_id):
-    product = ProductSpeaker.objects.filter(id=product_id)
-    return render(request,'details/speaker.html',{'product':product})
+    product = Product.objects.filter(id=product_id)
+    speaker = ProductSpeaker.objects.get(product_id=product_id)
+    return render(request,'details/speaker.html',{'product':product,'speaker':speaker})
 
 def laptop_details(request,product_id):
-    product = ProductLap.objects.filter(id=product_id)
-    return render(request,'details/laptop.html',{'product':product})
+    product = Product.objects.filter(id=product_id)
+    laptop = ProductLap.objects.get(product_id=product_id)
+    return render(request,'details/laptop.html',{'product':product,'laptop':laptop})
 
 def mobile_details(request,product_id):
-    product = ProductMobile.objects.filter(id=product_id)
-    return render(request,'details/mobile.html',{'product':product})
+    product = Product.objects.filter(id=product_id)
+    mobile = ProductMobile.objects.get(product_id=product_id)
+    return render(request,'details/mobile.html',{'product':product,'mobile':mobile})
 
-def sellerDashboard(request):
-    
+def sellerDashboard(request):  
     return render(request,'sellerDashboard.html')
 
 def product_form(request):

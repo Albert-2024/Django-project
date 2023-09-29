@@ -63,24 +63,24 @@
           <div class="image-and-subImg d-flex flex-column p-5">
             <div class="main-image">
               <img
-                src="{{ product.product_images1.url }}"
+                src="{{ product.image1.url }}"
                 alt=""
                 
               />
             </div>
             <div class="sub-images gap-2 d-flex flex-row">
               <img
-                src="{{ product.product_images2.url }}"
+                src="{{ product.image2.url }}"
                 alt=""
                 
               />
               <img
-                src="{{ product.product_images3.url }}"
+                src="{{ product.image3.url }}"
                 alt=""
                 
               />
               <img
-                src="{{ product.product_images4.url }}"
+                src="{{ product.image2.url }}"
                 alt=""
                 
               />
@@ -90,11 +90,10 @@
             <div class="product-details">
               <h2>{{ product.product_name }}</h2>
               <p><strong>Brand:</strong> {{ product.brand_name }}</p>
-              <p><strong>Battery:</strong> {{ product.battery }}</p>
+              <p><strong>Battery:</strong> {{ laptop.battery }}</p>
               <p><strong>Description:</strong>{{product.description}}</p>
               <p><strong>Price:</strong> ${{ product.price }}</p>
-              <p><strong>Color:</strong> {{ product.color }}</p>
-              <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+              <p><strong>Color:</strong> {{ laptop.color }}</p>
             </div>
             <button class="add-to-cart btn btn-default" type="button">add to cart</button>
 						<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
