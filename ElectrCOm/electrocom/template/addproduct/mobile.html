@@ -23,51 +23,51 @@
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="wireless" class="form-label">Wireless</label>
-                                <input type="text" class="form-control" id="wireless" name="wireless">
+                                <input type="text" class="form-control" value='{{mobile.wireless}}' id="wireless" name="wireless">
                             </div>
                             <div class="mb-3">
                                 <label for="m_os" class="form-label">Mobile OS</label>
-                                <input type="text" class="form-control" id="m_os" name="m_os">
+                                <input type="text" class="form-control" value="{{mobile.m_os}}" id="m_os" name="m_os">
                             </div>
                             <div class="mb-3">
                                 <label for="cellular" class="form-label">Cellular</label>
-                                <input type="text" class="form-control" id="cellular" name="cellular">
+                                <input type="text" class="form-control" value="{{mobile.cellular}}" id="cellular" name="cellular">
                             </div>
                             <div class="mb-3">
                                 <label for="memory" class="form-label">Memory</label>
-                                <input type="text" class="form-control" id="memory" name="memory">
+                                <input type="text" class="form-control" value="{{mobile.memory}}" id="memory" name="memory">
                             </div>
                             <div class="mb-3">
                                 <label for="connectivity" class="form-label">Connectivity</label>
-                                <input type="text" class="form-control" id="connectivity" name="connectivity">
+                                <input type="text" class="form-control" value="{{mobile.connectivity}}" id="connectivity" name="connectivity">
                             </div>
                             <div class="mb-3">
                                 <label for="m_screen" class="form-label">Mobile Screen</label>
-                                <input type="text" class="form-control" id="m_screen" name="m_screen">
+                                <input type="text" class="form-control" value="{{mobile.m_screen}}" id="m_screen" name="m_screen">
                             </div>
                             <div class="mb-3">
                                 <label for="wireless_network_technology" class="form-label">Wireless Network Technology</label>
-                                <input type="text" class="form-control" id="wireless_network_technology" name="wireless_network_technology">
+                                <input type="text" class="form-control" value="{{mobile.wireless_network_technology}}" id="wireless_network_technology" name="wireless_network_technology">
                             </div>
                             <div class="mb-3">
                                 <label for="color" class="form-label">Color</label>
-                                <input type="text" class="form-control" id="color" name="color">
+                                <input type="text" class="form-control" value="{{mobile.color}}" id="color" name="color">
                             </div>
                             <div class="mb-3">
                                 <label for="ram" class="form-label">RAM</label>
-                                <input type="text" class="form-control" id="ram" name="ram">
+                                <input type="text" class="form-control" value="{{mobile.ram}}" id="ram" name="ram">
                             </div>
                             <div class="mb-3">
                                 <label for="processor" class="form-label">Processor</label>
-                                <input type="text" class="form-control" id="processor" name="processor">
+                                <input type="text" class="form-control" value="{{mobile.processor}}" id="processor" name="processor">
                             </div>
                             <div class="mb-3">
                                 <label for="camrear" class="form-label">Rear Camera</label>
-                                <input type="text" class="form-control" id="camrear" name="camrear">
+                                <input type="text" class="form-control" value="{{mobile.camrear}}" id="camrear" name="camrear">
                             </div>
                             <div class="mb-3">
                                 <label for="camfront" class="form-label">Front Camera</label>
-                                <input type="text" class="form-control" id="camfront" name="camfront">
+                                <input type="text" class="form-control" value="{{mobile.camfront}}" id="camfront" name="camfront">
                             </div>
                             <button type="submit" class="btn btn-primary d-block mx-auto">Submit</button>
                         </form>

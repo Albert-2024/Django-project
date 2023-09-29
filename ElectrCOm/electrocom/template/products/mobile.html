@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     
-    <title>Mobile</title>
+    <title> Speaker</title>
 </head>
 <body style="background-color: #eee;">
   <section>
@@ -24,52 +24,57 @@
 
 <!-- 1st row -->
 {% for i in data %}
-      <div class="row justify-content-center mb-3">
-        <div class="col-md-12 col-xl-10">
-          <div class="card shadow-0 border rounded-3">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                  <div class="bg-image hover-zoom ripple rounded ripple-surface" style="height: 200px; width:200px">
-                    <img src="{{ i.product_image1.url }}"
-                      class="w-100 h-100" />
-                      <script>console.log("{{i.image1.url}}")</script>
-
-                    <a href="#!">
-                      <div class="hover-overlay">
-                        <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+<div class="row justify-content-center mb-3">
+  <div class="col-md-9 col-lg-9">
+      <div class="card shadow border rounded-3">
+          <div class="card-body">
+              <div class="row align-items-center">
+                  <!-- Image column -->
+                  <div class="col-md-12 col-lg-4">
+                      <div class="bg-image hover-zoom ripple rounded ripple-surface" style="height: 150px;">
+                          <img src="{{ i.image1.url }}" class="w-100 h-100" alt="{{ i.product_name }}">
+                          <a href="#!">
+                              <div class="hover-overlay">
+                                  <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                              </div>
+                          </a>
                       </div>
-                    </a>
                   </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-6">
-                  <div class="align-bottom mt-5">
-                  <h5>{{i.product_name}}</h5>
+                  <!-- Product Info column -->
+                  <div class="col-md-12 col-lg-4">
+                      <div class="card-body">
+                          <h4 class="card-title">{{ i.product_name }}</h4>
+                          <p class="card-text">{{ i.description }}</p>
+                          <h6>INR {{ i.price }}</h6>
+                      </div>
                   </div>
-                  
-                </div>
-                <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                  <div class="d-flex flex-row align-items-center mb-1">
-                    <h5 class="mb-1 me-1">{{i.price}}</h5>
+                  <!-- Price and Buttons column -->
+                  <div class="col-md-12 col-lg-4">
+                      <div class="card-body">
+                          <div class="d-flex flex-column align-items-end">
+                              
+                              <div class="d-flex flex-column mt-4">
+                                  <a href="{% url 'mobile_details' i.id %}" class="btn btn-primary btn-sm mt-2">
+                                      Details
+                                  </a>
+                                  <a href="#" class="btn btn-outline-primary btn-sm mt-2">
+                                      Add to wishlist
+                                  </a>
+                                  <a href="{% url 'addmobile' i.id %}" class="btn btn-outline-primary btn-sm mt-2">
+                                    Add more
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                  <h6 class="text-success">Free shipping</h6>
-                  <div class="d-flex flex-column mt-4">
-                    <a href="{% url 'mobile_details' i.id %}" class="btn btn-primary btn-sm mt-2">
-                    Details
-                  </a>
-                  <a href="#" class="btn btn-outline-primary btn-sm mt-2">
-                    Add to wishlist
-                  </a>
-                  <a href="{% url 'addheadset' i.id %}" class="btn btn-outline-primary btn-sm mt-2">
-                    Add more
-                  </a>
-                  </div>
-                </div>
               </div>
-            </div>
           </div>
-        </div>
       </div>
+  </div>
+</div>
+
+
+
 {% endfor %}
 
     </div>

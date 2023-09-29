@@ -218,53 +218,50 @@ def regspeaker(request):
         return redirect("/")
     return render(request,'product_form4.html')
 
-def addlaptop(request):
+def addlaptop(request,product_id):
     user = request.user
     userid = user.id
+    laptop = ProductLap.objects.get(product_id=product_id)
     if request.method == 'POST':
         # Create a new Category instance and assign values
-        newproduct = ProductLap(
-        screensize = request.POST.get('screen_size'),
-        storage = request.POST.get('storage'),
-        processor = request.POST.get('processor'),
-        ram = request.POST.get('ram'),
-        os = request.POST.get('os'),
-        graphics = request.POST.get('graphics'),
-        color = request.POST.get('color'),
-        user_id=userid
-        
-        )
-        
-        newproduct.save()   
+        print(laptop)
+        laptop.screen_size = request.POST.get('screen_size')
+        laptop.storage = request.POST.get('storage')
+        laptop.processor = request.POST.get('processor')
+        laptop.ram = request.POST.get('ram')
+        laptop.os = request.POST.get('os')
+        laptop.graphics = request.POST.get('graphics')
+        laptop.color = request.POST.get('color')
+        print(laptop)
+        laptop.save()   
         
         return redirect("/")
-    return render(request,'addproduct/laptop.html')
+    return render(request,'addproduct/laptop.html',{'laptop':laptop})
 
-def addmobile(request):
+def addmobile(request,product_id):
     user = request.user
     userid = user.id
+    mobile = ProductMobile.objects.get(product_id=product_id)
     if request.method == 'POST':
+        print(mobile)
         # Create a new Category instance and assign values
-        newproduct = ProductMobile(
-            wireless=request.POST.get('wireless'),
-            m_os=request.POST.get('m_os'),
-            cellular=request.POST.get('cellular'),
-            memory=request.POST.get('memory'),
-            connectivity=request.POST.get('connectivity'),
-            m_screen=request.POST.get('m_screen'),
-            wireless_network_technology=request.POST.get('wireless_network_technology'),
-            color=request.POST.get('color'),
-            ram=request.POST.get('ram'),
-            processor=request.POST.get('processor'),
-            camrear=request.POST.get('camrear'),
-            camfront=request.POST.get('camfront'),
-            user_id=userid
-        )
-        
-        newproduct.save()   
+        mobile.wireless=request.POST.get('wireless')
+        mobile.m_os=request.POST.get('m_os')
+        mobile.cellular=request.POST.get('cellular')
+        mobile.memory=request.POST.get('memory')
+        mobile.connectivity=request.POST.get('connectivity')
+        mobile.m_screen=request.POST.get('m_screen')
+        mobile.wireless_network_technology=request.POST.get('wireless_network_technology')
+        mobile.color=request.POST.get('color')
+        mobile.ram=request.POST.get('ram')
+        mobile.processor=request.POST.get('processor')
+        mobile.camrear=request.POST.get('camrear')
+        mobile.camfront=request.POST.get('camfront')
+        print(mobile)
+        mobile.save()  
         
         return redirect("/")
-    return render(request, 'addproduct/mobile.html')
+    return render(request, 'addproduct/mobile.html',{'mobile':mobile})
 
 def addheadset(request,product_id):
     user = request.user
@@ -273,7 +270,6 @@ def addheadset(request,product_id):
     if request.method == 'POST':
         
         print(head)
-        # Create a new Category instance and assign values
         
         head.battery = request.POST.get('battery')
         head.color = request.POST.get('color')
@@ -298,11 +294,10 @@ def addspeaker(request,product_id):
         speaker.battery = request.POST.get('battery')
         speaker.s_connectivity = request.POST.get('s_connectivity')
         speaker.s_type = request.POST.get('s_type')
-        speaker.special_features = request.POST.get('special_features')
+        speaker.special_featspeaker_detailsures = request.POST.get('special_features')
         speaker.weight = request.POST.get('weight')
         speaker.charging = request.POST.get('charging')
         speaker.working = request.POST.get('working')
-        speaker.user_id=userid
         print(speaker)
         speaker.save()   
         
@@ -324,6 +319,16 @@ def viewSpeaker(request):
     data = Product.objects.filter(user_id=request.user.id,category='speaker')
     user= request.user
     return render(request,'products/speaker.html',{'data':data})
+
+def viewMobile(request):
+    data = Product.objects.filter(user_id=request.user.id,category='mobile')
+    user= request.user
+    return render(request,'products/mobile.html',{'data':data})
+
+def viewLaptop(request):
+    data=Product.objects.filter(user_id=request.user.id,category='laptop')
+    user = request.user
+    return render(request,'products/laptop.html',{'data':data})
 
 def laptop_list(request):
     data=ProductLap.objects.all()
