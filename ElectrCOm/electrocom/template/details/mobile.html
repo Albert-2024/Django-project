@@ -77,7 +77,7 @@
               <p><strong>Price:</strong> ${{ product.price }}</p>
               <p><strong>Color:</strong> {{ mobile.color }}</p>
             </div>
-            <a href="">
+            <a href="{% url 'addtocart' product.id %}">
             <button class="add-to-cart btn btn-default" type="button">
               add to cart 
             </button>

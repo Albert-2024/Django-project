@@ -6,10 +6,12 @@
     <title>Document</title>
     <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
     <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@3.12.0/dist/css/mdb.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    
+    <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
+
     <!-- Bootstrap CSS (Optional) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  
     <!-- MDB -->
@@ -18,7 +20,7 @@
 <body>
 <!-- Navbar -->
 <div class="main">
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #607D8B">
+  <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #607D8B">
     <div class="container-fluid">
         <div class="d-flex align-items-center">
             <a class="navbar-brand" href="#">ElectroCOm</a>
@@ -34,31 +36,26 @@
             </form>
         </div>
         <div class="d-flex">
-            <ul class="navbar-nav me-5 flex-grow-0">
+            <ul class="navbar-nav me-6 ">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active me-3" aria-current="page" href="#">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#all" onclick="toggleProductLinks()">View Products</a>
+                {% if user.is_authenticated %}
+                  
+                
+                <li class="nav-item  mt-2">
+                    <a href="{% url 'cart' %}" class=" text-white text-decoration-none me-3">
+                    <i class="bi bi-cart3"></i></a>
                 </li>
-                <ul id="productLinks" class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% endif %}
                     <!-- Link -->
-                    <li class="nav-item active">
-                        <a class="nav-link text-white" href="#all">All</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white" href="{% url 'allproducts' %}" role="button">
+                            Products
+                        </a>
+
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'mobile' %}">Mobile Phones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'speaker' %}">Speakers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'headset' %}">Headsets</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'laptop' %}">Laptops</a>
-                    </li>
-                </ul>
+                
 
                 {% if not user.is_authenticated %}
                 <li class="nav-item">
@@ -67,13 +64,14 @@
                 {% else %}
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        Welcome, {{user.name}}
+                     {{user.name}}
                     </a>
 
                     <div class="dropdown-menu m-0">
                         <a href="" class="dropdown-item nav-linkd">My Profile</a>
                         {% comment %} <a href="{% url 'cart'%}" class="dropdown-item nav-linkd">Cart</a> {% endcomment %}
                         <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
+                        
                         <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
                     </div>
                 </li>

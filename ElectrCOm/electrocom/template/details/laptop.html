@@ -95,7 +95,7 @@
               <p><strong>Price:</strong> INR {{ product.price }}</p>
               <p><strong>Color:</strong> {{ laptop.color }}</p>
             </div>
-            <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+            <a href="{% url 'addtocart' product.id %}" class="add-to-cart btn btn-default" type="button">add to cart</a>
 						<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
           </div>
         </div>

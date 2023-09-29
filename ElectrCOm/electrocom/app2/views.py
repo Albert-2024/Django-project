@@ -387,3 +387,7 @@ def addtocart(request,product_id):
         cart_item.quantity += 1
         cart_item.save()
     return redirect('cart')
+
+def allproducts(request):
+    data = Product.objects.all()
+    return render(request,'products/allproducts.html',{'data': data})

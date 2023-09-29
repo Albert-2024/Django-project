@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            {% for i in data %}
+            <div class="col-md-12 mt-2">
+                <div class="card d-flex flex-row">
+                    <div class="p-3 col-md-3">
+                        <img src="{{i.image1.url}}" class="card-img-top pt-5 " alt="Book Cover">
+                    </div>
+                    <div class="card-body col-md-9">
+                        <h2 class="card-title">{{i.name}}</h2>
+                        <p class="card-text">{{i.product_name}}</p>
+                        <p class="card-text text-italic">{{i.brand_name}}</p>
+                        <p class="card-text">{{i.description}}</p>
+                        <p class="card-text">INR {{i.price}}</p>
+                        <a href="{% url 'addtocart' i.id %}">
+                        <button class="btn btn-primary" >Add to Cart</button>
+                        </a>    
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
