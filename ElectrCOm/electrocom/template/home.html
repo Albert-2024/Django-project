@@ -39,8 +39,26 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#all">View Products</a>
+                    <a class="nav-link" href="#all" onclick="toggleProductLinks()">View Products</a>
                 </li>
+                <ul id="productLinks" class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Link -->
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="#all">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'mobile' %}">Mobile Phones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'speaker' %}">Speakers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'headset' %}">Headsets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'laptop' %}">Laptops</a>
+                    </li>
+                </ul>
 
                 {% if not user.is_authenticated %}
                 <li class="nav-item">
@@ -54,7 +72,7 @@
 
                     <div class="dropdown-menu m-0">
                         <a href="" class="dropdown-item nav-linkd">My Profile</a>
-                        <a href="#" class="dropdown-item nav-linkd">Cart</a>
+                        {% comment %} <a href="{% url 'cart'%}" class="dropdown-item nav-linkd">Cart</a> {% endcomment %}
                         <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
                         <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
                     </div>
@@ -236,7 +254,7 @@
                      </div>
                  </div>
              </div>
-     
+
              <div class="col-lg-3 col-md-6 mb-4">
                  <div class="card bg-body-secondary" style="width: 15rem;">
                      <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
@@ -489,7 +507,17 @@
     </div>
     <!-- Copyright -->
   </footer>
-
   
+<script>
+  function toggleProductLinks() {
+    var productLinks = document.getElementById("productLinks");
+    if (productLinks.style.display === "none" || productLinks.style.display === "") {
+        productLinks.style.display = "block";
+    } else {
+        productLinks.style.display = "none";
+    }
+}
+</script>
+
 </body>
 </html>

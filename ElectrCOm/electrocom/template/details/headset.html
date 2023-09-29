@@ -91,8 +91,8 @@
               <p><strong>Color:</strong> {{ headset.color }}</p>
 
             </div>
-            <a class="add-to-cart btn btn-default" type="button" href="">add to cart</a>
-            {% comment %} {% url 'add_to_cart' category="headset" product_id=product.pk%} {% endcomment %}
+            <a class="add-to-cart btn btn-default" type="button" href="{% url 'addtocart' product.id %}">add to cart</a>
+            
 						<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
           </div>
         </div>

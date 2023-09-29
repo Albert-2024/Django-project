@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib  import messages,auth
 # from .models import Brand, Category, CustomUser, Product
-from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker
+from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker,Cart
 # from accounts.backends import EmailBackend
 from django.contrib.auth import get_user_model
 #from .forms import UserForm, ServiceForm 
@@ -294,7 +294,7 @@ def addspeaker(request,product_id):
         speaker.battery = request.POST.get('battery')
         speaker.s_connectivity = request.POST.get('s_connectivity')
         speaker.s_type = request.POST.get('s_type')
-        speaker.special_featspeaker_detailsures = request.POST.get('special_features')
+        speaker.special_features = request.POST.get('special_features')
         speaker.weight = request.POST.get('weight')
         speaker.charging = request.POST.get('charging')
         speaker.working = request.POST.get('working')
@@ -372,3 +372,18 @@ def sellerDashboard(request):
 def product_form(request):
     return render(request,'product_form.html')
 
+def cart(request):
+    product = Cart.objects.filter(user_id=request.user.id)
+    return render(request,'cart.html',{'product':product})
+
+
+def addtocart(request,product_id):
+    print(product_id)
+    product = get_object_or_404(Product, id=product_id)
+    print(product)
+    cart_item, created = Cart.objects.get_or_create(product_id=product_id,user_id = request.user.id)
+   
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+    return redirect('cart')

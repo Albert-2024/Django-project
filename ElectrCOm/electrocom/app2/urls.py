@@ -41,8 +41,8 @@ urlpatterns = [
     path('viewSpeaker/',views.viewSpeaker,name='viewSpeaker'),
     path('viewMobile/',views.viewMobile,name='viewMobile'),
     path('viewLaptop/',views.viewLaptop,name='viewLaptop'),
-    # path('add_to_cart/<str:product_type>/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
-    
+    path('cart/', views.cart, name='cart'),
+    path('addtocart/<int:product_id>', views.addtocart, name='addtocart'),
     # path('cart/',views.cart,name='cart'),
     # path('<str:category>/<int:product_id>/add_to_cart/', views.add_to_cart, name='add_to_cart'),
     

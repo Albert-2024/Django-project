@@ -140,4 +140,11 @@ class ProductSpeaker(models.Model):
     charging = models.CharField(max_length=255, null=True)
     working = models.CharField(max_length=255, null=True)
     
-
+class Cart(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    quantity = models.IntegerField(default=1)
+    price = models.IntegerField(default=0)
+    # subtotal = models.IntegerField(default=0)
+    # total = models.IntegerField(default=0)
+    
