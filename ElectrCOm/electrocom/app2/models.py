@@ -86,6 +86,8 @@ class Product(models.Model):
     image3 = models.ImageField(upload_to='sample/', null=True, blank=True, max_length=255)
     description = models.TextField(max_length=255, null=True)
     category = models.CharField(max_length=255, null=True)
+    stock = models.PositiveIntegerField(max_length=255, default=0)
+    
      
     def __str__(self):
         return self.product_name
@@ -147,4 +149,5 @@ class Cart(models.Model):
     price = models.IntegerField(default=0)
     # subtotal = models.IntegerField(default=0)
     # total = models.IntegerField(default=0)
-    
+    # def update_total(self):
+    #     self.price = self.quantity * self.product.price

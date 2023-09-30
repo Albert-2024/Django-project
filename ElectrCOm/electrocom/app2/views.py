@@ -388,6 +388,49 @@ def addtocart(request,product_id):
         cart_item.save()
     return redirect('cart')
 
+def delete_cart(request,product_id):
+    remove = Cart.objects.filter(id=product_id)
+    remove.delete()
+    return redirect('cart')
+
 def allproducts(request):
     data = Product.objects.all()
     return render(request,'products/allproducts.html',{'data': data})
+
+def increase_item(request, item_id):
+    try:
+        cart_item = Cart.objects.get(id=item_id)
+        
+        if cart_item.product.stock > 0:
+            cart_item.quantity += 1
+            # cart_item.update_total()
+            cart_item.save()
+
+            # Decrease stock in AddBook model
+            cart_item.product.stock -= 1
+            cart_item.product.save()
+        else:
+            messages.warning(request, f"{cart_item.product.product_name} is out of stock.")
+    except Cart.DoesNotExist:
+        pass  # Handle the case when the item does not exist in the cart
+
+    return redirect('cart')
+
+def decrease_item(request, item_id):
+    try:
+        cart_item = Cart.objects.get(id=item_id)
+        
+        if cart_item.quantity > 1:
+            cart_item.quantity -= 1
+            # cart_item.update_total()
+            cart_item.save()
+
+            # Increase stock in AddBook model
+            cart_item.product.stock += 1
+            cart_item.product.save()
+        else:
+            messages.warning(request, f"{cart_item.product.product_name} cannot be removed.")
+    except Cart.DoesNotExist:
+        pass  # Handle the case when the item does not exist in the cart
+
+    return redirect('cart')
