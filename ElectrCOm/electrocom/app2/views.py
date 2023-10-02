@@ -78,8 +78,7 @@ def sellerreg(request):
 def sellerindex(request):
     return render(request,'sellerindex.html')
 
-def sellerlogin(request):
-    
+def sellerlogin(request): 
     return render(request,'sellerlogin.html')
 
 # new Product
@@ -396,6 +395,26 @@ def delete_cart(request,product_id):
 def allproducts(request):
     data = Product.objects.all()
     return render(request,'products/allproducts.html',{'data': data})
+
+def product_details(request,product_id):
+    product = get_object_or_404(Product, id=product_id)
+    specific_product = None
+    if product.category == 'mobile':
+        specific_product = get_object_or_404(ProductMobile, product=product)
+        # return render(request, 'details/mobile.html', {'product': product, 'specific_product': specific_product})
+    elif product.category == 'headset':
+        specific_product = get_object_or_404(ProductHeadset, product=product)
+        # return render(request, 'details/mobile.html', {'product': product, 'specific_product': specific_product})
+    elif product.category == 'speaker':
+        specific_product = get_object_or_404(ProductSpeaker, product=product)
+        # return render(request, 'details/mobile.html', {'product': product, 'specific_product': specific_product})
+    elif product.category == 'laptop':
+        specific_product = get_object_or_404(ProductLap, product=product)
+        # return render(request, 'details/mobile.html', {'product': product, 'specific_product': specific_product})    
+    else:
+        specific_product = None
+    return render(request, 'details/allproducts.html', {'product': product, 'specific_product': specific_product})
+
 
 def increase_item(request, item_id):
     try:

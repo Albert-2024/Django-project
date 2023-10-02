@@ -50,18 +50,10 @@
                       <a class="nav-link" href="{% url 'login' %}">Login</a>
                   </li>
                   {% else %}
-                  <li class="nav-item dropdown">
-                      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                  <li class="nav-item ">
+                      <a href="#" class="nav-link ">
                        {{user.name}}
                       </a>
-  
-                      <div class="dropdown-menu m-0">
-                          <a href="" class="dropdown-item nav-linkd">My Profile</a>
-                          {% comment %} <a href="{% url 'cart'%}" class="dropdown-item nav-linkd">Cart</a> {% endcomment %}
-                          <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
-                          
-                          <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
-                      </div>
                   </li>
                   {% endif %}
               </ul>
@@ -86,6 +78,9 @@
                         <p class="card-text">INR {{i.price}}</p>
                         <a href="{% url 'addtocart' i.id %}">
                         <button class="btn btn-primary" >Add to Cart</button>
+                        </a>  
+                        <a href="{% url 'product_detail' i.id %}">
+                            <button class="btn btn-primary" >View more  </button>
                         </a>    
                     </div>
                 </div>

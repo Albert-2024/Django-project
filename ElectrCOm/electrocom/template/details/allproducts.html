@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Product Details</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="main">
+       
+          
+      
+        <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #607D8B">
+          <div class="container-fluid">
+              <div class="d-flex align-items-center">
+                  <a class="navbar-brand" href="#">ElectroCOm</a>
+              </div>
+              <div class="d-flex align-items-center mx-auto">
+                  <form class="form-inline my-2 my-lg-0">
+                      <div class="input-group">
+                          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-outline-success" type="submit">
+                              <i class="fas fa-search"></i>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+              <div class="d-flex">
+                  <ul class="navbar-nav me-6 ">
+                      <li class="nav-item">
+                          <a class="nav-link active me-3" aria-current="page" href="#">Home</a>
+                      </li>
+                      {% if user.is_authenticated %}
+                        
+                      
+                      <li class="nav-item  mt-2">
+                          <a href="{% url 'cart' %}" class=" text-white text-decoration-none me-3">
+                          <i class="bi bi-cart3"></i></a>
+                      </li>
+                      {% endif %}
+                          <!-- Link -->
+                          <li class="nav-item dropdown">
+                              <a class="nav-link text-white" href="{% url 'allproducts' %}" role="button">
+                                  Products
+                              </a>
+      
+                          </li>
+                      
+      
+                      {% if not user.is_authenticated %}
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'login' %}">Login</a>
+                      </li>
+                      {% else %}
+                      <li class="nav-item dropdown">
+                          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                           {{user.name}}
+                          </a>
+      
+                          <div class="dropdown-menu m-0">
+                              <a href="" class="dropdown-item nav-linkd">My Profile</a>
+                              {% comment %} <a href="{% url 'cart'%}" class="dropdown-item nav-linkd">Cart</a> {% endcomment %}
+                              <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
+                              
+                              <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
+                          </div>
+                      </li>
+                      {% endif %}
+                  </ul>
+              </div>
+          </div>
+      </nav>
+      
+      </div>
+    <div class="container pt-5">
+
+        <div class="row border">
+                    <div class="col-md-4">
+                        <div class="p-3 overflow-hidden" style="height: 100%;">
+                            <img src="{{ product.image1.url }}" alt="{{ product.product_name }}" class="img-fluid mb-3"
+                                style="max-height: 40vh; width: 35vw;">
+                                <div class="p-3 d-flex">
+                                    <div class=" p-1 m-2">
+                                        <img src="{{ product.image1.url }}" alt="{{ product.product_name }}" class="img-fluid mb-3"
+                                        style="max-height: 10vh; width: 5vw;">
+                                    </div>
+                                    <div class=" p-1 m-2" >
+                                        <img src="{{ product.image1.url }}" alt="{{ product.product_name }}" class="img-fluid mb-3"
+                                        style="max-height: 10vh; width: 5vw;">
+                                    </div>
+                                    <div class=" p-1 m-2" >
+                                        <img src="{{ product.image1.url }}" alt="{{ product.product_name }}" class="img-fluid mb-3"
+                                        style="max-height: 10vh; width: 5vw;">
+                                    </div>
+                                </div>
+                        </div>
+                        
+                    </div>
+                
+
+
+
+                <!-- Details Section -->
+                <div class="border col-md-8">
+                    <div class="p-3">
+                        
+                        
+                        <h2> {{ product.name }}</h2>
+                        <p><strong>Product Name:</strong> {{ product.product_name }}</p>
+                        <p><strong>Brand Name:</strong> {{ product.brand_name}}</p>
+                        <p><strong>Price:</strong> {{product.price}}</p>
+                        <p><strong>description:</strong> {{product.description}}</p>
+                        <p><strong>category:</strong> {{product.category}}</p>
+                    
+                        <!-- Add other common fields -->
+
+                        {% if specific_product %}
+                        {% if product.category == 'laptop' %}
+                        <hr/>
+                        <h5>More Specifications</h5>
+                        <hr/>
+                        <p><strong>Screen size: </strong> {{ specific_product.screen_size }}</p>
+                        <p><strong>Space:</strong> {{ specific_product.space }}</p>
+                        <p><strong>Ram:</strong> {{ specific_product.ram }}</p>
+                        <p><strong>Operating system:</strong> {{ specific_product.os}}</p>
+                        <p><strong>Graphics:</strong> {{ specific_product.graphics}}</p>
+                        <p><strong>Colour:</strong> {{ specific_product.color }}</p>
+                        <p><strong>Processor: </strong> {{ specific_product.processor }}</p>
+                        <p><strong>Storage</strong> {{ specific_product.storage }}</p>
+                        <!-- Add other laptop-specific fields -->
+                        {% elif product.category == 'mobile' %}
+                        <hr/>
+                        <h5>More Specifications</h5>
+                        <hr/>
+                        <p><strong>Wireless technology:</strong> {{ specific_product.wireless }}</p>
+                        <p><strong>Operating system:</strong> {{ specific_product.m_os}}</p>
+                        <p><strong>Cellular technology:</strong> {{ specific_product.cellular }}</p>
+                        <p><strong>Memory:</strong> {{ specific_product.memory }}</p>
+                        <p><strong>Connectivity:</strong> {{ specific_product.connectivity }}</p>
+                        <p><strong>Screen:</strong> {{ specific_product.m_screen }}</p>
+                        <p><strong>Wireless Network Technology</strong> {{ specific_product.wireless_network_technology}}</p>
+                        <p><strong>Colour:</strong> {{ specific_product.color }}</p>
+                        <p><strong>Ram:</strong> {{ specific_product.ram }}</p>
+                        <p><strong>Processor: </strong> {{ specific_product.processor }}</p>
+                        <p><strong>Cam Rear</strong> {{ specific_product.camrear }}</p>
+                        <p><strong>Cam Front</strong> {{ specific_product.camfront }}</p>
+
+                        {% elif product.category == 'headset' %}
+                        <hr/>
+                        <h5>More Specifications</h5>
+                        <hr/>
+                        <p><strong>Battery:</strong> {{ specific_product.battery }}</p>
+                        <p><strong>Color:</strong> {{ specific_product.color }}</p>
+                        <p><strong>Form factor</strong> {{ specific_product.form_factor }}</p>
+                        <p><strong>connectivity</strong> {{ specific_product.h_connectivity }}</p>
+                        <p><strong>weight</strong> {{ specific_product.weight }}</p>
+                        <p><strong>Charging</strong> {{ specific_product.charging }}</p>
+                        <p><strong>working</strong> {{ specific_product.working }}</p>
+
+                        <!-- Add other headset-specific fields -->
+                        {% elif product.category == 'speaker' %}
+
+                        <hr/>
+                        <h5>More Specifications</h5>
+                        <hr/>
+                        <p><strong>Battery:</strong> {{ specific_product.battery }}</p>
+                        <p><strong>connectivity</strong> {{ specific_product.s_connectivity }}</p>
+                        <p><strong>Type</strong> {{ specific_product.s_type }}</p>
+                        <p><strong>Special features</strong> {{ specific_product.special_features }}</p>
+                        <p><strong>weight</strong> {{ specific_product.weight }}</p>
+                        <p><strong>Charging</strong> {{ specific_product.charging }}</p>
+                        <p><strong>working</strong> {{ specific_product.working }}</p>
+                        <!-- Add other speaker-specific fields -->
+                        {% endif %}
+                        {% else %}
+                        <p class="text-muted">No specific details available for this product.</p>
+                        {% endif %}
+
+                        <a href="{% url 'allproducts' %}" class="btn btn-primary">Back to All Products</a>
+                        <a href="{% url 'addtocart' product.id %}" class="btn btn-primary"> Add to Cart</a> 
+                            
+                   
+                       
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery (if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>
