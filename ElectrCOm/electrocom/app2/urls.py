@@ -12,6 +12,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('register/',views.register,name='register'),
     path('login/',views.userlogin,name="login"),
+    path('profile',views.profile,name='profile'),
     path('password_reset/',auth_views.PasswordResetView.as_view(),name='password_reset'),
     path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
     path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
@@ -48,6 +49,9 @@ urlpatterns = [
     path('delete/<int:product_id>/',views.delete_cart,name='delete_cart'),
     path('increase_item/<int:item_id>/',views.increase_item,name='increase_item'),
     path('decrease_item/<int:item_id>/',views.decrease_item,name='decrease_item'),
+    path('payment/',views.payment,name='payment'),
+    path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
+
     
     
     # path('cart/',views.cart,name='cart'),

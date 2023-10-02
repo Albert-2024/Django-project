@@ -150,3 +150,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'electrocom987@gmail.com'  
 EMAIL_HOST_PASSWORD = 'qwvwzwcwjryecbwl'  
 DEFAULT_FROM_EMAIL = 'electrocom987@gmail.com'
+
+
+RAZOR_KEY_ID = 'rzp_test_WVqhwSv8NSsEBm'
+RAZOR_KEY_SECRET = 'dloEcjSZKY7GrdnpI2cTqu2q'
