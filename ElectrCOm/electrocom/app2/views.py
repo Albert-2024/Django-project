@@ -371,27 +371,6 @@ def sellerDashboard(request):
 def product_form(request):
     return render(request,'product_form.html')
 
-def cart(request):
-    product = Cart.objects.filter(user_id=request.user.id)
-    return render(request,'cart.html',{'product':product})
-
-
-def addtocart(request,product_id):
-    print(product_id)
-    product = get_object_or_404(Product, id=product_id)
-    print(product)
-    cart_item, created = Cart.objects.get_or_create(product_id=product_id,user_id = request.user.id)
-   
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
-    return redirect('cart')
-
-def delete_cart(request,product_id):
-    remove = Cart.objects.filter(id=product_id)
-    remove.delete()
-    return redirect('cart')
-
 def allproducts(request):
     data = Product.objects.all()
     return render(request,'products/allproducts.html',{'data': data})
@@ -416,17 +395,49 @@ def product_details(request,product_id):
     return render(request, 'details/allproducts.html', {'product': product, 'specific_product': specific_product})
 
 
+def cart(request):
+    product = Cart.objects.filter(user_id=request.user.id)
+    total_price = sum([item.price * item.quantity+25 for item in product]) 
+    is_empty = not product.exists()
+    return render(request,'cart.html',{'product':product,'total_price':total_price})
+
+
+def addtocart(request,product_id):
+    print(product_id)
+    product = get_object_or_404(Product, id=product_id)
+    print(product)
+    cart_item, created = Cart.objects.get_or_create(product_id=product_id,user_id = request.user.id)
+   
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+    else:
+        cart_item.price = product.price
+        cart_item.save()
+        
+    
+    return redirect('cart')
+
+
+def delete_cart(request,product_id):
+    remove = Cart.objects.filter(id=product_id)
+    remove.delete()
+    return redirect('cart')
+
+
 def increase_item(request, item_id):
     try:
         cart_item = Cart.objects.get(id=item_id)
         
         if cart_item.product.stock > 0:
+            # initial_price = cart_item.product.price
             cart_item.quantity += 1
             # cart_item.update_total()
             cart_item.save()
 
             # Decrease stock in AddBook model
             cart_item.product.stock -= 1
+            # cart_item.update_total(initial_price)
             cart_item.product.save()
         else:
             messages.warning(request, f"{cart_item.product.product_name} is out of stock.")
