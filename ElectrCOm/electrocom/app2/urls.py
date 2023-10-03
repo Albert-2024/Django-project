@@ -51,6 +51,7 @@ urlpatterns = [
     path('decrease_item/<int:item_id>/',views.decrease_item,name='decrease_item'),
     path('payment/',views.payment,name='payment'),
     path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
+    
 
     
     

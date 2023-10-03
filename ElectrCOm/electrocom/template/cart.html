@@ -135,9 +135,9 @@
 
         <div class="row">
             <div class="col-xl-8">
-                {% if is_empty %}
-                <p>Your cart is empty.</p>
-                {% else %}
+                <!-- {% if is_empty %}
+                <div class="alert alert-danger text-center"> {{ message }}</div>
+                {% else %} -->
                 {% for i in product %}
 
                 <div class="card border shadow-none">
@@ -145,7 +145,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-start border-bottom pb-3 pt-3">
                             <div class="me-4">
-                                <img src="{{i.product.image1.url}}" alt="" class="avatar-lg rounded">
+                                <img src="{{i.product.image1.url}}" class="avatar-lg rounded">
                             </div>
                             <div class="flex-grow-1 align-self-center overflow-hidden">
                                 <div>

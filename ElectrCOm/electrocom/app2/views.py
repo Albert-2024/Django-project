@@ -406,8 +406,9 @@ def product_details(request,product_id):
 def cart(request):
     product = Cart.objects.filter(user_id=request.user.id)
     total_price = sum([item.price * item.quantity+25 for item in product]) 
-    is_empty = not product.exists()
-    messages.warning(request, f"Your cart is empty.")
+    # is_empty = not product.exists()
+    # print(f"Number of items in the cart: {product.count()}")
+    # messages.warning(request, f"Your cart is empty.")
     return render(request,'cart.html',{'product':product,'total_price':total_price})
 
 
@@ -451,7 +452,7 @@ def increase_item(request, item_id):
         else:
             messages.warning(request, f"{cart_item.product.product_name} is out of stock.")
     except Cart.DoesNotExist:
-        pass  # Handle the case when the item does not exist in the cart
+        pass  
 
     return redirect('cart')
 
