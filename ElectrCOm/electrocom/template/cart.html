@@ -135,9 +135,9 @@
 
         <div class="row">
             <div class="col-xl-8">
-                <!-- {% if is_empty %}
+                {% if is_empty %}
                 <div class="alert alert-danger text-center"> {{ message }}</div>
-                {% else %} -->
+                {% else %}
                 {% for i in product %}
 
                 <div class="card border shadow-none">
@@ -166,8 +166,7 @@
                             <div class="col-md-4">
                                 <div class="mt-3">
 
-                                    <h5 class="mb-0 mt-2"><span class="text-muted me-2"><del
-                                                class="font-size-16 fw-normal"></del></span>₹ {{i.product.price}}</h5>
+                                    <h5 class="mb-0 mt-2"><span class="text-muted me-2"><del class="font-size-16 fw-normal"></del></span>₹ {{i.product.price}}</h5>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -241,12 +240,12 @@
                                     <tbody>
                                         <tr>
                                             <td>Sub Total :</td>
-                                            <td class="text-end">₹ {{total_price}}</td>
+                                            <td class="text-end">₹ {{sub_total}}</td>
                                         </tr>
 
                                         <tr>
                                             <td>Shipping Charge :</td>
-                                            <td class="text-end">$ 25</td>
+                                            <td class="text-end">₹ 25</td>
                                         </tr>
 
                                         <tr class="bg-light">

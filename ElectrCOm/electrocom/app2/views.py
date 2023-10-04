@@ -11,7 +11,7 @@ from django.http import HttpResponseBadRequest
 
 from django.contrib  import messages,auth
 # from .models import Brand, Category, CustomUser, Product
-from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker,Cart
+from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker,Cart, Wishlist
 # from accounts.backends import EmailBackend
 from django.contrib.auth import get_user_model
 #from .forms import UserForm, ServiceForm 
@@ -402,16 +402,42 @@ def product_details(request,product_id):
         specific_product = None
     return render(request, 'details/allproducts.html', {'product': product, 'specific_product': specific_product})
 
+def addtowishlist(request,product_id):
+    product = get_object_or_404(Product, id=product_id)
+    wish_item, created = Wishlist.objects.get_or_create(product_id=product_id,user_id = request.user.id)
+   
+    if not created:
+        wish_item.quantity += 1
+        wish_item.save()
+    else:
+        wish_item.price = product.price
+        wish_item.save()
+        
+    
+    return redirect('wishlist')
+
+def wishlist(request):
+    wish = Wishlist.objects.filter(user_id=request.user.id)
+    
+    is_empty = not wish.exists()
+    
+    if is_empty:
+        messages.warning(request, f"Your wishlist is empty.")
+    return render(request,'wishlist.html',{'wish':wish,'is_empty':is_empty})
+
+
 
 def cart(request):
     product = Cart.objects.filter(user_id=request.user.id)
-    total_price = sum([item.price * item.quantity+25 for item in product]) 
-    # is_empty = not product.exists()
-    # print(f"Number of items in the cart: {product.count()}")
-    # messages.warning(request, f"Your cart is empty.")
-    return render(request,'cart.html',{'product':product,'total_price':total_price})
+    sub_total = sum([item.price * item.quantity for item in product])
+    total_price = sum([sub_total+25]) 
+    is_empty = not product.exists()
+    # cartstock = Cart.objects.filter(user_id=request.user.id)
+    if is_empty:
+        messages.warning(request, f"Your cart is empty.")
+    return render(request,'cart.html',{'product':product,'total_price':total_price,'sub_total':sub_total,'is_empty':is_empty})
 
-
+   
 def addtocart(request,product_id):
     print(product_id)
     product = get_object_or_404(Product, id=product_id)

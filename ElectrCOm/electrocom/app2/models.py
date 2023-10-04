@@ -50,7 +50,7 @@ class CustomUser(AbstractUser):
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True) 
     password = models.CharField(max_length=128)
-    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICE, blank=True, null=True)
+    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICE, default=1 ,blank=True, null=True)
 
     # date_joined = models.DateTimeField(auto_now_add=True)
     # last_login = models.DateTimeField(auto_now_add=True)
@@ -142,12 +142,20 @@ class ProductSpeaker(models.Model):
     charging = models.CharField(max_length=255, null=True)
     working = models.CharField(max_length=255, null=True)
     
+class Wishlist(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    
 class Cart(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    cartstock = models.PositiveIntegerField(default=1)
     quantity = models.IntegerField(default=1)
     price = models.IntegerField(default=0)
     # subtotal = models.IntegerField(default=0)
     # total = models.IntegerField(default=0)
     # def update_total(self):
     #     self.price = self.quantity * self.product.price
+    
+    def carttotal(self):
+        self.cartstock = self.product.stock
