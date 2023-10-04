@@ -56,6 +56,8 @@
             border-radius: 1rem;
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
      <link rel="stylesheet"
      href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
      integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
@@ -90,6 +92,11 @@
                         <li class="nav-item">
                             <a class="nav-link active me-3" aria-current="page" href="http://127.0.0.1:8000">Home</a>
                         </li>
+                        <li class="nav-item mt-2 pe-1">
+                            <a href="{% url "wishlist" %}" class="text-white text-decoration-none me-3">
+                                <i class="bi bi-heart"></i>
+                            </a>
+                        </li>
 
                         <!-- Link -->
                         <li class="nav-item dropdown">
@@ -99,6 +106,7 @@
 
                         </li>
 
+
                         {% if not user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -106,11 +114,11 @@
                         {% else %}
                         <li class="nav-item dropdown">
                             <a class="dropdown nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                {{user.name}}
+                               {{user.first_name}}
                             </a>
 
-                            <div class="dropdown-menu m-0">
-                                <a href="" class="dropdown-item">My Profile</a>
+                            <div class="dropdown-menu dropdown-menu-end pe-1">
+                                <a href="#" class="dropdown-item">My Profile</a>
                                 <a href="{% url 'sellerreg' %}"
                                     class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
                                 <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>

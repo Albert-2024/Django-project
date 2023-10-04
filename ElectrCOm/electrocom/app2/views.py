@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth import login as auth_login ,authenticate, logout
 from django.shortcuts import render, redirect
@@ -418,7 +419,6 @@ def addtowishlist(request,product_id):
 
 def wishlist(request):
     wish = Wishlist.objects.filter(user_id=request.user.id)
-    
     is_empty = not wish.exists()
     
     if is_empty:
@@ -506,8 +506,12 @@ razorpay_client = razorpay.Client(
  
  
 def payment(request):
+    product = Cart.objects.filter(user_id=request.user.id)
     currency = 'INR'
-    amount = 20000  
+    sub_total = sum([item.price * item.quantity for item in product])
+    total_price = Decimal(sum([sub_total+25])) 
+    amount = int(total_price * 100)
+    # amount = 20000  
     
     razorpay_order = razorpay_client.order.create(dict(amount=amount,
                                                        currency=currency,
@@ -522,6 +526,7 @@ def payment(request):
     
     context = {}
     context['razorpay_order_id'] = razorpay_order_id
+    context['total_price'] = total_price
     context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
     context['razorpay_amount'] = amount
     context['currency'] = currency
