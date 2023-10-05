@@ -159,3 +159,26 @@ class Cart(models.Model):
     
     def carttotal(self):
         self.cartstock = self.product.stock
+
+
+class Order(models.Model):
+    class PaymentStatusChoices(models.TextChoices):
+        PENDING = 'pending', 'Pending'
+        SUCCESSFUL = 'successful', 'Successful'
+        FAILED = 'failed', 'Failed'
+
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    razorpay_order_id = models.CharField(max_length=255)
+    # payment_id = models.CharField(max_length=255)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    currency = models.CharField(max_length=3)
+    payment_status = models.CharField(
+        max_length=20, choices=PaymentStatusChoices.choices, default=PaymentStatusChoices.PENDING)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    items = models.ManyToManyField(Product)  # Use the correct model name 'Book'
+
+    def str(self):
+        return f"Order for {self.user.username}"
+
+    class Meta:
+        ordering = ['-timestamp']

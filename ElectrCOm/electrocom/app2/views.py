@@ -510,8 +510,7 @@ def payment(request):
     currency = 'INR'
     sub_total = sum([item.price * item.quantity for item in product])
     total_price = Decimal(sum([sub_total+25])) 
-    amount = int(total_price * 100)
-    # amount = 20000  
+    amount = int(total_price * 100) 
     
     razorpay_order = razorpay_client.order.create(dict(amount=amount,
                                                        currency=currency,
@@ -542,8 +541,7 @@ def paymenthandler(request):
    
     if request.method == "POST":
 
-           
-            # get the required parameters from post request.
+        
             payment_id = request.POST.get('razorpay_payment_id', '')
             razorpay_order_id = request.POST.get('razorpay_order_id', '')
             signature = request.POST.get('razorpay_signature', '')
@@ -553,24 +551,23 @@ def paymenthandler(request):
                 'razorpay_signature': signature
             }
  
-            # verify the payment signature.
+          
             result = razorpay_client.utility.verify_payment_signature(
                 params_dict)
             if result is not None:
-                amount = 20000  
-                
- 
+                 razorpay_order = razorpay_client.order.fetch(razorpay_order_id)
+                 authorized_amount = razorpay_order['amount']
+
+           
+                 razorpay_client.payment.capture(payment_id, authorized_amount)
+
                    
-                razorpay_client.payment.capture(payment_id, amount)
- 
-                   
-                return redirect('cart')
+                 return redirect('http://127.0.0.1:8000/')
                 
             else:
  
                 
                 return render(request, 'paymentfail.html')
-
     else:
        
         return HttpResponseBadRequest()
