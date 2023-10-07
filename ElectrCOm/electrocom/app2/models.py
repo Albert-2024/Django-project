@@ -87,7 +87,7 @@ class Profile(models.Model):
     state = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     pincode = models.CharField(max_length=10)
-    image = models.ImageField(upload_to='seller_profile_images/', null=True, blank=True)
+    image = models.ImageField(upload_to='sample/', null=True, blank=True)
 
     def str(self):
         return self.user.username

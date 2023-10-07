@@ -5,19 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="{% static 'css/sellerprofile.css'%}">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@3.12.0/dist/css/mdb.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
+    <div class="main">
+        <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #607D8B">
+          <div class="container-fluid">
+              <div class="d-flex align-items-left">
+                  <a class="navbar-brand" href="#">ElectroCOm</a>
+              </div>
+              <div class="d-flex align-items-center mx-auto">
+                  <form class="form-inline my-2 my-lg-0">
+                      <div class="input-group">
+                          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-outline-success" type="submit">
+                              <i class="fas fa-search"></i>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+              <div class="d-flex p-2">
+                  <ul class="navbar-nav me-6 ">
+                      <li class="nav-item pe-1">
+                          <a class="nav-link active me-3" aria-current="page" href="#">Home</a>
+                      </li>
+                      <li class="nav-item mt-2 pe-1">
+                          <a href="{% url "wishlist" %}" class="text-white text-decoration-none me-3">
+                              <i class="bi bi-heart"></i>
+                          </a>
+                      </li>
+                      {% if user.is_authenticated %}
+                        
+                      
+                      <li class="nav-item  mt-2 pe-1">
+                          <a href="{% url 'cart' %}" class=" text-white text-decoration-none me-3">
+                          <i class="bi bi-cart3"></i></a>
+                      </li>
+                      {% endif %}
+                          <!-- Link -->
+                          <li class="nav-item dropdown pe-1">
+                              <a class="nav-link text-white" href="{% url 'allproducts' %}" role="button">
+                                  Products
+                              </a>
+      
+                          </li>
+                      
+      
+                      {% if not user.is_authenticated %}
+                      <li class="nav-item pe-1">
+                          <a class="nav-link" href="{% url 'login' %}">Login</a>
+                      </li>
+                      {% else %}
+                      <li class="nav-item dropdown pe-1">
+                          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                           {{user.first_name}}
+                          </a>
+      
+                          <div class="dropdown-menu dropdown-menu-end pe-1">
+                              <a href="{% url 'profile' %}" class="dropdown-item nav-linkd">My Profile</a>
+                              <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
+                              <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
+                          </div>
+                      </li>
+                      {% endif %}
+                  </ul>
+              </div>
+          </div>
+      </nav>
+      
+      </div>
     
     <div id="seller-profile">
         
         <div id="seller_image">
-            <!-- {% for i in seller %} 
-            <!-- src="{{i.image.url}}"  -->
-            <center><img id="profile-image" alt="seller's Profile Image" height="300px" width="300px" style="margin-top:120px"></center>
-            <!-- {% endfor %} -->
-            <!-- {% if seller is None %} -->
-            <center><img id="profile-image" src="" alt="seller's Profile Image" height="300px" width="300px" style="margin-top:120px;"></center>
-            <!-- {% endif %} -->
+          
+            {% if profile and profile.image %}
+             <center> <img src="{{ profile.image.url }}" alt="Current Profile Image" height="300px" width="300px" style="margin-top:120px"></center>
+             {% endif %}
+           
               
             
         </div>
@@ -27,67 +98,20 @@
         <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
            
-        {% for i in user %}
-        {% comment %} {% for data in userdata%} {% endcomment %}
+       
+        
          
-        <input type="text" id="seller-name" name="seller-name" value="{{i.first_name}}" placeholder="name" required><br><br>
-        <input type="text" id="seller-name" name="seller-name" value="{{i.last_name}}" placeholder="name" required><br><br>
-        {% comment %} <input type="text" id="seller-email" name="seller-email" placeholder="email" value="{{i.email}}"><br><br> {% endcomment %}
-        {% endfor %}
+        <input type="text" id="name" name="name" value="{{user.first_name}}" placeholder="name" required><br><br>
+        <input type="text" id="name" name="name" value="{{user.last_name}}" placeholder="name" required><br><br>
+        <input type="text" id="email" name="email" placeholder="{{i.email}}" value="{{user.email}}" disabled><br><br>
+        
          
-        {% comment %} {% for data in userdata%} {% endcomment %}
-        
-        <input type="text" id="seller-address" name="seller-address" value="{{data.address}}" placeholder="address" required><br><br>
-        <input type="text" id="seller-district" name="seller-district" value="district  " placeholder="district" required><br><br>
-        
-        {% comment %} {% endfor %} {% endcomment %}
-        {% comment %} {% endfor %} {% endcomment %}
-        {% comment %} <!-- {% for i in userdata %} --> {% endcomment %}
-        {% comment %} <input type="number" id="seller-number" name="seller-number" placeholder="number" required disabled><br><br> {% endcomment %}
-        {% comment %} <!-- value="{{i.number}}" -->  {% endcomment %}
-        {% comment %} <!-- {% endfor %} --> {% endcomment %}
-        {% comment %} <!-- {% for i in user %} --> {% endcomment %}
-         {% comment %} <!-- value="{{i.email}}" --> {% endcomment %}
-        {% comment %} <!-- {% endfor %} --> {% endcomment %}
-        {% comment %} <!-- {% for seller in seller %} --> {% endcomment %}
-        {% comment %} <!-- value="{{seller.address}}" --> {% endcomment %}
-       
-        {% comment %} <!-- value="{{seller.district}}" --> {% endcomment %}
-        {% comment %} <!-- value="{{seller.district}}"  --> {% endcomment %}
-    
-        
-        {% comment %} <input type="text" id="seller-state" name="seller-state" placeholder="state" value="seller.state" required><br><br>
-       
-        
-    
-        
-        <input type="text" id="seller-country" name="seller-country" placeholder="country" value="seller.country" required><br><br>
-    
-        
-        <input type="text" id="seller-pincode" name="seller-pincode" placeholder="pincode" value="seller.pincode" required><br><br> {% endcomment %}
-
-        {% comment %} <label for="seller-image" id="details">Select Image</label>  {% endcomment %}
-        {% comment %} <input type="file" id="seller-image" name="seller-image" placeholder="image" required><br><br> {% endcomment %}
-        {% comment %} <!-- {% endfor %} --> {% endcomment %}
-        {% comment %} <!-- {% if seller is None %} -->
-        <input type="text" id="seller-address" name="seller-address" value="Address" required><br><br>
-    
-       
-        <input type="text" id="seller-district" name="seller-district" value="District" required><br><br>
-    
-        
-        <input type="text" id="seller-state" name="seller-state" value="State" required><br><br>
-    
-        
-        <input type="text" id="seller-country" name="seller-country" value="Country" required><br><br>
-    
-        
-        <input type="text" id="seller-pincode" name="seller-pincode" value="Pincode" required><br><br>
-
-        <label for="seller-image" id="details">Select Image</label>
-        <input type="file" id="seller-image" name="seller-image"  required><br><br>   
-        <!-- {% endif %} --> 
-        {% endcomment %}
+        <input type="text" id="address" name="address" value="{% if profile %}{{ profile.address }}{% endif %}" placeholder="Address" required><br><br>
+        <input type="text" id="country" name="country" value="{% if profile %}{{ profile.country }}{% endif %}" placeholder="Country" required><br><br>
+        <input type="text" id="state" name="state" value="{% if profile %}{{ profile.state }}{% endif %}" placeholder="State" required><br><br>
+        <input type="text" id="district" name="district" value="{% if profile %}{{ profile.district }}{% endif %}" placeholder="District" required><br><br>
+        <input type="text" id="pincode" name="pincode" value="{% if profile %}{{ profile.pincode }}{% endif %}" placeholder="Pincode" required><br><br>
+        <input type="file" id="seller-image" name="image" required><br><br> 
         <button type="submit" id="update-profile">Update Profile</button>
     </form>
         </div>

@@ -116,28 +116,29 @@ def userLogout(request):
             
 @login_required
 def profile(request):
-    user = User.objects.filter(id=request.user.id)
-    
-    userdata = Profile.objects.get(user_id=request.user.id)    
-    k=request.POST.get('seller-address')
-    print(k)
-    if request.method == 'POST':
-        try:
-            userdata = Profile.objects.get(user_id=request.user.id)    
-            userdata.address = request.POST.get('seller-address')
-            userdata.save()
-        except:
-            userdata = Profile(
-                user_id = request.user.id,
-                address = request.POST.get('seller-address'),
-            )
-            userdata.save()
+    user = request.user
+    try:
+        profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        profile=None
+        
+    if request.method == "POST":
+        if profile is None:
+            profile = Profile(user=user)
+        profile.district = request.POST.get('district')
+        profile.state = request.POST.get('state')
+        profile.country = request.POST.get('country')
+        profile.address = request.POST.get('address')
+        profile.pincode = request.POST.get('pincode')
+        if 'image' in request.FILES:
+            image = request.FILES['image']
+            profile.image = image
+        
+        profile.save()
             
         return redirect('profile')
     
-    return render(request,'profile.html',{'user':user,'userdata':userdata})
-
-
+    return render(request,'profile.html',{'user':user,'profile':profile})
 
 
 def sellerreg(request):
@@ -239,7 +240,6 @@ def regmobile(request):
     return render(request,'product_form2.html')
 
 def reglaptop(request):
-    print("laptop")
     user = request.user
     userid = user.id
     if request.method == 'POST':
@@ -267,7 +267,6 @@ def reglaptop(request):
     return render(request,'product_form3.html')
 
 def regspeaker(request):
-    print("speaker")
     user = request.user
     userid = user.id
     if request.method == 'POST':
@@ -299,7 +298,6 @@ def addlaptop(request,product_id):
     userid = user.id
     laptop = ProductLap.objects.get(product_id=product_id)
     if request.method == 'POST':
-        # Create a new Category instance and assign values
         print(laptop)
         laptop.screen_size = request.POST.get('screen_size')
         laptop.storage = request.POST.get('storage')
