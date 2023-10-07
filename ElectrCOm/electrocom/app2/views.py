@@ -12,7 +12,7 @@ from django.http import HttpResponseBadRequest
 
 from django.contrib  import messages,auth
 # from .models import Brand, Category, CustomUser, Product
-from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker,Cart, Wishlist
+from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker,Cart, Wishlist,Profile
 # from accounts.backends import EmailBackend
 from django.contrib.auth import get_user_model
 #from .forms import UserForm, ServiceForm 
@@ -23,21 +23,24 @@ User = get_user_model()
 
 def register(request):
     if request.method == 'POST':
-        name1 = request.POST.get('name', None)
+        first_name = request.POST.get('first_name', None)
+        last_name = request.POST.get('last_name', None)
         email = request.POST.get('email', None)
         password = request.POST.get('pass', None)
         role = 1
         print(email)
 
-        if name1 and email and role and password:
+        if first_name and last_name and email and role and password:
             if User.objects.filter(email=email).exists():
                 error_message = "Email is already registered."
                 return render(request, 'register.html', {'error_message': error_message})
             
             else:
-                user = User(name=name1, email=email, role=role)
+                user = User(first_name = first_name, last_name=last_name, email=email, role=role)
+                # profile = Profile(user=user)
                 user.set_password(password)  # Set the password securely
                 user.save()
+                # profile.save()
                 return redirect('login')  
             
     return render(request, 'register.html')
@@ -68,9 +71,74 @@ def userLogout(request):
     request.session.pop('is_logged_in',None)
     return redirect('/') 
     
+# def profile(request):
+#     # def seller_profile(request):
+#     user=User.objects.filter(id=request.user.id)
+#     userexists=Profile.objects.filter(user_id=request.user.id).exists()
+#     if userexists:
+#         seller=Profile.objects.filter(user_id=request.user.id)
+#     else:
+#         seller=None
+#         # print(seller)
+#     if request.method=='POST':
+#         phone=request.POST.get('seller-number')
+#         userdata1=UserData.objects.get(user_id=request.user.id)
+#         userdata1.number=phone
+#         userdata1.save()
+#         if userexists:
+#             seller1=SellerProfile.objects.get(user_id=request.user.id)
+#             seller1.district=request.POST.get('seller-district')
+#             seller1.state=request.POST.get('seller-state')
+#             seller1.country=request.POST.get('seller-country')
+#             seller1.address=request.POST.get('seller-address')
+#             seller1.pincode=request.POST.get('seller-pincode')
+#             image=request.FILES.get('seller-image')
+#             if image==None:
+#                 seller1.image=seller1.image
+#             else:
+#                 seller1.image=image
+#             seller1.save()
+#             return redirect('seller_profile')
+#         else:
+#             user1=SellerProfile(
+#             district=request.POST.get('seller-district'),
+#             state=request.POST.get('seller-state'),
+#             country=request.POST.get('seller-country'),
+#             address=request.POST.get('seller-address'),
+#             pincode=request.POST.get('seller-pincode'),
+#             image=request.FILES.get('seller-image'),
+#             user_id=request.user.id,
+#             )
+#             user1.save()
+#             return redirect('profile')
+#     return render(request,'profile.html',{'user':user,'seller':seller,'userdata':userdata,})
+
+            
+@login_required
 def profile(request):
-    user = request.user
-    return render(request,'profile.html',{'user':user})
+    user = User.objects.filter(id=request.user.id)
+    
+    userdata = Profile.objects.get(user_id=request.user.id)    
+    k=request.POST.get('seller-address')
+    print(k)
+    if request.method == 'POST':
+        try:
+            userdata = Profile.objects.get(user_id=request.user.id)    
+            userdata.address = request.POST.get('seller-address')
+            userdata.save()
+        except:
+            userdata = Profile(
+                user_id = request.user.id,
+                address = request.POST.get('seller-address'),
+            )
+            userdata.save()
+            
+        return redirect('profile')
+    
+    return render(request,'profile.html',{'user':user,'userdata':userdata})
+
+
+
 
 def sellerreg(request):
     user=request.user

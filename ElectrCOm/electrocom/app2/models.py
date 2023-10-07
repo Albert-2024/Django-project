@@ -9,23 +9,26 @@ from django.shortcuts import redirect, render
 # Create your models here.
 
 class UserManager(BaseUserManager):
-    def create_user(self, name, email, password=None):
+    def create_user(self, first_name,last_name, email, password=None):
         if not email:
             raise ValueError('User must have an email address')
 
         user = self.model(
             email=self.normalize_email(email),
-            name=name,
+            first_name = first_name,
+            last_name=last_name,
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, name, email, password=None):
+    def create_superuser(self, first_name,last_name, email, password=None):
         user = self.create_user(
             email=self.normalize_email(email),
             password=password,
-            name=name,
+            first_name=first_name,
+            last_name=last_name,
+            
         )
         user.is_admin = True
         user.is_active = True
@@ -47,7 +50,8 @@ class CustomUser(AbstractUser):
 
     username=None
     USERNAME_FIELD = 'email'
-    name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True) 
     password = models.CharField(max_length=128)
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICE, default=1 ,blank=True, null=True)
@@ -61,8 +65,9 @@ class CustomUser(AbstractUser):
     is_active = models.BooleanField(default=True)
     is_superadmin = models.BooleanField(default=False)
 
+
     
-    REQUIRED_FIELDS = ['name']
+    REQUIRED_FIELDS = []
 
     objects = UserManager()
 
@@ -74,6 +79,18 @@ class CustomUser(AbstractUser):
 
     def has_module_perms(self, app_label):
         return True
+    
+class Profile(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    address = models.TextField(default="", null=True)
+    district = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=10)
+    image = models.ImageField(upload_to='seller_profile_images/', null=True, blank=True)
+
+    def str(self):
+        return self.user.username
     
 class Product(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)

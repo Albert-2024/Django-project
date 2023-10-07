@@ -11,6 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <!-- Bootstrap CSS (Optional) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  
@@ -78,7 +80,7 @@
                     <div class="dropdown-menu dropdown-menu-end pe-1">
                         <a href="{% url 'profile' %}" class="dropdown-item nav-linkd">My Profile</a>
                         <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
-                        
+                        <a href="{% url 'profile' %}" type="button" class="btn btn-primary">Edit Profile</a>
                         <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
                     </div>
                 </li>
@@ -241,136 +243,10 @@
                 </div>
             </div>
 
-            <!-- 3rd row -->
+           <!-- Modal -->
 
-            <!-- <div class="container mt-3">
-                <div class="bg-light p-4 rounded shadow">
-                    <h2 class="text-center mt-2">Headset</h2>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card bg-body-secondary" style="width: 15rem;">
-                                <div class="image-onBoard">
-                                    <img src="{% static '/Headset/Aroma.jpg' %}" class="card-img-top"/>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h3 class="card-title">Aroma Headsets</h3>
-                                    <p class="card-text">Aroma</p>
-                                    <p class="mb-3 price">INR 899</p>
-                                    <a href="{% url 'allproducts' %}" class="btn btn-primary mt-auto">See more</a>
-                                </div>
-                            </div>
-                        </div>
-            
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card bg-body-secondary" style="width: 15rem;">
-                                <div class="image-onBoard">
-                                    <img src="{% static '/Headset/Boat.jpg' %}" class="card-img-top" />
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h3 class="card-title">Boat Headset</h3>
-                                    <p class="card-text">Boat</p>
-                                    <p class="mb-3 price">INR 3000</p>
-                                    <a href="{% url 'allproducts' %}" class="btn btn-primary mt-auto">See more</a>
-                                </div>
-                            </div>
-                        </div>
-            
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card bg-body-secondary" style="width: 15rem;">
-                                <div class="image-onBoard">
-                                    <img src="{% static '/Headset/Boult.jpg' %}" class="card-img-top" style="width: 240px; height: 200px;" />
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h3 class="card-title">Boult headset</h3>
-                                    <p class="card-text">Boult</p>
-                                    <p class="mb-3 price">INR 1500</p>
-                                    <a href="{% url 'allproducts' %}" class="btn btn-primary mt-auto">See more</a>
-                                </div>
-                            </div>
-                        </div>
-            
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card bg-body-secondary" style="width: 15rem;">
-                                <div class="image-onBoard">
-                                    <img src="{% static '/Headset/realme.jpg' %}" class="card-img-top" style="width: 240px; height: 200px;" />
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h3 class="card-title">Realme Headset</h3>
-                                    <p class="card-text">Realme</p>
-                                    <p class="mb-3 price">INR 599</p>
-                                    <a href="{% url 'allproducts' %}" class="btn btn-primary mt-auto">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            
-            
-
-
-            <!-- row 4 -->
-            <!-- <div class="container mt-3">
-                <div class="bg-light p-4 rounded shadow">
-                    <h2 class="text-center mt-2">Speakers</h2>
-                    <a href="" class="btn btn-link text-center mb-4">See More <i class="fas fa-arrow-right"></i></a>
-
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card bg-body-secondary" style="width: 15rem;">
-                                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
-                                    class="card-img-top " style="width: 100%; max-height: 200px;" />
-                                <div class="card-body">
-                                    <h5 class="card-title">Denim shirt</h5>
-                                    <p class="card-text">Shirt</p>
-                                    <h6 class="mb-3 price">120$</h6>
-                                    <a href="#" class="btn btn-primary">GO somewhere!</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card bg-body-secondary" style="width: 15rem;">
-                                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
-                                    class="card-img-top " style="width: 100%; max-height: 200px;" />
-                                <div class="card-body">
-                                    <h5 class="card-title">Denim shirt</h5>
-                                    <p class="card-text">Shirt</p>
-                                    <h6 class="mb-3 price">120$</h6>
-                                    <a href="#" class="btn btn-primary">GO somewhere!</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card bg-body-secondary" style="width: 15rem;">
-                                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
-                                    class="card-img-top " style="width: 100%; max-height: 200px;" />
-                                <div class="card-body">
-                                    <h5 class="card-title">Denim shirt</h5>
-                                    <p class="card-text">Shirt</p>
-                                    <h6 class="mb-3 price">120$</h6>
-                                    <a href="#" class="btn btn-primary">GO somewhere!</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card bg-body-secondary" style="width: 15rem;">
-                                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
-                                    class="card-img-top " style="width: 100%; max-height: 200px;" />
-                                <div class="card-body">
-                                    <h5 class="card-title">Denim shirt</h5>
-                                    <p class="card-text">Shirt</p>
-                                    <h6 class="mb-3 price">120$</h6>
-                                    <a href="#" class="btn btn-primary">GO somewhere!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
+                
+        
     </div>
     </section>
     </div>
@@ -467,6 +343,9 @@
         productLinks.style.display = "none";
     }
 }
+$(document).ready(function() {
+    var myModal = new bootstrap.Modal(document.getElementById('profileModal'));
+});
 </script>
 
 </body>
