@@ -486,7 +486,7 @@ def addtowishlist(request,product_id):
 def wishlist(request):
     wish = Wishlist.objects.filter(user_id=request.user.id)
     is_empty = not wish.exists()
-    
+    print(wish)
     if is_empty:
         messages.warning(request, f"Your wishlist is empty.")
     return render(request,'wishlist.html',{'wish':wish,'is_empty':is_empty})

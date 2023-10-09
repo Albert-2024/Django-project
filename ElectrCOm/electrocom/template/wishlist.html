@@ -84,11 +84,11 @@
                         <p class="card-text text-italic">{{i.product.brand_name}}</p>
                         <p class="card-text">{{i.product.description}}</p>
                         <p class="card-text">INR {{i.product.price}}</p>
-                        <a href=" {% url 'addtocart' i.id %}">
+                        <a href=" {% url 'addtocart' i.product.id %}">
                            
                         <button class="btn btn-primary" >Add to Cart</button>
                         </a>  
-                        <a href="{% url 'product_detail' i.id %}">
+                        <a href="{% url 'product_detail' i.product.id %}">
                             <button class="btn btn-primary" >View more  </button>
                         </a>    
                     </div>

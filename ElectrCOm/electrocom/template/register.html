@@ -17,7 +17,7 @@
     <title>Register</title>
   </head>
 
-  <body style="background-color: #eee">
+  <body style="background-color: #eeeeee">
     
     <section class="vh-100">
       <div class="container h-100">
@@ -33,8 +33,11 @@
                       Sign up
                     </p>
 
-                    <form method="post" class="mx-1 mx-md-4">
+                    <form method="post" onsubmit="return validateForm()" class="mx-1 mx-md-4">
                       {% csrf_token %}
+                      <!-- Add a div to display the error message -->
+<div id="form_error" class="text-danger"></div>
+
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
@@ -44,9 +47,12 @@
                             id="form3Example1c"
                             class="form-control"
                             placeholder="First Name ..."
+                            oninput="validateFirstName(this)"
+                            required
                           />
                         </div>
                       </div>
+                      <div id="firstname_error" class="text-danger"></div>
 
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
@@ -57,10 +63,12 @@
                             id="form3Example1c"
                             class="form-control"
                             placeholder="Last Name ..."
+                            oninput="validateLastName(this)"
+                            required
                           />
                         </div>
                       </div>
-
+                      <div id="lastname_error" class="text-danger"></div>
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
@@ -70,9 +78,12 @@
                             id="form3Example3c"
                             class="form-control"
                             placeholder="Email ..."
+                            oninput="validateEmail(this)"
+                            required
                           />
                         </div>
                       </div>
+                      <div id="email_error" class="text-danger"></div>
 
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
@@ -83,10 +94,13 @@
                             id="form3Example4c"
                             class="form-control"
                             placeholder="password ..."
+                            oninput="validatePassword(this)"
+                            required
                           />
                         </div>
                       </div>
-
+                      <div id="password_error" class="text-danger"></div>
+                     
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
@@ -96,9 +110,12 @@
                             id="form3Example4cd"
                             class="form-control"
                             placeholder="Confirm password ..."
+                            required
                           />
                         </div>
                       </div>
+                      <div id="confirm_password_error" class="text-danger"></div>
+                      
                       {% if error_message %}
                       <div class="alert alert-danger" role="alert">
                         {{ error_message }}
@@ -178,5 +195,114 @@
         </div>
       </div>
     </section>
+
+    <script>
+      function validateFirstName(input) {
+        var name = input.value;
+        var letters = /^[A-Za-z]+$/; // Only allow alphabet characters
+    
+        if (!letters.test(name)) {
+          document.getElementById("firstname_error").textContent =
+            "Name field should only contain alphabet characters";
+          return false; // Validation failed
+        } else {
+          document.getElementById("firstname_error").textContent = "";
+          return true; // Validation passed
+        }
+      }
+    
+      function validateLastName(input) {
+        var name = input.value;
+        var letters = /^[A-Za-z]+$/; // Only allow alphabet characters
+    
+        if (!letters.test(name)) {
+          document.getElementById("lastname_error").textContent =
+            "Name field should only contain alphabet characters";
+          return false; // Validation failed
+        } else {
+          document.getElementById("lastname_error").textContent = "";
+          return true; // Validation passed
+        }
+      }
+    
+      function validateEmail(input) {
+        var email = input.value;
+        var emailPattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    
+        if (!emailPattern.test(email)) {
+          document.getElementById("email_error").textContent =
+            "Invalid email address";
+          return false; // Validation failed
+        } else {
+          document.getElementById("email_error").textContent = "";
+          return true; // Validation passed
+        }
+      }
+    
+      function validatePassword(input) {
+        var password = input.value;
+        var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
+        if (!passwordPattern.test(password)) {
+          document.getElementById("password_error").textContent =
+            "Password should include at least one uppercase letter, one lowercase letter, one numeric digit, one special character, and be at least 8 characters long.";
+          return false; // Validation failed
+        } else {
+          document.getElementById("password_error").textContent = "";
+          return true; // Validation passed
+        }
+      }
+    
+      function validateConfirmPassword(input) {
+        var confirmPassword = input.value;
+        var password = document.getElementById("form3Example4c").value;
+    
+        if (confirmPassword !== password) {
+          document.getElementById("confirm_password_error").textContent =
+            "Passwords do not match.";
+          return false; // Validation failed
+        } else {
+          document.getElementById("confirm_password_error").textContent = "";
+          return true; // Validation passed
+        }
+      }
+    
+      function validateForm(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        // Validate each field
+        var isFirstNameValid = validateFirstName(
+          document.getElementById("form3Example1c")
+        );
+        var isLastNameValid = validateLastName(
+          document.getElementById("form3Example1c")
+        );
+        var isEmailValid = validateEmail(document.getElementById("form3Example3c"));
+        var isPasswordValid = validatePassword(
+          document.getElementById("form3Example4c")
+        );
+        var isConfirmPasswordValid = validateConfirmPassword(
+          document.getElementById("form3Example4cd")
+        );
+    
+        // Check if all validations are true
+        if (
+          isFirstNameValid &&
+          isLastNameValid &&
+          isEmailValid &&
+          isPasswordValid &&
+          isConfirmPasswordValid
+        ) {
+          // All validations passed, submit the form
+          document.querySelector("form").submit();
+        } else {
+          // At least one validation failed, prevent form submission and display an error message
+          var formError = document.getElementById("form_error");
+          formError.textContent =
+            "Please correct the errors and fill in all required fields.";
+        }
+      }
+    </script>
+    
   </body>
 </html>
