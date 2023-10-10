@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Reset your password{% endblock %}</title>
+</head>
+<body>
+    <div class="container">
+        {% block content %}
+        <h1>Forgotten your password?</h1>
+        <p>Enter your e-mail address to obtain a new password.</p>
+        <div class="logo">
+            <img src="{% static '/assets/img/logo2.png' %}" alt="vasu anna ">
+          </div>
+        <form action="." method="post">
+            {{form.as_p}}
+            <p>
+                <input type="submit" value="Send e-mail" />
+            </p>
+            {% csrf_token %}
+        </form>
+        {% endblock %}
+    </div>
+</body>
+</html>
