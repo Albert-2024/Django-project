@@ -42,7 +42,7 @@
 <body>
     <div class="container mt-5">
         <div class="text-center">
-            <h2 class="mb-4">Add a New Product</h2>
+            <h2 class="mb-4">Add a New Speaker</h2>
         </div>
 
         <div class="row">
@@ -58,16 +58,21 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="brandName">Name:</label>
-                        <input type="text" class="form-control" id="brandName" name="name" required>
+                        <textarea type="text" class="form-control" id="brandName" name="name" rows="2" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="productName">Product Name:</label>
-                        <textarea class="form-control" id="productName" name="productName" rows="4" required></textarea>
+                        <input class="form-control" id="productName" name="productName" required>
                     </div>
                     <div class="form-group">
                         <label for="brandName">Brand Name:</label>
-                        <input type="text" class="form-control" id="brandName" name="brandName" required>
-                    </div>
+                        <select class="form-control" id="brandName" name="brandName" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Sony">Sony</option>
+                            <option value="Boat">Boat</option>
+                            <option value="JBL">JBL</option>
+                        </select>
+                    </div>                    
                     <div class="form-group">
                         <label for="price">Price:</label>
                         <input type="number" class="form-control" id="price" name="price" required>

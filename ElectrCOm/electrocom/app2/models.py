@@ -120,6 +120,9 @@ class ProductLap(models.Model):
     processor = models.CharField(max_length=255, null=True)
     storage = models.CharField(max_length=255, null=True)
     
+    def __str__(self):
+        return self.product.product_name
+    
     
 class ProductMobile(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
@@ -135,6 +138,9 @@ class ProductMobile(models.Model):
     processor = models.CharField(max_length=255, null=True)
     camrear = models.CharField(max_length=255, null=True)
     camfront = models.CharField(max_length=255, null=True)  
+    
+    def __str__(self):
+        return self.product.product_name
 
     
 class ProductHeadset(models.Model):
@@ -147,6 +153,9 @@ class ProductHeadset(models.Model):
     charging = models.CharField(max_length=255, null=True) 
     working = models.CharField(max_length=255, null=True)
     
+    def __str__(self):
+        return self.product.product_name
+    
 
 
 class ProductSpeaker(models.Model):
@@ -158,6 +167,9 @@ class ProductSpeaker(models.Model):
     weight = models.CharField(max_length=255, null=True)
     charging = models.CharField(max_length=255, null=True)
     working = models.CharField(max_length=255, null=True)
+    
+    def __str__(self):
+        return self.product.product_name
     
 class Wishlist(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
