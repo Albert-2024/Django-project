@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .fixed-card{
+            width: 1100px;
+            height: 250px;
+        }
+        .card-img {
+            max-width: 100%; /* Set to 100% to fit within the card's width */
+            max-height: 100%; /* Set to 100% to fit within the card's height */
+        }
+    </style>
 </head>
 <body>
 <div class="main">
@@ -65,29 +75,31 @@
     <div class="container mt-5">
         <div class="row">
             {% for i in data %}
-            <div class="col-md-12 mt-2">
-                <div class="card d-flex flex-row">
-                    <div class="p-3 col-md-3">
-                        <img src="{{i.image1.url}}" class="card-img-top pt-5 " alt="Book Cover">
-                    </div>
-                    <div class="card-body col-md-9">
-                        <h2 class="card-title">{{i.name}}</h2>
-                        <p class="card-text">{{i.product_name}}</p>
-                        <p class="card-text text-italic">{{i.brand_name}}</p>
-                        <p class="card-text">{{i.description}}</p>
-                        <p class="card-text">INR {{i.price}}</p>
-                        <a href="{% url 'addtocart' i.id %}">
-                        <button class="btn btn-primary" >Add to Cart</button>
-                        </a>  
-                        <a href="{% url 'product_detail' i.id %}">
-                            <button class="btn btn-primary" >View more  </button>
-                        </a>    
-                        <a href="{% url 'addtowishlist' i.id %}">
-                            <button class="btn btn-primary" >Add to wishlist  </button>
+                <div class="col-md-12 mt-2">
+                    <div class="card d-flex flex-row fixed-card" style="overflow: hidden;">
+                        <div class="p-3 col-md-3">
+                            <img src="{{i.image1.url}}" class="card-img pt-1"  alt="Book Cover">
+                        </div>
+                        <div class="card-body col-md-9">
+                            <a href="{% url 'product_detail' i.id %}" style="text-decoration: none; color: #000;">
+                            <h4 class="card-title mt-4">{{i.name}}</h4>
+                            <p class="card-text"><strong>Product Name:</strong>{{i.product_name}}</p>
+                            <p class="card-text text-italic"><strong>Brand Name:</strong>{{i.brand_name}}</p>
+                            <!-- <p class="card-text">{{i.description}}</p> -->
+                            <p class="card-text">INR {{i.price}}</p>
+                            <!-- <a href="{% url 'addtocart' i.id %}">
+                            <button class="btn btn-primary" >Add to Cart</button>
+                            </a>    
+                            <a href="{% url 'product_detail' i.id %}">
+                                <button class="btn btn-primary" >View more  </button>
+                            </a>    
+                            <a href="{% url 'addtowishlist' i.id %}">
+                                <button class="btn btn-primary" >Add to wishlist  </button>
+                            </a> -->
                         </a>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>
