@@ -181,6 +181,10 @@ class ProductSpeaker(models.Model):
 class Wishlist(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    quantity = models.PositiveIntegerField(default=1) 
+    
+    def __str__(self):
+        return f"{self.user.username}'s Wishlist"
     
 class Cart(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)

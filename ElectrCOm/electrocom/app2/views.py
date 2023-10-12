@@ -49,14 +49,14 @@ def userlogin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('pass')
-        print(email,password)
+       
 
         if email and password:
             user = authenticate(request, email=email, password=password)
-            print(user)
+            
             if user is not None:
                 auth_login(request, user) 
-                print(user)
+                
                 if user.role == 2:       
                     return redirect('sellerDashboard')
                 else:
@@ -493,7 +493,12 @@ def addtowishlist(request,product_id):
     else:
         wish_item.price = product.price
         wish_item.save()
-        
+    return redirect('wishlist')
+
+def removewishlist(request,product_id):
+    product = get_object_or_404(Product, id=product_id)
+    wishlist_item = get_object_or_404(Wishlist, product=product, user=request.user)
+    wishlist_item.delete()
     
     return redirect('wishlist')
 
@@ -510,7 +515,7 @@ def wishlist(request):
 def cart(request):
     product = Cart.objects.filter(user_id=request.user.id)
     sub_total = sum([item.price * item.quantity for item in product])
-    total_price = sum([sub_total+25]) 
+    total_price = sub_total
     is_empty = not product.exists()
     # cartstock = Cart.objects.filter(user_id=request.user.id)
     if is_empty:
@@ -519,19 +524,14 @@ def cart(request):
 
    
 def addtocart(request,product_id):
-    print(product_id)
     product = get_object_or_404(Product, id=product_id)
     print(product)
     cart_item, created = Cart.objects.get_or_create(product_id=product_id,user_id = request.user.id)
    
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
-    else:
+    if created:
         cart_item.price = product.price
         cart_item.save()
         
-    
     return redirect('cart')
 
 
@@ -544,40 +544,35 @@ def delete_cart(request,product_id):
 def increase_item(request, item_id):
     try:
         cart_item = Cart.objects.get(id=item_id)
-        
+
         if cart_item.product.stock > 0:
-            # initial_price = cart_item.product.price
             cart_item.quantity += 1
-            # cart_item.update_total()
             cart_item.save()
 
-            # Decrease stock in AddBook model
+            # Decrease stock in Product model
             cart_item.product.stock -= 1
-            # cart_item.update_total(initial_price)
             cart_item.product.save()
         else:
             messages.warning(request, f"{cart_item.product.product_name} is out of stock.")
     except Cart.DoesNotExist:
-        pass  
+        pass
 
     return redirect('cart')
 
 def decrease_item(request, item_id):
     try:
         cart_item = Cart.objects.get(id=item_id)
-        
+
         if cart_item.quantity > 1:
             cart_item.quantity -= 1
-            # cart_item.update_total()
             cart_item.save()
 
-            
             cart_item.product.stock += 1
             cart_item.product.save()
         else:
             messages.warning(request, f"{cart_item.product.product_name} cannot be removed.")
     except Cart.DoesNotExist:
-        pass  
+        pass
 
     return redirect('cart')
 
@@ -589,7 +584,7 @@ def payment(request):
     product = Cart.objects.filter(user_id=request.user.id)
     currency = 'INR'
     sub_total = sum([item.price * item.quantity for item in product])
-    total_price = Decimal(sum([sub_total+25])) 
+    total_price = Decimal(sub_total)
     amount = int(total_price * 100) 
     
     razorpay_order = razorpay_client.order.create(dict(amount=amount,

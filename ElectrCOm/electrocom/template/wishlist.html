@@ -82,6 +82,7 @@
     </nav>
     <div class="container mt-5">
         <h3 class="text-center">Wishlist</h3>
+        {% if wishlist %}
         <div class="row">
             {% for i in wish %}
             <div class="col-md-12 mt-2">
@@ -100,12 +101,18 @@
                         </a>  
                         <a href="{% url 'product_detail' i.product.id %}">
                             <button class="btn btn-primary" >View more  </button>
-                        </a>    
+                        </a> 
+                        <a href="{% url 'removewishlist' i.product.id %}">
+                            <button class="btn btn-primary" >Remove</button>
+                        </a>   
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+        {% else %}
+        <p class="text-center">Your wishlist is empty.</p>
+    {% endif %}
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
