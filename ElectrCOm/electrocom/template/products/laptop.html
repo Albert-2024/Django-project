@@ -11,13 +11,14 @@
 </head>
 <body style="background-color: #eee;">
   <section>
+    <h1 class="text-center mb-0 pb-0"><img src="{% static 'assets/img/logo2.png' %}" width="250px"></h1>
     <div class="container py-5">
       <div class="pb-3 d-flex justify-content-center align-items-center">
         <div class="col-md-9 text-center">
-          <h1>All Laptop</h1>
+          <h1>All Laptop you have added</h1>
         </div>
         <div class="col-md-3 text-right">
-          <a href="{% url 'Home' %}" class="btn btn-primary btn-md">Back to Home</a>
+          <a href="{% url 'sellerDashboard' %}" class="btn btn-primary btn-md">Back to Dashboard</a>
         </div>
       </div>
     </div>
