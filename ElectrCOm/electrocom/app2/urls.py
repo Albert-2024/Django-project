@@ -19,6 +19,7 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
     path('reset/done/',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
     path('sellerreg/',views.sellerreg,name='sellerreg'),
+    path('sellerprofile/',views.sellerProfile,name='sellerprofile'),
     path('mobile/',views.mobile_list,name='mobile'),
     path('laptop/',views.laptop_list,name='laptop'),
     path('headset/',views.headset_list,name='headset'),

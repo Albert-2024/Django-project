@@ -87,10 +87,17 @@ class Profile(models.Model):
     state = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     pincode = models.CharField(max_length=10)
-    image = models.ImageField(upload_to='sample/', null=True, blank=True)
 
-    def str(self):
+    def __str__(self):
         return self.user.username
+    
+class SellerProfile(models.Model):
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE, null=True)
+    gst = models.TextField(max_length=30)
+    pan = models.TextField(max_length=30)
+    
+    def __str__(self):
+        return self.username
     
 class Product(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)

@@ -21,7 +21,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #607D8B">
       <div class="container-fluid">
           <div class="d-flex align-items-center">
-              <a class="navbar-brand" href="#">ElectroCOm</a>
+              <a class="navbar-brand" href="http://127.0.0.1:8000/">ElectroCOm</a>
           </div>
           <div class="d-flex align-items-center mx-auto">
               <form class="form-inline my-2 my-lg-0">
@@ -73,6 +73,7 @@
   
   </div>
     <div class="container mt-5">
+        <h3 class="text-center">Products</h3>
         <div class="row">
             {% for i in data %}
                 <div class="col-md-12 mt-2">
@@ -87,7 +88,7 @@
                             <p class="card-text text-italic"><strong>Brand Name:</strong>{{i.brand_name}}</p>
                             <!-- <p class="card-text">{{i.description}}</p> -->
                             <p class="card-text">INR {{i.price}}</p>
-                            <!-- <a href="{% url 'addtocart' i.id %}">
+                            <a href="{% url 'addtocart' i.id %}">
                             <button class="btn btn-primary" >Add to Cart</button>
                             </a>    
                             <a href="{% url 'product_detail' i.id %}">
@@ -95,7 +96,7 @@
                             </a>    
                             <a href="{% url 'addtowishlist' i.id %}">
                                 <button class="btn btn-primary" >Add to wishlist  </button>
-                            </a> -->
+                            </a>
                         </a>
                         </div>
                     </div>

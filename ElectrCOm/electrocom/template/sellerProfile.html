@@ -94,11 +94,14 @@
         <input type="text" id="name" name="name" value="{{user.last_name}}" placeholder="name" required><br><br>
         <input type="text" id="email" name="email" placeholder="{{i.email}}" value="{{user.email}}" disabled><br><br>
          
-        <input type="text" id="address" name="address" value="{% if profile %}{{ profile.address }}{% endif %}" placeholder="Address" required><br><br>
+        <input type="text" id="address" name="address" value="{{profile.address}}" placeholder="Address" required><br><br>
         <input type="text" id="country" name="country" value="{% if profile %}{{ profile.country }}{% endif %}" placeholder="Country" required><br><br>
         <input type="text" id="state" name="state" value="{% if profile %}{{ profile.state }}{% endif %}" placeholder="State" required><br><br>
         <input type="text" id="district" name="district" value="{% if profile %}{{ profile.district }}{% endif %}" placeholder="District" required><br><br>
         <input type="text" id="pincode" name="pincode" value="{% if profile %}{{ profile.pincode }}{% endif %}" placeholder="Pincode" required><br><br> 
+        <input type="text" id="gst" name="gst" value="{{ data.gst }}" placeholder="Pincode" disabled><br><br> 
+        <input type="text" id="pan" name="pan" value="{{ data.pan }}" placeholder="Pincode" disabled><br><br> 
+        
         <button type="submit" id="update-profile">Update Profile</button>
         </form>
     </div>

@@ -12,7 +12,7 @@ from django.http import HttpResponseBadRequest
 
 from django.contrib  import messages,auth
 # from .models import Brand, Category, CustomUser, Product
-from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker,Cart, Wishlist,Profile
+from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker,Cart, Wishlist,Profile,SellerProfile
 # from accounts.backends import EmailBackend
 from django.contrib.auth import get_user_model
 #from .forms import UserForm, ServiceForm 
@@ -130,9 +130,6 @@ def profile(request):
         profile.country = request.POST.get('country')
         profile.address = request.POST.get('address')
         profile.pincode = request.POST.get('pincode')
-        if 'image' in request.FILES:
-            image = request.FILES['image']
-            profile.image = image
         
         profile.save()
             
@@ -143,15 +140,32 @@ def profile(request):
 
 def sellerreg(request):
     user=request.user
+
     if user.role==2:
+        
         return redirect('sellerDashboard')
     else:
         if request.method == 'POST':
+            
+            gst = request.POST.get('gst')
+            pan = request.POST.get('pan')
+            SellerProfile(
+            gst=gst,
+            pan=pan,
+            user_id=request.user.id
+            ).save()
             user.role = 2
             user.save()
+            
             return redirect('sellerDashboard')
                 
-        return render(request, 'sellerreg.html')
+    return render(request, 'sellerreg.html')
+
+def sellerProfile(request):
+    user = request.user
+    data = SellerProfile.objects.get(user_id=user.id)
+    profile = Profile.objects.get(user_id=user.id)
+    return render(request,'sellerProfile.html',{'data': data,'profile':profile})
 
 def sellerindex(request):
     return render(request,'sellerindex.html')
