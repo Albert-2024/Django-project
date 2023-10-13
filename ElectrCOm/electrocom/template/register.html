@@ -33,7 +33,7 @@
                       Sign up
                     </p>
 
-                    <form method="post" onsubmit="return validateForm()" class="mx-1 mx-md-4">
+                    <form method="post" onsubmit="return validateForm()" id="registerForm" class="mx-1 mx-md-4">
                       {% csrf_token %}
                       <!-- Add a div to display the error message -->       
                     <div id="form_error" class="text-danger"></div>
@@ -44,10 +44,10 @@
                           <input
                             type="text"
                             name="first_name"
-                            id="form3Example1c"
+                            id="first_name"
                             class="form-control"
                             placeholder="First Name ..."
-                            oninput="validateFirstName(this)"
+                            oninput="validateFirstName()"
                             required
                           />
                         </div>
@@ -60,10 +60,10 @@
                           <input
                             type="text"
                             name="last_name"
-                            id="form3Example1c"
+                            id="last_name"
                             class="form-control"
                             placeholder="Last Name ..."
-                            oninput="validateLastName(this)"
+                            oninput="validateLastName()"
                             required
                           />
                         </div>
@@ -75,10 +75,10 @@
                           <input
                             type="email"
                             name="email"
-                            id="form3Example3c"
+                            id="email"
                             class="form-control"
                             placeholder="Email ..."
-                            oninput="validateEmail(this)"
+                            oninput="validateEmail()"
                             required
                           />
                         </div>
@@ -91,10 +91,10 @@
                           <input
                             type="password"
                             name="pass"
-                            id="form3Example4c"
+                            id="password"
                             class="form-control"
                             placeholder="password ..."
-                            oninput="validatePassword(this)"
+                            oninput="validatePassword()"
                             required
                           />
                         </div>
@@ -107,7 +107,8 @@
                           <input
                             type="password"
                             name="pass"
-                            id="form3Example4cd"
+                            id="confirmPassword"
+                            oninput="validateConfirmPassword()"
                             class="form-control"
                             placeholder="Confirm password ..."
                             required
@@ -197,111 +198,172 @@
     </section>
 
     <script>
-      function validateFirstName(input) {
-        var name = input.value;
-        var letters = /^[A-Za-z]+$/; // Only allow alphabet characters
-    
-        if (!letters.test(name)) {
-          document.getElementById("firstname_error").textContent =
-            "Name field should only contain alphabet characters";
-          return false; // Validation failed
-        } else {
-          document.getElementById("firstname_error").textContent = "";
-          return true; // Validation passed
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('registerForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const firstnameInput = document.getElementById('first_name');
+        const lastnameInput = document.getElementById('last_name');
+      
+        // Function to validate email
+        function validateEmail() {
+          const emailError = document.getElementById('emailError');
+      
+          if (!isValidEmail(emailInput.value)) {
+            emailInput.classList.add('is-invalid');
+            emailError.innerText = 'Please enter a valid email address.';
+          } else {
+            emailInput.classList.remove('is-invalid');
+            emailError.innerText = '';
+          }
         }
-      }
-    
-      function validateLastName(input) {
-        var name = input.value;
-        var letters = /^[A-Za-z]+$/; // Only allow alphabet characters
-    
-        if (!letters.test(name)) {
-          document.getElementById("lastname_error").textContent =
-            "Name field should only contain alphabet characters";
-          return false; // Validation failed
-        } else {
-          document.getElementById("lastname_error").textContent = "";
-          return true; // Validation passed
+      
+        // Function to validate password
+        function validatePassword() {
+          const passwordError = document.getElementById('passwordError');
+          const password = passwordInput.value;
+      
+          const errors = [];
+          if (password.length < 8) {
+            errors.push('Password must be at least 8 characters long.');
+          }
+          if (!containsUppercase(password)) {
+            errors.push('Password must contain at least one uppercase letter.');
+          }
+          if (!containsLowercase(password)) {
+            errors.push('Password must contain at least one lowercase letter.');
+          }
+          if (!containsSpecialCharacter(password)) {
+            errors.push('Password must contain at least one special character.');
+          }
+          if(!containsNumber(password)) {
+            errors.push('Password must contain at least one number character.');
+          }
+      
+          if (errors.length > 0) {
+            passwordInput.classList.add('is-invalid');
+            passwordError.innerText = errors.join(' ');
+          } else {
+            passwordInput.classList.remove('is-invalid');
+            passwordError.innerText = '';
+          }
+      
+          validateConfirmPassword();
         }
-      }
-    
-      function validateEmail(input) {
-        var email = input.value;
-        var emailPattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-    
-        if (!emailPattern.test(email)) {
-          document.getElementById("email_error").textContent =
-            "Invalid email address";
-          return false; // Validation failed
-        } else {
-          document.getElementById("email_error").textContent = "";
-          return true; // Validation passed
+      
+        // Function to validate confirm password
+        function validateConfirmPassword() {
+          const confirmPasswordError = document.getElementById('confirmPasswordError');
+      
+          if (confirmPasswordInput.value !== passwordInput.value) {
+            confirmPasswordInput.classList.add('is-invalid');
+            confirmPasswordError.innerText = 'Passwords do not match.';
+          } else {
+            confirmPasswordInput.classList.remove('is-invalid');
+            confirmPasswordError.innerText = '';
+          }
         }
-      }
-    
-      function validatePassword(input) {
-        var password = input.value;
-        var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
-        if (!passwordPattern.test(password)) {
-          document.getElementById("password_error").textContent =
-            "Password should include at least one uppercase letter, one lowercase letter, one numeric digit, one special character, and be at least 8 characters long.";
-          return false; // Validation failed
-        } else {
-          document.getElementById("password_error").textContent = "";
-          return true; // Validation passed
+      
+        function validateFirstName() {
+          const firstnameError = document.getElementById('firstnameError');
+          const name = firstnameInput.value.trim();
+          const namePattern = /^[a-zA-Z]+$/;
+      
+          if (!namePattern.test(name)) {
+            firstnameInput.classList.add('is-invalid');
+            firstnameError.innerText = 'Name should contain only alphabets.';
+          } else {
+            firstnameInput.classList.remove('is-invalid');
+            firstnameError.innerText = '';
+          }
         }
-      }
-    
-      function validateConfirmPassword(input) {
-        var confirmPassword = input.value;
-        var password = document.getElementById("form3Example4c").value;
-    
-        if (confirmPassword !== password) {
-          document.getElementById("confirm_password_error").textContent =
-            "Passwords do not match.";
-          return false; // Validation failed
-        } else {
-          document.getElementById("confirm_password_error").textContent = "";
-          return true; // Validation passed
+      function validateLastName() {
+          const lastnameError = document.getElementById('lastnameError');
+          const name = lastnameInput.value.trim();
+          const namePattern = /^[a-zA-Z ]+$/;
+      
+          if (!namePattern.test(name)) {
+            lastnameInput.classList.add('is-invalid');
+            lastnameError.innerText = 'Name should contain only alphabets.';
+          } else {
+            lastnameInput.classList.remove('is-invalid');
+            lastnameError.innerText = '';
+          }
         }
-      }
-    
-      function validateForm(event) {
-        event.preventDefault(); // Prevent the default form submission
-    
-        // Validate each field
-        var isFirstNameValid = validateFirstName(
-          document.getElementById("form3Example1c")
-        );
-        var isLastNameValid = validateLastName(
-          document.getElementById("form3Example1c")
-        );
-        var isEmailValid = validateEmail(document.getElementById("form3Example3c"));
-        var isPasswordValid = validatePassword(
-          document.getElementById("form3Example4c")
-        );
-        var isConfirmPasswordValid = validateConfirmPassword(
-          document.getElementById("form3Example4cd")
-        );
-    
-        // Check if all validations are true
-        if (
-          isFirstNameValid &&
-          isLastNameValid &&
-          isEmailValid &&
-          isPasswordValid &&
-          isConfirmPasswordValid
-        ) {
-          // All validations passed, submit the form
-          document.querySelector("form").submit();
-        } else {
-          // At least one validation failed, prevent form submission and display an error message
-          var formError = document.getElementById("form_error");
-          formError.textContent =
-            "Please correct the errors and fill in all required fields.";
+      
+        // Helper functions for validation
+        function containsUppercase(text) {
+          return /[A-Z]/.test(text);
         }
-      }
+      
+        function containsLowercase(text) {
+          return /[a-z]/.test(text);
+        }
+      
+        function containsSpecialCharacter(text) {
+          return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(text);
+        }
+      
+        function isValidEmail(email) {
+          const validProviders = [
+            "gmail", "yahoo", "outlook", "hotmail", "aol", "icloud", "protonmail", "zoho"
+            // Add more valid providers
+          ];
+        
+          const validTLDs = [
+            "com", "org", "net", "edu", "gov", "mil", "co", "info", "io", "uk", "in"
+            // Add more valid TLDs
+          ];
+        
+          const emailParts = email.split("@");
+          if (emailParts.length !== 2) {
+            return false; // Email should have exactly one @ symbol
+          }
+        
+          const provider = emailParts[1].split(".")[0].toLowerCase();
+          const tld = emailParts[1].split(".").pop().toLowerCase();
+        
+          const emailRegex = /^[a-z0-9._%+-]+@[a-z.-]+$/;
+        
+          // Check for more than two periods following characters
+          const afterTLD = emailParts[1].split(".").slice(1).join(".");
+          if (afterTLD.includes("..") || afterTLD.split(".").length > 2) {
+            return false;
+          }
+        
+          return (
+            emailRegex.test(email) &&
+            validProviders.includes(provider) &&
+            validTLDs.includes(tld)
+          );
+        }
+      
+      
+        function containsNumber(text) {
+          return /[0-9]/.test(text);
+        }
+        // Event listeners for instant validation
+        emailInput.addEventListener('input', validateEmail);
+        passwordInput.addEventListener('input', validatePassword);
+        confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+        firstnameInput.addEventListener('input', validateFirstName);
+        lastnameInput.addEventListener('input', validateLastName);
+      
+        // Form submit event listener for final validation before submission
+        form.addEventListener('submit', function (event) {
+          validateEmail();
+          validatePassword();
+          validateConfirmPassword();
+          validateFirstName();
+          validateLastName();
+      
+          if (emailInput.classList.contains('is-invalid') || passwordInput.classList.contains('is-invalid') || firstnameInput.classList.contains('is-invalid') || lastnameInput.classList.contains('is-invalid')){
+            event.preventDefault();
+          }
+        });
+      });
+      
     </script>
     
   </body>

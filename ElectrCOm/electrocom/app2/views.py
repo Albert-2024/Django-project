@@ -51,19 +51,22 @@ def userlogin(request):
         password = request.POST.get('pass')
        
 
-        if email and password:
-            user = authenticate(request, email=email, password=password)
+        if not email or not password:
+            error_message = "please provide details to login in"
+            return render(request, 'login.html', {'error_message': error_message})
+        
+        user = authenticate(request, email=email, password=password)
             
-            if user is not None:
-                auth_login(request, user) 
-                
-                if user.role == 2:       
-                    return redirect('sellerDashboard')
-                else:
-                    return redirect('/')
+        if user is not None:
+            auth_login(request, user) 
+            if user.role == 2:       
+                return redirect('sellerDashboard')
             else:
+                return redirect('/')
+        else:
                 error_message = "Invalid login credentials."
                 return render(request, 'login.html', {'error_message': error_message})
+            
     return render(request,'login.html')
 
 def userLogout(request):
@@ -189,6 +192,7 @@ def addProduct(request):
         image2 = request.POST.get('image2'),
         image3 = request.POST.get('image3'),
         description = request.POST.get('description'),
+        stock = request.POST.get('stock'),
         category = request.POST.get('category'),
         
         )
@@ -212,6 +216,8 @@ def regheadset(request):
         image2 = request.FILES.get('image2'),
         image3 = request.FILES.get('image3'),
         description = request.POST.get('description'),
+        stock = request.POST.get('stock'),
+        
         category = 'headset'
         
         )
@@ -240,6 +246,7 @@ def regmobile(request):
         image2 = request.FILES.get('image2'),
         image3 = request.FILES.get('image3'),
         description = request.POST.get('description'),
+        stock = request.POST.get('stock'),
         category = 'mobile'
         
         )
@@ -267,6 +274,7 @@ def reglaptop(request):
         image2 = request.FILES.get('image2'),
         image3 = request.FILES.get('image3'),
         description = request.POST.get('description'),
+        stock = request.POST.get('stock'),
         category = 'laptop'
         
         )
@@ -294,6 +302,7 @@ def regspeaker(request):
         image2 = request.FILES.get('image2'),
         image3 = request.FILES.get('image3'),
         description = request.POST.get('description'),
+        stock = request.POST.get('stock'),
         category = 'speaker'
         
         )
@@ -320,6 +329,7 @@ def addlaptop(request,product_id):
         laptop.os = request.POST.get('os')
         laptop.graphics = request.POST.get('graphics')
         laptop.color = request.POST.get('color')
+        laptop.stock = request.POST.get('stock')
         print(laptop)
         laptop.save()   
         
@@ -345,6 +355,8 @@ def addmobile(request,product_id):
         mobile.processor=request.POST.get('processor')
         mobile.camrear=request.POST.get('camrear')
         mobile.camfront=request.POST.get('camfront')
+        mobile.stock = request.POST.get('stock')
+        
         print(mobile)
         mobile.save()  
         
@@ -366,6 +378,8 @@ def addheadset(request,product_id):
         head.weight = request.POST.get('weight')
         head.charging = request.POST.get('charging')
         head.working = request.POST.get('working')
+        head.stock = request.POST.get('stock')
+        
         print(head)
         head.save()   
         
@@ -386,6 +400,7 @@ def addspeaker(request,product_id):
         speaker.weight = request.POST.get('weight')
         speaker.charging = request.POST.get('charging')
         speaker.working = request.POST.get('working')
+        
         print(speaker)
         speaker.save()   
         

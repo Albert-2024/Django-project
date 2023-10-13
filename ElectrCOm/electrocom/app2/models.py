@@ -71,8 +71,8 @@ class CustomUser(AbstractUser):
 
     objects = UserManager()
 
-    def str(self):
-        return self.email
+    def __str__(self):
+        return self.first_name  
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
@@ -89,7 +89,7 @@ class Profile(models.Model):
     pincode = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.user.username
+        return self.user
     
 class SellerProfile(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE, null=True)
@@ -97,7 +97,7 @@ class SellerProfile(models.Model):
     pan = models.TextField(max_length=30)
     
     def __str__(self):
-        return self.username
+        return self.user
     
 class Product(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
