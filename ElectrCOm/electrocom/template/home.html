@@ -43,16 +43,15 @@
         <div class="d-flex p-2">
             <ul class="navbar-nav me-6 ">
                 <li class="nav-item pe-1">
-                    <a class="nav-link active me-3" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active me-3" aria-current="page" href="">Home</a>
                 </li>
+                
+                {% if user.is_authenticated %}
                 <li class="nav-item mt-2 pe-1">
                     <a href="{% url "wishlist" %}" class="text-white text-decoration-none me-3">
                         <i class="bi bi-heart"></i>
                     </a>
-                </li>
-                {% if user.is_authenticated %}
-                  
-                
+                </li> 
                 <li class="nav-item  mt-2 pe-1">
                     <a href="{% url 'cart' %}" class=" text-white text-decoration-none me-3">
                     <i class="bi bi-cart3"></i></a>
@@ -73,12 +72,12 @@
                 </li>
                 {% else %}
                 <li class="nav-item dropdown pe-1">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    <a href="#" id="drop" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                      {{user.first_name}}
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end pe-1">
-                        <a href="{% url 'profile' %}" class="dropdown-item nav-linkd">My Profile</a>
+                        <a href="{% url 'profile' %}" id="profile" class="dropdown-item nav-linkd">My Profile</a>
                         <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
                         <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
                     </div>

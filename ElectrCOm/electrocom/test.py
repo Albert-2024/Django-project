@@ -13,6 +13,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 class Hosttest(TestCase):
     
+
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(10)
@@ -30,6 +31,8 @@ class Hosttest(TestCase):
         Register = driver.find_element(By.CSS_SELECTOR, "a#cust_login")
         Register.click()
         time.sleep(2)
+        
+        # Test 1
         
         # Register_btn = driver.find_element(By.CSS_SELECTOR, "#register-button")
         # Register_btn.click()
@@ -50,6 +53,8 @@ class Hosttest(TestCase):
         # submitreg = driver.find_element(By.CSS_SELECTOR, "button#reg_btn")
         # submitreg.click()
         # time.sleep(2)
+        
+        #end
 
         username = driver.find_element(By.CSS_SELECTOR, "input#typeEmailX-2")
         username.send_keys("ramanan234@gmail.com")
@@ -60,107 +65,52 @@ class Hosttest(TestCase):
         submitc.click()
         time.sleep(2)
         
+        #test 1
+        # drop = driver.find_element(By.CSS_SELECTOR,"a#drop")
+        # drop.click()
+        # profile = driver.find_element(By.CSS_SELECTOR,"a#profile")
+        # profile.click()
+        # address = driver.find_element(By.CSS_SELECTOR, "input#address")
+        # address.send_keys("villa(H)")
+        # country = driver.find_element(By.CSS_SELECTOR, "input#country")
+        # country.send_keys("India")
+        # state = driver.find_element(By.CSS_SELECTOR, "input#state")
+        # state.send_keys("Kerala")
+        # district = driver.find_element(By.CSS_SELECTOR, "input#district")
+        # district.send_keys("Thrissur")
+        # pincode = driver.find_element(By.CSS_SELECTOR, "input#pincode")
+        # pincode.send_keys("685532")
+        # time.sleep(2)
+        # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        # time.sleep(3)
+        # updatep = driver.find_element(By.CSS_SELECTOR, "button#update-profile")
+        # updatep.click()
         
+        #end
+
+        #test 2
+        # product = driver.find_element(By.CSS_SELECTOR, "a#products")
+        # product.click()
+        # time.sleep(2) 
+        # moreproduct = driver.find_element(By.CSS_SELECTOR, "button#more")
+        # moreproduct.click()
+        # time.sleep(2)
+        # driver.execute_script("window.scrollBy(0, 500);")
+        # time.sleep(5)
+        # all = driver.find_element(By.CSS_SELECTOR, "a#all")
+        # all.click()
+        # time.sleep(3) 
+        
+        print("Test Done")
+        
+        #end
+        
+        #test 3
         product = driver.find_element(By.CSS_SELECTOR, "a#products")
         product.click()
+        time.sleep(2) 
+        cart = driver.find_element(By.CSS_SELECTOR, "button#cart")
+        cart.click()
         time.sleep(2)
         
-        moreproduct = driver.find_element(By.CSS_SELECTOR, "button#more")
-        driver.execute_script("window.scrollBy(0, 500);")
-        moreproduct.click()
-        print("Test Done")
-        time.sleep(2)
-        
-        
-#         submitc = driver.find_element(By.CSS_SELECTOR, "#addart")
-#         submitc.click()
-#         time.sleep(2)
-
-#         submitc = driver.find_element(By.CSS_SELECTOR, "button#uploadButton")
-#         submitc.click()
-#         time.sleep(2)
-
-#         name = driver.find_element(By.CSS_SELECTOR, "input#uploadArtist_name")
-#         name.send_keys("girl setting in bed")
-#         type_select = driver.find_element(By.CSS_SELECTOR, "select#uploadArt_type")
-#         type_option = type_select.find_elements(By.TAG_NAME, 'option')[1]  # Assuming the first option is a placeholder
-#         type_option.click()
-#         size_select = driver.find_element(By.CSS_SELECTOR, "select#uploadArt_size")
-#         size_option = size_select.find_elements(By.TAG_NAME, 'option')[1]  # Assuming the first option is a placeholder
-#         size_option.click()
-#         price = driver.find_element(By.CSS_SELECTOR, "input#uploadArt_price")
-#         price.send_keys("20,000")
-#         year = driver.find_element(By.CSS_SELECTOR, "input#uploadArt_year")
-#         year.send_keys("2023")
-#         img = driver.find_element(By.CSS_SELECTOR, "input#uploadArt_image")
-#         img.send_keys(r"C:\Users\admin\OneDrive\Pictures\art1.png")
-#         cer = driver.find_element(By.CSS_SELECTOR, "input#uploadArt_certificate")
-#         cer.send_keys(r"C:\Users\admin\Downloads\42.pdf")
-#         des = driver.find_element(By.CSS_SELECTOR, "textarea#uploadArt_summary")
-#         des.send_keys("Women setting in bed reading a letter")
-
-#         submitart = driver.find_element(By.CSS_SELECTOR, "button#upload-art-submit")
-#         submitart.click()
-#         time.sleep(2)
-# submitc = driver.find_element(By.CSS_SELECTOR, "#viewart")
-#         submitc.click()
-#         time.sleep(2)
-#         driver.execute_script("window.scrollBy(0, 500);")
-#         time.sleep(2)
-
-#         submitc = driver.find_element(By.CSS_SELECTOR, "#lgout")
-#         submitc.click()
-#         time.sleep(2)
-
-
-#         username = driver.find_element(By.CSS_SELECTOR, "input#user_email")
-#         username.send_keys("admin1")
-#         password = driver.find_element(By.CSS_SELECTOR, "input#user_password")
-#         password.send_keys("admin123")
-#         time.sleep(1)
-#         submitc = driver.find_element(By.CSS_SELECTOR, "button#submit")
-#         submitc.click()
-#         time.sleep(2)
-
-#         submitc = driver.find_element(By.CSS_SELECTOR, "#artapprove")
-#         submitc.click()
-#         time.sleep(2)
-
-#         driver.execute_script("window.scrollBy(-500, 0);")
-#         time.sleep(2)
-
-#         submitc = driver.find_element(By.XPATH, "//button[contains(text(),'Approve')]")
-#         submitc.click()
-#         time.sleep(2)
-
-#         submitc = driver.find_element(By.CSS_SELECTOR, "#lgout")
-#         submitc.click()
-#         time.sleep(2)
-
-
-
-
-#         username = driver.find_element(By.CSS_SELECTOR, "input#user_email")
-#         username.send_keys("tony")
-#         password = driver.find_element(By.CSS_SELECTOR, "input#user_password")
-#         password.send_keys("Tony@123")
-#         time.sleep(1)
-#         submitc = driver.find_element(By.CSS_SELECTOR, "button#submit")
-#         submitc.click()
-#         time.sleep(2)
-
-#         submitc = driver.find_element(By.CSS_SELECTOR, "#art")
-#         submitc.click()
-#         time.sleep(2)
-
-#         driver.execute_script("window.scrollBy(0, 600);")
-#         time.sleep(2)
-
-#         print("Test Done")
-        
-        
-
-
-# if name == 'main':
-#     import unittest
-#     unittest.main()
+    

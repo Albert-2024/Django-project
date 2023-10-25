@@ -12,8 +12,6 @@
 <body>
     <div class="main">
        
-          
-      
         <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #607D8B">
           <div class="container-fluid">
               <div class="d-flex align-items-center">
@@ -58,7 +56,7 @@
                       {% else %}
                       <li class="nav-item dropdown">
                           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                           {{user.name}}
+                           {{user.first_name}}
                           </a>
       
                           <div class="dropdown-menu m-0">
@@ -179,9 +177,11 @@
                         {% else %}
                         <p class="text-muted">No specific details available for this product.</p>
                         {% endif %}
+                        <br />
+                        <br />
 
                         <a href="{% url 'addtocart' product.id %}"  id="cart" class="btn btn-primary"> Add to Cart</a> 
-                        <a href="{% url 'allproducts' %}" class="btn btn-primary" id="backproduct">Back to All Products</a>
+                        <a href="{% url 'allproducts' %}" id="all" class="btn btn-primary" id="backproduct">Back to All Products</a>
                             
                        
                     </div>
