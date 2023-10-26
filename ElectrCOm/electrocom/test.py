@@ -89,17 +89,17 @@ class Hosttest(TestCase):
         #end
 
         #test 2
-        # product = driver.find_element(By.CSS_SELECTOR, "a#products")
-        # product.click()
-        # time.sleep(2) 
-        # moreproduct = driver.find_element(By.CSS_SELECTOR, "button#more")
-        # moreproduct.click()
-        # time.sleep(2)
-        # driver.execute_script("window.scrollBy(0, 500);")
-        # time.sleep(5)
-        # all = driver.find_element(By.CSS_SELECTOR, "a#all")
-        # all.click()
-        # time.sleep(3) 
+        product = driver.find_element(By.CSS_SELECTOR, "a#products")
+        product.click()
+        time.sleep(2) 
+        moreproduct = driver.find_element(By.CSS_SELECTOR, "button#more")
+        moreproduct.click()
+        time.sleep(2)
+        driver.execute_script("window.scrollBy(0, 500);")
+        time.sleep(5)
+        all = driver.find_element(By.CSS_SELECTOR, "a#all")
+        all.click()
+        time.sleep(3) 
         
         print("Test Done")
         
