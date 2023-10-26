@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="gst">GSTIN:</label>
+          <input type="text" name="gst" id="gst" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="pan">PAN:</label>
+          <input type="text" name="pan" id="pan" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</body>
+</html>

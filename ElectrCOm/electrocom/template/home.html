@@ -126,7 +126,7 @@
         <section class="pt-4">
             <div class="container mt-3">
                 <div class="bg-light p-4 rounded shadow">
-                    <h2 class="text-center mt-2">Products</h2>
+                    <h2 class="text-center mt-2">Browse Products</h2><br /><br />
                     <div class="row">
 
                         <div class="col-lg-3 col-md-6 mb-4">
@@ -137,7 +137,7 @@
                                     <h5 class="card-title">Boat</h5>
                                     <p class="card-text">Apple</p>
                                     <p class="mb-3 price">INR 1099</p>
-                                    <a href="{% url 'allproducts' %}" class="btn btn-primary">See more</a>
+                                    {% comment %} <a href="{% url 'allproducts' %}" class="btn btn-primary">See more</a> {% endcomment %}
                                 </div>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                                     <h5 class="card-title">boAt Stone 350</h5>
                                     <p class="card-text">Apple</p>
                                     <p class="mb-3 price">INR 1299</p>
-                                    <a href="{% url 'allproducts' %}" class="btn btn-primary">See more</a>
+                                    {% comment %} <a href="{% url 'allproducts' %}" class="btn btn-primary">See more</a> {% endcomment %}
                                 </div>
                             </div>
                         </div>
@@ -163,7 +163,7 @@
                                     <h5 class="card-title">Samsung Galaxy</h5>
                                     <p class="card-text">Samsung</p>
                                     <p class="mb-3 price">INR 36378</p>
-                                    <a href="{% url 'allproducts' %}" class="btn btn-primary">See more</a>
+                                    {% comment %} <a href="{% url 'allproducts' %}" class="btn btn-primary">See more</a> {% endcomment %}
                                 </div>
                             </div>
                         </div>
@@ -176,11 +176,13 @@
                                     <h5 class="card-title">Samsung S23</h5>
                                     <p class="card-text">Samsung</p>
                                     <p class="mb-3 price">INR 150000</p>
-                                    <a href="{% url 'allproducts' %}" class="btn btn-primary">See more</a>
+                                    {% comment %} <a href="{% url 'allproducts' %}" class="btn btn-primary">See more</a> {% endcomment %}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <a href="{% url 'allproducts' %}" class="btn btn-primary" style="text-align: end;">See more</a>
+
                 </div>
             </div>
 
@@ -201,8 +203,8 @@
     
     <!--Call to action-->
       <div class="pt-4 pb-1 ">
-        <p class="text-center"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit maiores odit, molestias, <br> magnam at aliquam veritatis explicabo, cumque incidunt dignissimos pariatur tenetur animi qui totam velit esse maxime saepe iste <br> laudantium! Quas velit autem a tenetur ab dolores recusandae aperiam, consequatur, dolor nostrum ipsam voluptatibus <br> hic distinctio repellat cumque impedit.
-        
+        <p class="text-center"> 
+        ElectroCOm
      </p>
       </div>
       <!--/.Call to action-->
@@ -272,7 +274,7 @@
   
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); text-color: #E0E0E0">
-      © 2022 Copyright:
+      © 2023 Copyright:
       <a class="text-white" href="https://globalalbert.tech">Albert Devasia</a>
     </div>
     <!-- Copyright -->

@@ -5,17 +5,23 @@
 <head>
     <title>Product Details</title>
     <!-- Include Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@3.12.0/dist/css/mdb.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- MDB -->
+    <link rel="stylesheet" type='text/css' href="{% static 'home.css' %}">
 </head>
 
 <body>
     <div class="main">
-       
         <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #607D8B">
           <div class="container-fluid">
-              <div class="d-flex align-items-center">
-                  <a class="navbar-brand" href="http://127.0.0.1:8000/">ElectroCOm</a>
+              <div class="d-flex align-items-left">
+                  <a class="navbar-brand" href="#">ElectroCOm</a>
               </div>
               <div class="d-flex align-items-center mx-auto">
                   <form class="form-inline my-2 my-lg-0">
@@ -27,53 +33,54 @@
                       </div>
                   </form>
               </div>
-              <div class="d-flex">
+              <div class="d-flex p-2">
                   <ul class="navbar-nav me-6 ">
-                      <li class="nav-item">
+                      <li class="nav-item pe-1">
                           <a class="nav-link active me-3" aria-current="page" href="http://127.0.0.1:8000/">Home</a>
                       </li>
-                      {% if user.is_authenticated %}
-                        
                       
-                      <li class="nav-item  mt-2">
+                      {% if user.is_authenticated %}
+                      <li class="nav-item mt-2 pe-1">
+                          <a href="{% url "wishlist" %}" class="text-white text-decoration-none me-3">
+                              <i class="bi bi-heart"></i>
+                          </a>
+                      </li> 
+                      <li class="nav-item  mt-2 pe-1">
                           <a href="{% url 'cart' %}" class=" text-white text-decoration-none me-3">
                           <i class="bi bi-cart3"></i></a>
                       </li>
                       {% endif %}
                           <!-- Link -->
-                          <li class="nav-item dropdown">
-                              <a class="nav-link text-white" href="{% url 'allproducts' %}" role="button">
+                          <li class="nav-item dropdown pe-1">
+                              <a class="nav-link text-white" id="products" href="{% url 'allproducts' %}" role="button">
                                   Products
                               </a>
       
                           </li>
                       
       
-                      {% if not user.is_authenticated %}
-                      <li class="nav-item">
-                          <a class="nav-link" href="{% url 'login' %}">Login</a>
-                      </li>
-                      {% else %}
-                      <li class="nav-item dropdown">
-                          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                           {{user.first_name}}
-                          </a>
-      
-                          <div class="dropdown-menu m-0">
-                              <a href="" class="dropdown-item nav-linkd">My Profile</a>
-                              {% comment %} <a href="{% url 'cart'%}" class="dropdown-item nav-linkd">Cart</a> {% endcomment %}
-                              <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
-                              
-                              <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
-                          </div>
-                      </li>
-                      {% endif %}
+                          {% if not user.is_authenticated %}
+                          <li class="nav-item pe-1">
+                              <a class="nav-link" id="cust_login" href="{% url 'login' %}">Login</a>
+                          </li>
+                        {% else %}
+                          <li class="nav-item dropdown pe-1">
+                              <a href="#" id="drop" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                {{user.first_name}}
+                              </a>
+                        
+                              <div class="dropdown-menu dropdown-menu-end pe-1">
+                                  <a href="{% url 'profile' %}" id="profile" class="dropdown-item nav-linkd">My Profile</a>
+                                  <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
+                                  <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
+                              </div>
+                          </li>
+                        {% endif %}
                   </ul>
               </div>
           </div>
       </nav>
-      
-      </div>
+            </div>
     <div class="container pt-5">
 
         <div class="row border">
@@ -190,9 +197,6 @@
         </div>
     </div>
 
-    <!-- Include Bootstrap JS and jQuery (if needed) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
+ 
 </body>
 </html>

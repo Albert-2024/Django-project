@@ -49,7 +49,7 @@ class CustomUser(AbstractUser):
     )
 
     username=None
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'first_name'
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True) 
@@ -72,7 +72,7 @@ class CustomUser(AbstractUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.first_name  
+        return self.email  
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
@@ -89,15 +89,25 @@ class Profile(models.Model):
     pincode = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.user
+        return self.user.email
+
+class sellerRegistrationRequest(models.Model):
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    gst = models.TextField(max_length=30)
+    pan = models.TextField(max_length=30)
+    status = models.CharField(max_length=10, choices=[('PENDING', 'Pending'), ('APPROVED', 'Approved'), ('REJECTED', 'Rejected')], default='PENDING')
+    feedback = models.TextField(blank=True)
     
+    def __str__(self):
+        return f'Seller Registration Request: {self.user.email}'
+
 class SellerProfile(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE, null=True)
     gst = models.TextField(max_length=30)
     pan = models.TextField(max_length=30)
     
     def __str__(self):
-        return self.user
+        return self.user.email
     
 class Product(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)

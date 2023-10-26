@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,108 +16,118 @@
             max-height: 100%; /* Set to 100% to fit within the card's height */
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@3.12.0/dist/css/mdb.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap CSS (Optional) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  
+    <!-- MDB -->
+    <link rel="stylesheet" type='text/css' href="{% static 'home.css' %}">
 </head>
 <body>
-<div class="main">
-    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #607D8B">
-        <div class="container-fluid">
-            <div class="d-flex align-items-left">
-                <a class="navbar-brand" href="#">ElectroCOm</a>
+    <div class="main">
+        <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #607D8B">
+          <div class="container-fluid">
+              <div class="d-flex align-items-left">
+                  <a class="navbar-brand" href="#">ElectroCOm</a>
+              </div>
+              <div class="d-flex align-items-center mx-auto">
+                  <form class="form-inline my-2 my-lg-0">
+                      <div class="input-group">
+                          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-outline-success" type="submit">
+                              <i class="fas fa-search"></i>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+              <div class="d-flex p-2">
+                  <ul class="navbar-nav me-6 ">
+                      <li class="nav-item pe-1">
+                          <a class="nav-link active me-3" aria-current="page" href="http://127.0.0.1:8000/">Home</a>
+                      </li>
+                      
+                      {% if user.is_authenticated %}
+                      <li class="nav-item mt-2 pe-1">
+                          <a href="{% url "wishlist" %}" class="text-white text-decoration-none me-3">
+                              <i class="bi bi-heart"></i>
+                          </a>
+                      </li> 
+                      <li class="nav-item  mt-2 pe-1">
+                          <a href="{% url 'cart' %}" class=" text-white text-decoration-none me-3">
+                          <i class="bi bi-cart3"></i></a>
+                      </li>
+                      {% endif %}
+                          <!-- Link -->
+                          <li class="nav-item dropdown pe-1">
+                              <a class="nav-link text-white" id="products" href="{% url 'allproducts' %}" role="button">
+                                  Products
+                              </a>
+      
+                          </li>
+                      
+      
+                          {% if not user.is_authenticated %}
+                          <li class="nav-item pe-1">
+                              <a class="nav-link" id="cust_login" href="{% url 'login' %}">Login</a>
+                          </li>
+                        {% else %}
+                          <li class="nav-item dropdown pe-1">
+                              <a href="#" id="drop" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                {{user.first_name}}
+                              </a>
+                        
+                              <div class="dropdown-menu dropdown-menu-end pe-1">
+                                  <a href="{% url 'profile' %}" id="profile" class="dropdown-item nav-linkd">My Profile</a>
+                                  <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
+                                  <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
+                              </div>
+                          </li>
+                        {% endif %}
+                  </ul>
+              </div>
+          </div>
+      </nav>
             </div>
-            <div class="d-flex align-items-center mx-auto">
-                <form class="form-inline my-2 my-lg-0">
-                    <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="d-flex p-2">
-                <ul class="navbar-nav me-6 ">
-                    <li class="nav-item pe-1">
-                        <a class="nav-link active me-3" aria-current="page" href="#">Home</a>
-                    </li>
-                    
-                    {% if user.is_authenticated %}
-                    <li class="nav-item mt-2 pe-1">
-                        <a href="{% url "wishlist" %}" class="text-white text-decoration-none me-3">
-                            <i class="bi bi-heart"></i>
-                        </a>
-                    </li> 
-                    <li class="nav-item  mt-2 pe-1">
-                        <a href="{% url 'cart' %}" class=" text-white text-decoration-none me-3">
-                        <i class="bi bi-cart3"></i></a>
-                    </li>
-                    {% endif %}
-                        <!-- Link -->
-                        <li class="nav-item dropdown pe-1">
-                            <a class="nav-link text-white" id="products" href="{% url 'allproducts' %}" role="button">
-                                Products
-                            </a>
-    
-                        </li>
-                    
-    
-                    {% if not user.is_authenticated %}
-                    <li class="nav-item pe-1">
-                        <a class="nav-link" id="cust_login" href="{% url 'login' %}">Login</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item dropdown pe-1">
-                        <a href="#" id="drop" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                         {{user.first_name}}
-                        </a>
-    
-                        <div class="dropdown-menu dropdown-menu-end pe-1">
-                            <a href="{% url 'profile' %}" id="profile" class="dropdown-item nav-linkd">My Profile</a>
-                            <a href="{% url 'sellerreg' %}" class="dropdown-item nav-linkd text-decoration-none">Become a seller</a>
-                            <a href="{% url 'userLogout' %}" class="dropdown-item nav-linkd">Logout</a>
-                        </div>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
+      
   
 
     <div class="container mt-5">
         <h3 class="text-center">Products</h3>
         <div class="row">
             {% for i in data %}
-                <div class="col-md-12 mt-2">
-                    <div class="card d-flex flex-row fixed-card" style="overflow: hidden;">
-                        <div class="p-3 col-md-3">
-                            <img src="{{i.image1.url}}" class="card-img pt-1"  alt="Book Cover">
-                        </div>
-                        <div class="card-body col-md-9">
-                            <a href="{% url 'product_detail' i.id %}" style="text-decoration: none; color: #000;">
-                            <h4 class="card-title mt-4">{{i.name}}</h4>
-                            <p class="card-text"><strong>Product Name:</strong>{{i.product_name}}</p>
-                            <p class="card-text text-italic"><strong>Brand Name:</strong>{{i.brand_name}}</p>
-                            <!-- <p class="card-text">{{i.description}}</p> -->
-                            <p class="card-text">INR {{i.price}}</p>
-                            <a href="{% url 'addtocart' i.id %}">
-                            <button id="cart" class="btn btn-primary" >Add to Cart</button>
-                            </a>    
-                            <a href="{% url 'product_detail' i.id %}">
-                                <button id="more" class="btn btn-primary" >View more  </button>
-                            </a>    
-                            <a href="{% url 'addtowishlist' i.id %}">
-                                <button class="btn btn-primary" >Add to wishlist  </button>
-                            </a>
-                        </a>
-                        </div>
-                    </div>
+            <div class="col-md-12 mt-2">
+              <div class="card d-flex flex-row fixed-card" style="height: 40vh; overflow: hidden;">
+                <div class="p-3 col-md-3">
+                  <img src="{{ i.image1.url }}" class="card-img pt-1" style="height: 100%; width: 100%; object-fit: cover;" alt="Book Cover">
                 </div>
-            {% endfor %}
+                <div class="card-body col-md-9">
+                  <a href="{% url 'product_detail' i.id %}" style="text-decoration: none; color: #000;">
+                    <h4 class="card-title mt-4">{{ i.name }}</h4>
+                    <p class="card-text"><strong>Product Name:</strong> {{ i.product_name }}</p>
+                    <p class="card-text text-italic"><strong>Brand Name:</strong> {{ i.brand_name }}</p>
+                    <p class="card-text">INR {{ i.price }}</p>
+                    <a href="{% url 'addtocart' i.id %}">
+                      <button id="cart" class="btn btn-primary">Add to Cart</button>
+                    </a>
+                    <a href="{% url 'product_detail' i.id %}">
+                      <button id="more" class="btn btn-primary">View more</button>
+                    </a>
+                    <a href="{% url 'addtowishlist' i.id %}">
+                      <button class="btn btn-primary">Add to wishlist</button>
+                    </a>
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 </body>
 </html>
