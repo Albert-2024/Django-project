@@ -58,7 +58,7 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="Name">Name:</label>
+                        <label for="Name">Specific Name:</label>
                         <textarea type="text" class="form-control" id="brandName" name="name" rows="2" required></textarea>
                     </div>
                     <div class="form-group">
@@ -107,6 +107,76 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const priceInput = document.getElementById("price");
+        
+            priceInput.addEventListener("input", function () {
+                // Get the input value
+                let priceValue = priceInput.value;
+        
+                // Remove any leading zeros
+                priceValue = priceValue.replace(/^0+/, '');
+        
+                // Remove any leading dot
+                priceValue = priceValue.replace(/^\./, '');
+        
+                // Remove any non-numeric characters
+                priceValue = priceValue.replace(/[^\d.]/g, '');
+        
+                // Ensure there's only one dot
+                const dotCount = priceValue.split('.').length - 1;
+                if (dotCount > 1) {
+                    priceValue = priceValue.slice(0, priceValue.lastIndexOf('.'));
+                }
+        
+                // Ensure it's not a negative value
+                if (priceValue.startsWith('-')) {
+                    priceValue = priceValue.substring(1);
+                }
+        
+                // Ensure the value is within the range [100, 1000000]
+                if (priceValue === '' || (parseFloat(priceValue) >= 100 && parseFloat(priceValue) <= 1000000)) {
+                    priceValue = parseFloat(priceValue).toFixed(2);
+                } else if (parseFloat(priceValue) > 1000000) {
+                    priceValue = "1000000.00"; // Set the value to the maximum allowed
+                }
+        
+                // Update the input field with the cleaned value
+                priceInput.value = priceValue;
+            });
+        });
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            const stockInput = document.getElementById("stock");
+        
+            stockInput.addEventListener("input", function () {
+                // Get the input value
+                let stockValue = stockInput.value;
+        
+                // Remove any leading zeros
+                stockValue = stockValue.replace(/^0+/, '');
+        
+                // Remove any non-numeric characters
+                stockValue = stockValue.replace(/[^\d]/g, '');
+        
+                // Ensure it's not a negative value
+                if (stockValue.startsWith('-')) {
+                    stockValue = stockValue.substring(1);
+                }
+        
+                // Ensure the value is not greater than 20
+                stockValue = Math.min(stockValue, 20);
+                if (stockValue == 0 ) {
+                    stockValue = "";
+                }
+        
+                // Update the input field with the cleaned value
+                stockInput.value = stockValue;
+            });
+        });
+        
+    </script>
 
     <!-- Include Bootstrap JS and jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

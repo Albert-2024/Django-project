@@ -12,7 +12,7 @@ from django.http import HttpResponseBadRequest
 
 from django.contrib  import messages,auth
 # from .models import Brand, Category, CustomUser, Product
-from .models import CustomUser, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker,Cart, Wishlist,Profile,SellerProfile
+from .models import CustomUser, Order, Product, ProductHeadset, ProductLap, ProductMobile, ProductSpeaker,Cart, Wishlist,Profile,SellerProfile, sellerRegistrationRequest
 # from accounts.backends import EmailBackend
 from django.contrib.auth import get_user_model
 #from .forms import UserForm, ServiceForm 
@@ -141,34 +141,104 @@ def profile(request):
     return render(request,'profile.html',{'user':user,'profile':profile})
 
 
-def sellerreg(request):
-    user=request.user
+# def sellerreg(request):
+#     user=request.user
 
-    if user.role==2:
+#     if user.role==2:
         
-        return redirect('sellerDashboard')
-    else:
-        if request.method == 'POST':
+#         return redirect('sellerDashboard')
+#     else:
+#         if request.method == 'POST':
             
-            gst = request.POST.get('gst')
-            pan = request.POST.get('pan')
-            SellerProfile(
-            gst=gst,
-            pan=pan,
-            user_id=request.user.id
-            ).save()
-            user.role = 2
-            user.save()
+#             gst = request.POST.get('gst')
+#             pan = request.POST.get('pan')
+#             SellerProfile(
+#             gst=gst,
+#             pan=pan,
+#             user_id=request.user.id
+#             ).save()
+#             user.role = 2
+#             user.save()
             
-            return redirect('sellerDashboard')
+#             return redirect('sellerDashboard')
                 
-    return render(request, 'sellerreg.html')
+#     return render(request, 'sellerreg.html')
+
+def seller_registration(request):
+    
+    if request.method == 'POST':
+        gst = request.POST.get('gst')
+        pan = request.POST.get('pan')
+
+        # Validate the form data
+        if not gst or not pan:
+            # Handle invalid data
+            return render(request, 'sellerreg.html', {'error': 'Please enter both GSTIN and PAN'})
+
+        # Create a seller registration request object
+        registration_request = sellerRegistrationRequest(
+            user=request.user,
+            gst=gst,
+            pan=pan
+        )
+        registration_request.save()
+        return redirect('/')
+
+        # Send notification to admin about the new request
+    if request.user.role == 2:
+        return render(request, 'sellerDashboard.html')
+    else:
+        return render(request,'sellerreg.html')
+
+    
+from django.core.exceptions import ObjectDoesNotExist 
 
 def sellerProfile(request):
     user = request.user
-    data = SellerProfile.objects.get(user_id=user.id)
-    profile = Profile.objects.get(user_id=user.id)
-    return render(request,'sellerProfile.html',{'data': data,'profile':profile})
+
+    # Check if the user is an approved seller
+    # if user.role != 2:
+    #     return redirect('home')
+    try:
+        data = SellerProfile.objects.get(user_id=user.id)
+    except ObjectDoesNotExist:
+        data = None
+    try:
+        profile = Profile.objects.get(user_id=user.id)
+    except ObjectDoesNotExist:
+        profile = None
+        
+    return render(request, 'sellerProfile.html', {'data': data, 'profile': profile})
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=sellerRegistrationRequest)
+def process_approved_requests(sender, instance, created, **kwargs):
+    if instance.status == 'APPROVED':
+        # Update the user's role to 'seller'
+        instance.user.role = 2
+        instance.user.save()
+
+        # Create a SellerProfile object for the approved seller
+        SellerProfile.objects.create(user=instance.user, gst=instance.gst, pan=instance.pan)
+
+from django.contrib.sessions.models import Session
+
+def process_approved_requests(sender, instance, created, **kwargs):
+    if instance.status == 'APPROVED':
+        # Update the user's role to 'seller'
+        instance.user.role = 2
+        instance.user.save()
+
+        # Create a SellerProfile object for the approved seller
+        SellerProfile.objects.create(user=instance.user, gst=instance.gst, pan=instance.pan)
+
+        # Set a session variable indicating the user is a new seller
+        session = Session.objects.get(session_key=instance.user.session_key)
+        session['new_seller'] = True
+        session.save()
+
 
 def sellerindex(request):
     return render(request,'sellerindex.html')
@@ -611,16 +681,34 @@ def payment(request):
 
 
     callback_url = reverse('paymenthandler')
+    
+    order = Order.objects.create(
+        user = request.user,
+        amount = amount,
+        
+        razorpay_order_id = razorpay_order_id,
+        payment_status = Order.PaymentStatusChoices.PENDING
+    )
+    
+    order.save()
  
     
-    context = {}
-    context['razorpay_order_id'] = razorpay_order_id
-    context['total_price'] = total_price
-    context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
-    context['razorpay_amount'] = amount
-    context['currency'] = currency
-    context['callback_url'] = callback_url
- 
+    context = {
+        'cart_item': product,
+        'amount': amount,
+        'razorpay_order_id': razorpay_order_id,
+        'razorpay_merchant_key': settings.RAZOR_KEY_ID,
+        'razorpay_amount': amount,  # Set to 'total_price'
+        'currency': currency,
+        'callback_url': callback_url,
+    }
+        # context['razorpay_order_id'] = razorpay_order_id
+        # context['total_price'] = total_price
+        # context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
+        # context['razorpay_amount'] = amount
+        # context['currency'] = currency
+        # context['callback_url'] = callback_url
+    
     return render(request, 'payment.html', context=context)
  
  
@@ -631,7 +719,7 @@ def paymenthandler(request):
    
     if request.method == "POST":
 
-        
+            
             payment_id = request.POST.get('razorpay_payment_id', '')
             razorpay_order_id = request.POST.get('razorpay_order_id', '')
             signature = request.POST.get('razorpay_signature', '')
@@ -645,13 +733,16 @@ def paymenthandler(request):
             result = razorpay_client.utility.verify_payment_signature(
                 params_dict)
             if result is not None:
+                 payment = Order.objects.get(razorpay_order_id= razorpay_order_id)
                  razorpay_order = razorpay_client.order.fetch(razorpay_order_id)
                  authorized_amount = razorpay_order['amount']
 
            
                  razorpay_client.payment.capture(payment_id, authorized_amount)
-
-                   
+                 payment.payment_id = payment_id
+                 payment.payment_status = payment.PaymentStatusChoices.SUCCESSFUL
+                 payment.save()
+                 
                  return redirect('http://127.0.0.1:8000/')
                 
             else:

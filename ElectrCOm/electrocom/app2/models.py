@@ -232,3 +232,17 @@ class Order(models.Model):
 
     class Meta:
         ordering = ['-timestamp']
+        
+# class payment(models.Model):
+#     class PaymentStatusChoices(models.TextChoices):
+#         PENDING = 'pending', 'Pending'
+#         SUCCESSFUL = 'successful', 'Successful'
+#         FAILED = 'failed', 'Failed'
+#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+#     cartstock = models.PositiveIntegerField(default=1)
+#     quantity = models.IntegerField(default=1)
+#     price = models.IntegerField(default=0)
+    
+#     def carttotal(self):
+#         self.cartstock = self.product.stock

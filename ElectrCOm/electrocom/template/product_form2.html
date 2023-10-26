@@ -154,10 +154,23 @@
             stockValue = stockValue.replace(/[^\d]/g, '');
 
             
-            stockValue = Math.min(Math.max(parseInt(stockValue, 10), 2), 20);
-
+            const dotCount = priceValue.split('.').length - 1;
+            if (dotCount > 1) {
+                priceValue = priceValue.slice(0, priceValue.lastIndexOf('.'));
+            }
+    
+            // Ensure it's not a negative value
+            if (priceValue.startsWith('-')) {
+                priceValue = priceValue.substring(1);
+            }
+            if (priceValue === '' || (parseFloat(priceValue) >= 100 && parseFloat(priceValue) <= 1000000)) {
+                priceValue = parseFloat(priceValue).toFixed(2);
+            } else if (parseFloat(priceValue) > 1000000) {
+                priceValue = "1000000.00"; // Set the value to the maximum allowed
+            }
+    
             // Update the input field with the cleaned value
-            stockInput.value = stockValue;
+            priceInput.value = priceValue;
         });
     });
 </script>

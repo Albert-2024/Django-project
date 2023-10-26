@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProductMobile,ProductLap,ProductSpeaker,ProductHeadset, Product, Profile,SellerProfile
+from .models import ProductMobile,ProductLap,ProductSpeaker,ProductHeadset, Product, Profile,SellerProfile,sellerRegistrationRequest
 
 # Register your models here.
 
@@ -13,6 +13,8 @@ admin.site.register(ProductSpeaker)
 admin.site.register(Product)
 admin.site.register(Profile)
 admin.site.register(SellerProfile)
+admin.site.register(sellerRegistrationRequest)
+
 
 
 
